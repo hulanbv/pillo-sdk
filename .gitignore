@@ -1,2 +1,8 @@
 # System
 .DS_Store
+
+# User settings
+Native/Development/xcuserdata/
+
+# Gcc Patch
+Native/Development/*.gcno
