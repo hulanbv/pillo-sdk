@@ -10,17 +10,59 @@
 		825D9DA0272FF09000FACC7B /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825D9D9F272FF09000FACC7B /* Application.swift */; };
 		825D9DA4272FF09200FACC7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825D9DA3272FF09200FACC7B /* Assets.xcassets */; };
 		825D9DA7272FF09200FACC7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825D9DA6272FF09200FACC7B /* Preview Assets.xcassets */; };
+		825D9E2E272FFA0800FACC7B /* Framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 825D9E2D272FFA0800FACC7B /* Framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		825D9E31272FFA0800FACC7B /* Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825D9E2B272FFA0800FACC7B /* Framework.framework */; };
+		825D9E32272FFA0800FACC7B /* Framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 825D9E2B272FFA0800FACC7B /* Framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		825D9E39272FFA3500FACC7B /* PilloSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825D9E38272FFA3500FACC7B /* PilloSDK.swift */; };
+		825D9E3C272FFA8300FACC7B /* PilloSDKBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 825D9E3B272FFA8300FACC7B /* PilloSDKBridge.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		825D9E2F272FFA0800FACC7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 825D9D94272FF09000FACC7B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825D9E2A272FFA0800FACC7B;
+			remoteInfo = Framework;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		825D9E33272FFA0800FACC7B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				825D9E32272FFA0800FACC7B /* Framework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		825D9D9C272FF09000FACC7B /* Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Development.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		825D9D9F272FF09000FACC7B /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		825D9DA3272FF09200FACC7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		825D9DA6272FF09200FACC7B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		825D9E2B272FFA0800FACC7B /* Framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Framework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		825D9E2D272FFA0800FACC7B /* Framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
+		825D9E38272FFA3500FACC7B /* PilloSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilloSDK.swift; sourceTree = "<group>"; };
+		825D9E3A272FFA6300FACC7B /* PilloSDKBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PilloSDKBridge.h; sourceTree = "<group>"; };
+		825D9E3B272FFA8300FACC7B /* PilloSDKBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PilloSDKBridge.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		825D9D99272FF09000FACC7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				825D9E31272FFA0800FACC7B /* Framework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825D9E28272FFA0800FACC7B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -34,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				825D9D9E272FF09000FACC7B /* Development */,
+				825D9E2C272FFA0800FACC7B /* Framework */,
 				825D9D9D272FF09000FACC7B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -42,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				825D9D9C272FF09000FACC7B /* Development.app */,
+				825D9E2B272FFA0800FACC7B /* Framework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,7 +108,37 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		825D9E2C272FFA0800FACC7B /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				825D9E37272FFA1C00FACC7B /* Source */,
+				825D9E2D272FFA0800FACC7B /* Framework.h */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		825D9E37272FFA1C00FACC7B /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				825D9E38272FFA3500FACC7B /* PilloSDK.swift */,
+				825D9E3A272FFA6300FACC7B /* PilloSDKBridge.h */,
+				825D9E3B272FFA8300FACC7B /* PilloSDKBridge.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		825D9E26272FFA0800FACC7B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				825D9E2E272FFA0800FACC7B /* Framework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		825D9D9B272FF09000FACC7B /* Development */ = {
@@ -74,15 +148,35 @@
 				825D9D98272FF09000FACC7B /* Sources */,
 				825D9D99272FF09000FACC7B /* Frameworks */,
 				825D9D9A272FF09000FACC7B /* Resources */,
+				825D9E33272FFA0800FACC7B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				825D9E30272FFA0800FACC7B /* PBXTargetDependency */,
 			);
 			name = Development;
 			productName = "pillo-sdk-development";
 			productReference = 825D9D9C272FF09000FACC7B /* Development.app */;
 			productType = "com.apple.product-type.application";
+		};
+		825D9E2A272FFA0800FACC7B /* Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825D9E36272FFA0800FACC7B /* Build configuration list for PBXNativeTarget "Framework" */;
+			buildPhases = (
+				825D9E26272FFA0800FACC7B /* Headers */,
+				825D9E27272FFA0800FACC7B /* Sources */,
+				825D9E28272FFA0800FACC7B /* Frameworks */,
+				825D9E29272FFA0800FACC7B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Framework;
+			productName = Framework;
+			productReference = 825D9E2B272FFA0800FACC7B /* Framework.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -96,6 +190,10 @@
 				TargetAttributes = {
 					825D9D9B272FF09000FACC7B = {
 						CreatedOnToolsVersion = 13.1;
+					};
+					825D9E2A272FFA0800FACC7B = {
+						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 				};
 			};
@@ -113,6 +211,7 @@
 			projectRoot = "";
 			targets = (
 				825D9D9B272FF09000FACC7B /* Development */,
+				825D9E2A272FFA0800FACC7B /* Framework */,
 			);
 		};
 /* End PBXProject section */
@@ -127,6 +226,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		825D9E29272FFA0800FACC7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -138,7 +244,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		825D9E27272FFA0800FACC7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				825D9E3C272FFA8300FACC7B /* PilloSDKBridge.m in Sources */,
+				825D9E39272FFA3500FACC7B /* PilloSDK.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		825D9E30272FFA0800FACC7B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 825D9E2A272FFA0800FACC7B /* Framework */;
+			targetProxy = 825D9E2F272FFA0800FACC7B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		825D9DA8272FF09200FACC7B /* Debug */ = {
@@ -260,6 +383,7 @@
 		825D9DAB272FF09200FACC7B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -286,6 +410,7 @@
 		825D9DAC272FF09200FACC7B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -309,6 +434,69 @@
 			};
 			name = Release;
 		};
+		825D9E34272FFA0800FACC7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 837M2S56PW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.hulan.Framework;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		825D9E35272FFA0800FACC7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 837M2S56PW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.hulan.Framework;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -326,6 +514,15 @@
 			buildConfigurations = (
 				825D9DAB272FF09200FACC7B /* Debug */,
 				825D9DAC272FF09200FACC7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825D9E36272FFA0800FACC7B /* Build configuration list for PBXNativeTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825D9E34272FFA0800FACC7B /* Debug */,
+				825D9E35272FFA0800FACC7B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
