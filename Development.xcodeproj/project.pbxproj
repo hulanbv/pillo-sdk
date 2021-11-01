@@ -14,7 +14,7 @@
 		825D9E31272FFA0800FACC7B /* Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825D9E2B272FFA0800FACC7B /* Framework.framework */; };
 		825D9E32272FFA0800FACC7B /* Framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 825D9E2B272FFA0800FACC7B /* Framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		825D9E39272FFA3500FACC7B /* PilloSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825D9E38272FFA3500FACC7B /* PilloSDK.swift */; };
-		825D9E3C272FFA8300FACC7B /* PilloSDKBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 825D9E3B272FFA8300FACC7B /* PilloSDKBridge.m */; };
+		825D9E3C272FFA8300FACC7B /* PilloSDKBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 825D9E3B272FFA8300FACC7B /* PilloSDKBridge.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		825D9E2D272FFA0800FACC7B /* Framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
 		825D9E38272FFA3500FACC7B /* PilloSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilloSDK.swift; sourceTree = "<group>"; };
 		825D9E3A272FFA6300FACC7B /* PilloSDKBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PilloSDKBridge.h; sourceTree = "<group>"; };
-		825D9E3B272FFA8300FACC7B /* PilloSDKBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PilloSDKBridge.m; sourceTree = "<group>"; };
+		825D9E3B272FFA8300FACC7B /* PilloSDKBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PilloSDKBridge.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +75,7 @@
 		825D9D93272FF09000FACC7B = {
 			isa = PBXGroup;
 			children = (
-				825D9D9E272FF09000FACC7B /* Development */,
+				825D9D9E272FF09000FACC7B /* Application */,
 				825D9E2C272FFA0800FACC7B /* Framework */,
 				825D9D9D272FF09000FACC7B /* Products */,
 			);
@@ -90,14 +90,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		825D9D9E272FF09000FACC7B /* Development */ = {
+		825D9D9E272FF09000FACC7B /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				825D9D9F272FF09000FACC7B /* Application.swift */,
 				825D9DA3272FF09200FACC7B /* Assets.xcassets */,
 				825D9DA5272FF09200FACC7B /* Preview Content */,
 			);
-			path = Development;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		825D9DA5272FF09200FACC7B /* Preview Content */ = {
@@ -122,7 +122,7 @@
 			children = (
 				825D9E38272FFA3500FACC7B /* PilloSDK.swift */,
 				825D9E3A272FFA6300FACC7B /* PilloSDKBridge.h */,
-				825D9E3B272FFA8300FACC7B /* PilloSDKBridge.m */,
+				825D9E3B272FFA8300FACC7B /* PilloSDKBridge.mm */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -248,7 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825D9E3C272FFA8300FACC7B /* PilloSDKBridge.m in Sources */,
+				825D9E3C272FFA8300FACC7B /* PilloSDKBridge.mm in Sources */,
 				825D9E39272FFA3500FACC7B /* PilloSDK.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,7 +388,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Development/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Application/Preview Content\"";
 				DEVELOPMENT_TEAM = 837M2S56PW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -415,7 +415,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Development/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Application/Preview Content\"";
 				DEVELOPMENT_TEAM = 837M2S56PW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
