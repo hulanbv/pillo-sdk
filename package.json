@@ -1,0 +1,12 @@
+{
+  "name": "nl.hulan.pillo-sdk",
+  "displayName": "Pillo SDK",
+  "version": "2.0.0",
+  "unity": "2021.1",
+  "description": "Pillo SDK",
+  "type": "library",
+  "hideInEditor": false,
+  "documentationUrl": "https://github.com/hulanbv/pillo-sdk-package",
+  "changelogUrl": "https://github.com/hulanbv/pillo-sdk-package/releases",
+  "licensesUrl": "https://github.com/hulanbv/pillo-sdk-package/blob/master/LICENSE.md"
+}
