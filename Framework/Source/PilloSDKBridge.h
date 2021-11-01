@@ -1,9 +1,5 @@
-//
-//  PilloSDKBridge.h
-//  Development
-//
+//  PilloSDKBridge Header File
 //  Created by Jeffrey Lanters on 01/11/2021.
-//
 
 #ifndef PilloSDKBridge_h
 #define PilloSDKBridge_h
