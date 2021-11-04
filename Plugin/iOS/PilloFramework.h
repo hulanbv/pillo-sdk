@@ -2,12 +2,13 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 // Interface for the PilloFramework Objective-C implementation.
-// @interface PilloFramework : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate> {
-@interface PilloFramework : NSObject {
-    
-}
+ @interface PilloFramework : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate> { }
 
-// Delcarations for the PilloFramework Objective-C implementation.
+// Instance Properties.
+@property (nonatomic, strong) CBCentralManager *centralManager;
+@property (nonatomic, strong) CBPeripheral *pilloPeripheral;
+
+// Instance Methods.
 - (void)initialize;
 
 @end
