@@ -1,5 +1,5 @@
-//  PilloFramework.h
-//  Created by Jeffrey Lanters on 1/11/2021.
+// PilloFramework.h
+// Created by Jeffrey Lanters on 1/11/2021.
 
 // The header file of the Pillo Framework
 #import "PilloFramework.h"
@@ -8,119 +8,120 @@
 extern "C" {
 
     // Instance of the Pillo Framework implementation.
-    PilloFramework *_pilloFramework = nil;
-    
-    // Logs a message to the Unity console.
-    void _iOSBluetoothLELogString (NSString *message) {
-        NSLog (@"%@", message);
+    PilloFramework * _pilloFramework = nil;
+
+    void _PilloLog(char * message) {
+        NSLog(@ "%@", [NSString stringWithFormat: @ "%s", message]);
     }
-    
-    void _iOSBluetoothLELog (char *message) {
-        _iOSBluetoothLELogString ([NSString stringWithFormat:@"%s", message]);
-    }
-    
-    void _iOSBluetoothLEInitialize (BOOL asCentral, BOOL asPeripheral) {
+
+    void _PilloInitialize(BOOL asCentral, BOOL asPeripheral) {
         _pilloFramework = [PilloFramework new];
-        [_pilloFramework initialize:asCentral asPeripheral:asPeripheral];
+        [_pilloFramework initialize: asCentral asPeripheral: asPeripheral];
     }
-    
-    void _iOSBluetoothLEDeInitialize () {
+
+    void _iOSBluetoothLEDeInitialize() {
         if (_pilloFramework != nil) {
             [_pilloFramework deInitialize];
             [_pilloFramework release];
             _pilloFramework = nil;
-            UnitySendMessage ("BluetoothLEReceiver", "OnBluetoothMessage", "DeInitialized");
-        }
-    }
-    
-    void _iOSBluetoothLEPauseMessages (BOOL pause) {
-        if (_pilloFramework != nil)
-            [_pilloFramework pauseMessages:pause];
-    }
-    
-    void _iOSBluetoothLEScanForPeripheralsWithServices (char *serviceUUIDsStringRaw, bool allowDuplicates, bool rssiOnly, bool clearPeripheralList, int recordType) {
-        
-        if (_pilloFramework != nil) {
-            _pilloFramework._rssiOnly = rssiOnly;
-            
-            NSMutableArray *actualUUIDs = nil;
-            
-            if (serviceUUIDsStringRaw != nil) {
-                NSString *serviceUUIDsString = [NSString stringWithFormat:@"%s", serviceUUIDsStringRaw];
-                NSArray *serviceUUIDs = [serviceUUIDsString componentsSeparatedByString:@"|"];
-                
-                if (serviceUUIDs.count > 0) {
-                    actualUUIDs = [[NSMutableArray alloc] init];
-                    
-                    for (NSString* sUUID in serviceUUIDs)
-                        [actualUUIDs addObject:[CBUUID UUIDWithString:sUUID]];
-                }
-            }
-            
-            NSDictionary *options = nil;
-            if (allowDuplicates)
-                options = @{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES };
-            
-            [_pilloFramework scanForPeripheralsWithServices:actualUUIDs options:options clearPeripheralList:clearPeripheralList recordType:recordType];
+            UnitySendMessage("BluetoothLEReceiver", "OnBluetoothMessage", "DeInitialized");
         }
     }
 
-    void _iOSBluetoothLEStopScan () {
+    void _iOSBluetoothLEPauseMessages(BOOL pause) {
+        if (_pilloFramework != nil)
+            [_pilloFramework pauseMessages: pause];
+    }
+
+    void _iOSBluetoothLEScanForPeripheralsWithServices(char * serviceUUIDsStringRaw, bool allowDuplicates, bool rssiOnly, bool clearPeripheralList, int recordType) {
+
+        if (_pilloFramework != nil) {
+            _pilloFramework._rssiOnly = rssiOnly;
+
+            NSMutableArray * actualUUIDs = nil;
+
+            if (serviceUUIDsStringRaw != nil) {
+                NSString * serviceUUIDsString = [NSString stringWithFormat: @ "%s", serviceUUIDsStringRaw];
+                NSArray * serviceUUIDs = [serviceUUIDsString componentsSeparatedByString: @ "|"];
+
+                if (serviceUUIDs.count > 0) {
+                    actualUUIDs = [
+                        [NSMutableArray alloc] init
+                    ];
+
+                    for (NSString * sUUID in serviceUUIDs)
+                        [actualUUIDs addObject: [CBUUID UUIDWithString: sUUID]];
+                }
+            }
+
+            NSDictionary * options = nil;
+            if (allowDuplicates)
+                options = @ {
+                    CBCentralManagerScanOptionAllowDuplicatesKey: @YES
+                };
+
+            [_pilloFramework scanForPeripheralsWithServices: actualUUIDs options: options clearPeripheralList: clearPeripheralList recordType: recordType];
+        }
+    }
+
+    void _iOSBluetoothLEStopScan() {
         if (_pilloFramework != nil)
             [_pilloFramework stopScan];
     }
-    
-    void _iOSBluetoothLERetrieveListOfPeripheralsWithServices (char *serviceUUIDsStringRaw) {
+
+    void _iOSBluetoothLERetrieveListOfPeripheralsWithServices(char * serviceUUIDsStringRaw) {
         if (_pilloFramework != nil) {
-            NSMutableArray *actualUUIDs = nil;
-            
+            NSMutableArray * actualUUIDs = nil;
+
             if (serviceUUIDsStringRaw != nil) {
-                NSString *serviceUUIDsString = [NSString stringWithFormat:@"%s", serviceUUIDsStringRaw];
-                NSArray *serviceUUIDs = [serviceUUIDsString componentsSeparatedByString:@"|"];
-                
+                NSString * serviceUUIDsString = [NSString stringWithFormat: @ "%s", serviceUUIDsStringRaw];
+                NSArray * serviceUUIDs = [serviceUUIDsString componentsSeparatedByString: @ "|"];
+
                 if (serviceUUIDs.count > 0) {
-                    actualUUIDs = [[NSMutableArray alloc] init];
-                    
-                    for (NSString* sUUID in serviceUUIDs)
-                        [actualUUIDs addObject:[CBUUID UUIDWithString:sUUID]];
+                    actualUUIDs = [
+                        [NSMutableArray alloc] init
+                    ];
+
+                    for (NSString * sUUID in serviceUUIDs)
+                        [actualUUIDs addObject: [CBUUID UUIDWithString: sUUID]];
                 }
             }
-            
-            [_pilloFramework retrieveListOfPeripheralsWithServices:actualUUIDs];
+
+            [_pilloFramework retrieveListOfPeripheralsWithServices: actualUUIDs];
         }
     }
-    
-    void _iOSBluetoothLEConnectToPeripheral (char *name) {
+
+    void _iOSBluetoothLEConnectToPeripheral(char * name) {
         if (_pilloFramework && name != nil)
-            [_pilloFramework connectToPeripheral:[NSString stringWithFormat:@"%s", name]];
+            [_pilloFramework connectToPeripheral: [NSString stringWithFormat: @ "%s", name]];
     }
-    
-    void _iOSBluetoothLEDisconnectPeripheral (char *name) {
+
+    void _iOSBluetoothLEDisconnectPeripheral(char * name) {
         if (_pilloFramework && name != nil)
-            [_pilloFramework disconnectPeripheral:[NSString stringWithFormat:@"%s", name]];
+            [_pilloFramework disconnectPeripheral: [NSString stringWithFormat: @ "%s", name]];
     }
-    
-    void _iOSBluetoothLEReadCharacteristic (char *name, char *service, char *characteristic) {
+
+    void _iOSBluetoothLEReadCharacteristic(char * name, char * service, char * characteristic) {
         if (_pilloFramework && name != nil && service != nil && characteristic != nil)
-            [_pilloFramework readCharacteristic:[NSString stringWithFormat:@"%s", name] service:[NSString stringWithFormat:@"%s", service] characteristic:[NSString stringWithFormat:@"%s", characteristic]];
+            [_pilloFramework readCharacteristic: [NSString stringWithFormat: @ "%s", name] service: [NSString stringWithFormat: @ "%s", service] characteristic: [NSString stringWithFormat: @ "%s", characteristic]];
     }
-    
-    void _iOSBluetoothLEWriteCharacteristic (char *name, char *service, char *characteristic, unsigned char *data, int length, BOOL withResponse) {
+
+    void _iOSBluetoothLEWriteCharacteristic(char * name, char * service, char * characteristic, unsigned char * data, int length, BOOL withResponse) {
         if (_pilloFramework && name != nil && service != nil && characteristic != nil && data != nil && length > 0)
-            [_pilloFramework writeCharacteristic:[NSString stringWithFormat:@"%s", name] service:[NSString stringWithFormat:@"%s", service] characteristic:[NSString stringWithFormat:@"%s", characteristic] data:[NSData dataWithBytes:data length:length] withResponse:withResponse];
+            [_pilloFramework writeCharacteristic: [NSString stringWithFormat: @ "%s", name] service: [NSString stringWithFormat: @ "%s", service] characteristic: [NSString stringWithFormat: @ "%s", characteristic] data: [NSData dataWithBytes: data length: length] withResponse: withResponse];
     }
-    
-    void _iOSBluetoothLESubscribeCharacteristic (char *name, char *service, char *characteristic) {
+
+    void _iOSBluetoothLESubscribeCharacteristic(char * name, char * service, char * characteristic) {
         if (_pilloFramework && name != nil && service != nil && characteristic != nil)
-            [_pilloFramework subscribeCharacteristic:[NSString stringWithFormat:@"%s", name] service:[NSString stringWithFormat:@"%s", service] characteristic:[NSString stringWithFormat:@"%s", characteristic]];
+            [_pilloFramework subscribeCharacteristic: [NSString stringWithFormat: @ "%s", name] service: [NSString stringWithFormat: @ "%s", service] characteristic: [NSString stringWithFormat: @ "%s", characteristic]];
     }
-    
-    void _iOSBluetoothLEUnSubscribeCharacteristic (char *name, char *service, char *characteristic) {
+
+    void _iOSBluetoothLEUnSubscribeCharacteristic(char * name, char * service, char * characteristic) {
         if (_pilloFramework && name != nil && service != nil && characteristic != nil)
-            [_pilloFramework unsubscribeCharacteristic:[NSString stringWithFormat:@"%s", name] service:[NSString stringWithFormat:@"%s", service] characteristic:[NSString stringWithFormat:@"%s", characteristic]];
+            [_pilloFramework unsubscribeCharacteristic: [NSString stringWithFormat: @ "%s", name] service: [NSString stringWithFormat: @ "%s", service] characteristic: [NSString stringWithFormat: @ "%s", characteristic]];
     }
-    
-    void _iOSBluetoothLEDisconnectAll () {
+
+    void _iOSBluetoothLEDisconnectAll() {
         if (_pilloFramework != nil)
             [_pilloFramework disconnectAll];
     }
