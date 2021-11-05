@@ -2,7 +2,7 @@ using UnityEngine;
 using Hulan.Pillo.SDK;
 
 namespace Hulan.Pillo.Test {
-  public class PilloTestComponent : MonoBehaviour, PilloFramework.IPilloFrameworkDelegate {
+  public class PilloTestComponent : MonoBehaviour, IPilloFrameworkDelegate {
     public PilloFramework pilloFramework;
 
     public void Start () {
