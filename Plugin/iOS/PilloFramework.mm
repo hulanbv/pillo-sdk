@@ -1,11 +1,14 @@
 #import "PilloFramework.h"
 
+// Pillo Framework Implementation File
+// Author: Jeffrey Lanters at Hulan
+
 // External C library exposed to Unity.
 extern "C" {
   PilloFramework* pilloFramework = nil;
 
   void PilloFrameworkInitialize() {
-    // TODO Make sure this wont be called twice
+    // TODO Check beforehand if a PilloFramework instance already exists.
     pilloFramework = [PilloFramework new];
     [pilloFramework initialize];
   }
@@ -31,6 +34,7 @@ extern "C" {
     case CBManagerStatePoweredOn:
       // When Bluetooth is available, we'll start scanning for Peripherals.
       [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+      [self invokeUnityCallback:@"OnBluetoothInitialized"];
       break;
     default:
       // When Bluetooth is not available. We'll do nothing.

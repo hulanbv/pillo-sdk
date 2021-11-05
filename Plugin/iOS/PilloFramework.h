@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
+// Pillo Framework Header File
+// Author: Jeffrey Lanters at Hulan
+
 // Interface for the PilloFramework Objective-C implementation.
  @interface PilloFramework : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate> { }
 
