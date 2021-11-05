@@ -14,13 +14,14 @@ extern "C" {
 @implementation PilloFramework
 
 // Definitions
-#define PILLO_SERVICE_UUID @"579BA43D-A351-463D-92C7-911EC1B54E35";
-#define PRESSURE_CHARACTERISTIC_UUID @"1470CA75-5D7E-4E16-A70D-D1476E8D0C6F";
-#define CHARGE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C";
-#define BATTERY_LEVEL_CHARACTERISTIC_UUID @"Battery Level";
+#define PILLO_SERVICE_UUID @"579BA43D-A351-463D-92C7-911EC1B54E35"
+#define PRESSURE_CHARACTERISTIC_UUID @"1470CA75-5D7E-4E16-A70D-D1476E8D0C6F"
+#define CHARGE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
+#define BATTERY_LEVEL_CHARACTERISTIC_UUID @"2A19"
 
 - (void)initialize {
   self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+  [self invokeUnityCallback:@"OnDidInitialize"];
 }
 
 // Delegate Method invoked when the Center Manager's state did update.
@@ -32,7 +33,7 @@ extern "C" {
       break;
     default:
       // When Bluetooth is not available. We'll do nothing.
-      // TODO Invoke a Unity event.
+      [self invokeUnityCallback:@"OnBluetoothNotAvailable"];
       break;
   }
 }
@@ -47,9 +48,9 @@ extern "C" {
     // the Peripheral's delegate. Then connect to the peripheral, when the
     // connection state changes an event will be raised.
     // TODO add support for multiple Pillo Peripherals.
-    self.pilloPeripheral = peripheral;
-    self.pilloPeripheral.delegate = self;
-    [self.centralManager connectPeripheral:self.pilloPeripheral options:nil];
+    self.peripheral = peripheral;
+    self.peripheral.delegate = self;
+    [self.centralManager connectPeripheral:self.peripheral options:nil];
     // Stop scanning, we've found our Pillo.
     // TODO implement periodic scanning.
     [self.centralManager stopScan];
@@ -58,15 +59,15 @@ extern "C" {
 
 // Delegate Method invoked when the Peripheral did connect.
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-  NSLog(@"PILLO~ Connected to the %@ (%@)", peripheral.name, peripheral.identifier.UUIDString);
   // Once the Pillo Peripheral is connected, we'll start discovering Services.
   // We pass nil here to request all Services be discovered.
   [peripheral discoverServices:nil];
+  [self invokeUnityCallback:@"OnConnectionSuccessful" parameter:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when the Peripheral did fail to connect.
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  NSLog(@"PILLO~ Error while connecting %@ (%@)", peripheral.name, peripheral.identifier.UUIDString);
+  [self invokeUnityCallback:@"OnConnectionFailed" parameter:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when a Service is discovered.
@@ -82,21 +83,36 @@ extern "C" {
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
   for (CBCharacteristic *characteristic in service.characteristics) {
     // We'll loop all of the Service's Characteristics and enable Notifications.
-    [self.pilloPeripheral setNotifyValue:YES forCharacteristic:characteristic];
+    [self.peripheral setNotifyValue:YES forCharacteristic:characteristic];
   }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
   // Extract the data from the Characteristic's value property and convert it
   // into raw data based on the Characteristic's UUID.
-  NSData *rawBytes = characteristic.value;
-  uint32_t rawInt = 0;
-  [rawBytes getBytes:&rawInt length:sizeof(rawInt)];
-  NSLog(@"PILLO~ Value %u %@", rawInt, characteristic.UUID);
-  // TODO check the Characteristic's UUID and send back the data accordingly.
+  
+  if ([characteristic.UUID.UUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
+    int batteryLevel;
+    [characteristic.value getBytes:&batteryLevel length:sizeof(batteryLevel)];
+    NSString* myNewString = [NSString stringWithFormat:@"%d", batteryLevel];
+    [self invokeUnityCallback:@"OnBatteryLevelDidChange" parameter:myNewString];
+  }
 }
 
 // Delegate Method invoked when the Peripheral Manager's state did update.
 - (void)peripheralManagerDidUpdateState:(nonnull CBPeripheralManager *)peripheral { }
+
+// Invokes a callback event on the Unity Scene to a specific Game Object.
+- (void)invokeUnityCallback:(NSString *)methodName {
+  [self invokeUnityCallback:methodName parameter:@""];
+}
+
+// Invokes a callback event on the Unity Scene to a specific Game Object with a
+// string parameter. This is the only type Unity accepts, to it might require
+// a parse in order to be used.
+- (void)invokeUnityCallback:(NSString *)methodName parameter:(NSString *)parameter {
+  UnitySendMessage("~PilloFrameworkCallbackListener", (char *)methodName, (char *)parameter);
+  NSLog(@"PILLO~ Invoking Unity Callback '%@' with param '%@'", methodName, parameter);
+}
 
 @end

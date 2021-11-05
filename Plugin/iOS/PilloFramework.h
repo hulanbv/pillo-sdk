@@ -6,9 +6,11 @@
 
 // Instance Properties.
 @property (nonatomic, strong) CBCentralManager *centralManager;
-@property (nonatomic, strong) CBPeripheral *pilloPeripheral;
+@property (nonatomic, strong) CBPeripheral *peripheral;
 
 // Instance Methods.
 - (void)initialize;
+- (void)invokeUnityCallback:(NSString *)methodName;
+- (void)invokeUnityCallback:(NSString *)methodName parameter:(NSString *)parameter;
 
 @end
