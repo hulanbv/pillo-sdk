@@ -1,8 +1,15 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+// Pillo Framework Unity SDK
+// Author: Jeffrey Lanters at Hulan
+
 namespace Hulan.Pillo.SDK {
 
+  /// <summary>
+  /// The Pillo Framework exposes a set of methods and delegates to interact 
+  /// with the Pillo Peripherals, Services and Characteristics.
+  /// </summary>
   public static class PilloFramework {
 
     /// <summary>
@@ -14,8 +21,7 @@ namespace Hulan.Pillo.SDK {
 
     public static class DelegateDefinitions {
       public delegate void OnDidInitialize ();
-      public delegate void OnBluetoothDidInitialize ();
-      public delegate void OnBluetoothDidFailToInitialize ();
+      public delegate void OnDidFailToInitialize (string reason);
       public delegate void OnPilloDidConnect (string identifier);
       public delegate void OnPilloDidFailToConnect (string identifier);
       public delegate void OnBatteryLevelDidChange (int batteryLevel);
@@ -23,8 +29,7 @@ namespace Hulan.Pillo.SDK {
     }
 
     public static DelegateDefinitions.OnDidInitialize onDidInitialize;
-    public static DelegateDefinitions.OnBluetoothDidInitialize onBluetoothDidInitialize;
-    public static DelegateDefinitions.OnBluetoothDidFailToInitialize onBluetoothDidFailToInitialize;
+    public static DelegateDefinitions.OnDidFailToInitialize onDidFailToInitialize;
     public static DelegateDefinitions.OnPilloDidConnect onPilloDidConnect;
     public static DelegateDefinitions.OnPilloDidFailToConnect onPilloDidFailToConnect;
     public static DelegateDefinitions.OnBatteryLevelDidChange onBatteryLevelDidChange;
@@ -48,19 +53,12 @@ namespace Hulan.Pillo.SDK {
       }
 
       /// <summary>
-      /// Method invoked by the native Pillo Framework when the Bluetooth
-      /// has been initialized.
+      /// Method invoked by the native Pillo Framework when it has failed to
+      /// initialize.
       /// </summary>
-      private void OnBluetoothDidInitialize () {
-        PilloFramework.onBluetoothDidInitialize?.Invoke ();
-      }
-
-      /// <summary>
-      /// Method invoked by the native Pillo Framework when the Bluetooth
-      /// was unable to initialize and has been caught.
-      /// </summary>
-      private void OnBluetoothDidFailToInitialize () {
-        PilloFramework.onBluetoothDidFailToInitialize?.Invoke ();
+      /// <param name="parameter">Contaning the reason.</param>
+      private void OnDidFailToInitialize (string parameter) {
+        PilloFramework.onDidFailToInitialize?.Invoke (parameter);
       }
 
       /// <summary>
@@ -98,6 +96,35 @@ namespace Hulan.Pillo.SDK {
       private void OnPressureDidChange (string parameter) {
         PilloFramework.onPressureDidChange?.Invoke (int.Parse (parameter));
       }
+
+#if UNITY_EDITOR
+      /// <summary>
+      /// When in the Unity Editor, during the Start cycle we'll invoked some
+      /// methods to simulate the native Pillo Framework events.
+      /// </summary>
+      private void Start () {
+        // An initialization event, among with a connection and battery status
+        // event will be invoked.
+        this.OnDidInitialize ();
+        this.OnPilloDidConnect ("faux");
+        this.OnBatteryLevelDidChange ("100");
+      }
+
+      /// <summary>
+      /// When in the Unity Editor, during the Update cycle we'll read some
+      /// keyboard input and use this to simulate the native Pillo Framework 
+      /// events.
+      /// </summary>
+      private void Update () {
+        // We'll use the Space bar to simulate the Pillo's Pressure
+        // characteristic value change.
+        if (Input.GetKeyDown (KeyCode.Space) == true) {
+          this.OnPressureDidChange ("255");
+        } else if (Input.GetKeyUp (KeyCode.Space) == true) {
+          this.OnPressureDidChange ("0");
+        }
+      }
+#endif
     }
 
     /// <summary>

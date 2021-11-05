@@ -25,7 +25,6 @@ extern "C" {
 
 - (void)initialize {
   self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-  [self invokeUnityCallback:@"OnDidInitialize"];
 }
 
 // Delegate Method invoked when the Center Manager's state did update.
@@ -34,11 +33,11 @@ extern "C" {
     case CBManagerStatePoweredOn:
       // When Bluetooth is available, we'll start scanning for Peripherals.
       [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-      [self invokeUnityCallback:@"OnBluetoothDidInitialize"];
+      [self invokeUnityCallback:@"OnDidInitialize"];
       break;
     default:
       // When Bluetooth is not available, we'll just thrown a catch.
-      [self invokeUnityCallback:@"OnBluetoothDidFailToInitialize"];
+      [self invokeUnityCallback:@"OnDidFailToInitialize" parameter:@"Bluetooth is not available."];
       break;
   }
 }

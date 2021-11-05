@@ -6,8 +6,7 @@ namespace Hulan.Pillo.Test {
     public void Start () {
       PilloFramework.Initialize ();
       PilloFramework.onDidInitialize += this.OnDidInitialize;
-      PilloFramework.onBluetoothDidInitialize += this.OnBluetoothDidInitialize;
-      PilloFramework.onBluetoothDidFailToInitialize += this.OnBluetoothDidFailToInitialize;
+      PilloFramework.onDidFailToInitialize += this.OnDidFailToInitialize;
       PilloFramework.onPilloDidConnect += this.OnPilloDidConnect;
       PilloFramework.onPilloDidFailToConnect += this.OnPilloDidFailToConnect;
       PilloFramework.onBatteryLevelDidChange += this.OnBatteryLevelDidChange;
@@ -18,12 +17,8 @@ namespace Hulan.Pillo.Test {
       Debug.Log ("Pillo Test Component did initialize");
     }
 
-    public void OnBluetoothDidInitialize () {
-      Debug.Log ("Pillo Test Component did initialize bluetooth");
-    }
-
-    public void OnBluetoothDidFailToInitialize () {
-      Debug.Log ("Pillo Test Component bluetooth not available");
+    public void OnDidFailToInitialize (string reason) {
+      Debug.Log ("Pillo Test Component did fail to initialize");
     }
 
     public void OnPilloDidConnect (string identifier) {
