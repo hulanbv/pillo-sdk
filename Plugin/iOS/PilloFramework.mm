@@ -4,7 +4,7 @@
 extern "C" {
   PilloFramework* pilloFramework = nil;
 
-  void PilloInitialize() {
+  void PilloFrameworkInitialize() {
     // TODO Make sure this wont be called twice
     pilloFramework = [PilloFramework new];
     [pilloFramework initialize];
