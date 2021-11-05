@@ -22,7 +22,7 @@ namespace Hulan.Pillo.Test {
       Debug.Log ("Pillo Test Component did initialize bluetooth");
     }
 
-    public void OnBluetoothNotAvailable () {
+    public void OnBluetoothDidFailToInitialize () {
       Debug.Log ("Pillo Test Component bluetooth not available");
     }
 
