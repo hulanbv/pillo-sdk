@@ -90,12 +90,25 @@ extern "C" {
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
   // Extract the data from the Characteristic's value property and convert it
   // into raw data based on the Characteristic's UUID.
-  
-  if ([characteristic.UUID.UUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
-    int batteryLevel;
-    [characteristic.value getBytes:&batteryLevel length:sizeof(batteryLevel)];
-    NSString* myNewString = [NSString stringWithFormat:@"%d", batteryLevel];
-    [self invokeUnityCallback:@"OnBatteryLevelDidChange" parameter:myNewString];
+  NSData *rawData = characteristic.value;
+  NSString *characteristicUUIDString = characteristic.UUID.UUIDString;
+  // When the Characteristic's UUID matches the battery level's Characteristic
+  // UUID, we'll extract the value as its battery level which should contain
+  // an interger from 0 to 100. We'll forward this using a Unity callback.
+  if ([characteristicUUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
+    uint32_t rawBatteryLevel = 0;
+    [rawData getBytes:&rawBatteryLevel length:sizeof(rawBatteryLevel)];
+    NSNumber *batteryLevel = [[NSNumber alloc]initWithUnsignedInt:rawBatteryLevel];
+    [self invokeUnityCallback:@"OnBatteryLevelDidChange" parameter:[batteryLevel stringValue]];
+  }
+  // When the Characteristic's UUID matches the pressure's Characteristic UUID,
+  // we'll extract the value as its pressure which should contain an interger
+  // from 0 to 255. We'll forward this using a Unity callback.
+  else if ([characteristicUUIDString isEqualToString:PRESSURE_CHARACTERISTIC_UUID]) {
+    uint32_t rawPressure = 0;
+    [rawData getBytes:&rawPressure length:sizeof(rawPressure)];
+    NSNumber *pressure = [[NSNumber alloc]initWithUnsignedInt:rawPressure];
+    [self invokeUnityCallback:@"OnPressureDidChange" parameter:[pressure stringValue]];
   }
 }
 
@@ -111,7 +124,7 @@ extern "C" {
 // string parameter. This is the only type Unity accepts, to it might require
 // a parse in order to be used.
 - (void)invokeUnityCallback:(NSString *)methodName parameter:(NSString *)parameter {
-  UnitySendMessage("~PilloFrameworkCallbackListener", (char *)methodName, (char *)parameter);
+  UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [parameter UTF8String]);
   NSLog(@"PILLO~ Invoking Unity Callback '%@' with param '%@'", methodName, parameter);
 }
 
