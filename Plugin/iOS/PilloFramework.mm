@@ -5,6 +5,7 @@ extern "C" {
   PilloFramework* pilloFramework = nil;
 
   void PilloInitialize() {
+    // TODO Make sure this wont be called twice
     pilloFramework = [PilloFramework new];
     [pilloFramework initialize];
   }
@@ -125,7 +126,7 @@ extern "C" {
 // a parse in order to be used.
 - (void)invokeUnityCallback:(NSString *)methodName parameter:(NSString *)parameter {
   UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [parameter UTF8String]);
-  NSLog(@"PILLO~ Invoking Unity Callback '%@' with param '%@'", methodName, parameter);
+  // NSLog(@"PILLO~ Invoking Unity Callback '%@' with param '%@'", methodName, parameter);
 }
 
 @end
