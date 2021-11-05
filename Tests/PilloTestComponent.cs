@@ -2,27 +2,36 @@ using UnityEngine;
 using Hulan.Pillo.SDK;
 
 namespace Hulan.Pillo.Test {
-  public class PilloTestComponent : MonoBehaviour, IPilloFrameworkDelegate {
-    public PilloFramework pilloFramework;
-
+  public class PilloTestComponent : MonoBehaviour {
     public void Start () {
-      this.pilloFramework = new PilloFramework (this);
+      PilloFramework.Initialize ();
+      PilloFramework.onDidInitialize += this.OnDidInitialize;
+      PilloFramework.onBluetoothDidInitialize += this.OnBluetoothDidInitialize;
+      PilloFramework.onBluetoothDidFailToInitialize += this.OnBluetoothDidFailToInitialize;
+      PilloFramework.onPilloDidConnect += this.OnPilloDidConnect;
+      PilloFramework.onPilloDidFailToConnect += this.OnPilloDidFailToConnect;
+      PilloFramework.onBatteryLevelDidChange += this.OnBatteryLevelDidChange;
+      PilloFramework.onPressureDidChange += this.OnPressureDidChange;
     }
 
     public void OnDidInitialize () {
       Debug.Log ("Pillo Test Component did initialize");
     }
 
+    public void OnBluetoothDidInitialize () {
+      Debug.Log ("Pillo Test Component did initialize bluetooth");
+    }
+
     public void OnBluetoothNotAvailable () {
       Debug.Log ("Pillo Test Component bluetooth not available");
     }
 
-    public void OnConnectionSuccessful (string peripheralIdentifier) {
-      Debug.Log ("Pillo Test Component connection successful: " + peripheralIdentifier);
+    public void OnPilloDidConnect (string identifier) {
+      Debug.Log ("Pillo Test Component connection successful: " + identifier);
     }
 
-    public void OnConnectionFailed (string peripheralIdentifier) {
-      Debug.Log ("Pillo Test Component connection failed: " + peripheralIdentifier);
+    public void OnPilloDidFailToConnect (string identifier) {
+      Debug.Log ("Pillo Test Component connection failed: " + identifier);
     }
 
     public void OnBatteryLevelDidChange (int batteryLevel) {
