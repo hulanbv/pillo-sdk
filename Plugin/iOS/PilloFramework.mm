@@ -34,11 +34,11 @@ extern "C" {
     case CBManagerStatePoweredOn:
       // When Bluetooth is available, we'll start scanning for Peripherals.
       [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-      [self invokeUnityCallback:@"OnBluetoothInitialized"];
+      [self invokeUnityCallback:@"OnBluetoothDidInitialize"];
       break;
     default:
-      // When Bluetooth is not available. We'll do nothing.
-      [self invokeUnityCallback:@"OnBluetoothNotAvailable"];
+      // When Bluetooth is not available, we'll just thrown a catch.
+      [self invokeUnityCallback:@"OnBluetoothDidFailToInitialize"];
       break;
   }
 }
@@ -47,6 +47,7 @@ extern "C" {
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
   // Retrieve the peripheral name from the advertisement data. If the name
   // contains Pillo, we'll attempt to connect.
+  // TODO check the UUID instead.
   if ([peripheral.name containsString:@"Pillo"]) {
     // We'll store the Peripheral in the Pillo Peripheral property. This is
     // required in order to use the delegates. Next set the Implementation as
@@ -57,7 +58,7 @@ extern "C" {
     self.peripheral.delegate = self;
     [self.centralManager connectPeripheral:self.peripheral options:nil];
     // Stop scanning, we've found our Pillo.
-    // TODO implement periodic scanning.
+    // TODO implement periodic scanning and reconnecting.
     [self.centralManager stopScan];
   }
 }
@@ -67,12 +68,13 @@ extern "C" {
   // Once the Pillo Peripheral is connected, we'll start discovering Services.
   // We pass nil here to request all Services be discovered.
   [peripheral discoverServices:nil];
-  [self invokeUnityCallback:@"OnConnectionSuccessful" parameter:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnPilloDidConnect" parameter:peripheral.identifier.UUIDString];
+  // TODO implement disconnection.
 }
 
 // Delegate Method invoked when the Peripheral did fail to connect.
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnConnectionFailed" parameter:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnPilloDidFailToConnect" parameter:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when a Service is discovered.
