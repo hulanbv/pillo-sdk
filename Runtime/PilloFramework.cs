@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Hulan.Pillo.SDK.Core;
 using UnityEngine;
 
 // Pillo Framework Unity SDK
@@ -19,129 +20,40 @@ namespace Hulan.Pillo.SDK {
     /// </summary>
     [DllImport ("__Internal")] private static extern void PilloFrameworkInitialize ();
 
-    public static class DelegateDefinitions {
-      public delegate void OnDidInitialize ();
-      public delegate void OnDidFailToInitialize (string reason);
-      public delegate void OnPilloDidConnect (string identifier);
-      public delegate void OnPilloDidDisconnect (string identifier);
-      public delegate void OnPilloDidFailToConnect (string identifier);
-      public delegate void OnBatteryLevelDidChange (string identifier, int batteryLevel);
-      public delegate void OnPressureDidChange (string identifier, int pressure);
-    }
-
+    /// <summary>
+    /// Delegate invoked when the Framework has been initialized.
+    /// </summary>
     public static DelegateDefinitions.OnDidInitialize onDidInitialize;
-    public static DelegateDefinitions.OnDidFailToInitialize onDidFailToInitialize;
-    public static DelegateDefinitions.OnPilloDidConnect onPilloDidConnect;
-    public static DelegateDefinitions.OnPilloDidDisconnect onPilloDidDisconnect;
-    public static DelegateDefinitions.OnPilloDidFailToConnect onPilloDidFailToConnect;
-    public static DelegateDefinitions.OnBatteryLevelDidChange onBatteryLevelDidChange;
-    public static DelegateDefinitions.OnPressureDidChange onPressureDidChange;
 
     /// <summary>
-    /// The Callback Listener MonoBehaviour will be assigned to a specificly
-    /// named GameObject in the scene. This GameObject will be created by the
-    /// Pillo Framework and is used to listen for Pillo Framework events invoked
-    /// by the native Pillo Framework.
+    /// Delegate invoked when the Framework has failed to initialize.
     /// </summary>
-    private class CallbackListener : MonoBehaviour {
+    public static DelegateDefinitions.OnDidFailToInitialize onDidFailToInitialize;
 
-      /// <summary>
-      /// Method invoked by the native Pillo Framework when it has been 
-      /// initialized.
-      /// </summary>
-      private void OnDidInitialize () {
-        PilloFramework.onDidInitialize?.Invoke ();
-      }
+    /// <summary>
+    /// Delegate invoked when a Pillo has been connected.
+    /// </summary>
+    public static DelegateDefinitions.OnPilloDidConnect onPilloDidConnect;
 
-      /// <summary>
-      /// Method invoked by the native Pillo Framework when it has failed to
-      /// initialize.
-      /// </summary>
-      /// <param name="parameter">Contaning the reason.</param>
-      private void OnDidFailToInitialize (string parameter) {
-        PilloFramework.onDidFailToInitialize?.Invoke (parameter);
-      }
+    /// <summary>
+    /// Delegate invoked when a Pillo has been disconnected.
+    /// </summary>
+    public static DelegateDefinitions.OnPilloDidDisconnect onPilloDidDisconnect;
 
-      /// <summary>
-      /// Method invoked by the native Pillo Framework when a Pillo has been
-      /// connected.
-      /// </summary>
-      /// <param name="parameter">Contaning the Peripheral UUID.</param>
-      private void OnPilloDidConnect (string parameter) {
-        PilloFramework.onPilloDidConnect?.Invoke (parameter);
-      }
+    /// <summary>
+    /// Delegate invoked when a Pillo has failed to connect.
+    /// </summary>
+    public static DelegateDefinitions.OnPilloDidFailToConnect onPilloDidFailToConnect;
 
-      /// <summary>
-      /// Method invoked by the native Pillo Framework when a Pillo has been
-      /// disconnected.
-      /// </summary>
-      /// <param name="parameter">Contaning the Peripheral UUID.</param>
-      private void OnPilloDidDisconnect (string parameter) {
-        PilloFramework.onPilloDidDisconnect?.Invoke (parameter);
-      }
+    /// <summary>
+    /// Delegate invoked when the battery level has changed.
+    /// </summary>
+    public static DelegateDefinitions.OnBatteryLevelDidChange onBatteryLevelDidChange;
 
-      /// <summary>
-      /// Method invoked by the native Pillo Framework when a Pillo has failed
-      /// to connect.
-      /// </summary>
-      /// <param name="parameter">Contaning the Peripheral UUID.</param>
-      private void OnPilloDidFailToConnect (string parameter) {
-        PilloFramework.onPilloDidFailToConnect?.Invoke (parameter);
-      }
-
-      /// <summary>
-      /// Method invoked by the native Pillo Framework when the battery level
-      /// has changed.
-      /// </summary>
-      /// <param name="parameter">Containing the battery level.</param>
-      private void OnBatteryLevelDidChange (string parameter) {
-        var parts = parameter.Split ('~');
-        var identifier = parts[0];
-        var batteryLevel = int.Parse (parts[1]);
-        PilloFramework.onBatteryLevelDidChange?.Invoke (identifier, batteryLevel);
-      }
-
-      /// <summary>
-      /// Method invoked by the native Pillo Framework when the Pillo 
-      /// Peripherals's pressure has ben changed.
-      /// </summary>
-      /// <param name="parameter">Containing the pressure.</param>
-      private void OnPressureDidChange (string parameter) {
-        var parts = parameter.Split ('~');
-        var identifier = parts[0];
-        var pressure = int.Parse (parts[1]);
-        PilloFramework.onPressureDidChange?.Invoke (identifier, pressure);
-      }
-
-#if UNITY_EDITOR
-      /// <summary>
-      /// When in the Unity Editor, during the Start cycle we'll invoked some
-      /// methods to simulate the native Pillo Framework events.
-      /// </summary>
-      private void Start () {
-        // An initialization event, among with a connection and battery status
-        // event will be invoked.
-        this.OnDidInitialize ();
-        this.OnPilloDidConnect ("faux");
-        this.OnBatteryLevelDidChange ("faux~100");
-      }
-
-      /// <summary>
-      /// When in the Unity Editor, during the Update cycle we'll read some
-      /// keyboard input and use this to simulate the native Pillo Framework 
-      /// events.
-      /// </summary>
-      private void Update () {
-        // We'll use the Space bar to simulate the Pillo's Pressure
-        // characteristic value change.
-        if (Input.GetKeyDown (KeyCode.Space) == true) {
-          this.OnPressureDidChange ("faux~255");
-        } else if (Input.GetKeyUp (KeyCode.Space) == true) {
-          this.OnPressureDidChange ("faux~0");
-        }
-      }
-#endif
-    }
+    /// <summary>
+    /// Delegate invoked when the Pillo Peripherals's pressure has ben changed.
+    /// </summary>
+    public static DelegateDefinitions.OnPressureDidChange onPressureDidChange;
 
     /// <summary>
     /// Initializes the Pillo Framework and sets up the connection to the
@@ -149,18 +61,13 @@ namespace Hulan.Pillo.SDK {
     /// Pillo Framework methods are invoked.
     /// </summary>
     public static void Initialize () {
-      // We'll ensure there is only one instance of the Callback Listener.
-      if (GameObject.FindObjectOfType<CallbackListener> () == null) {
-        var gameObject = new GameObject ("~PilloFrameworkCallbackListener");
-        var callbackListener = gameObject.AddComponent<CallbackListener> ();
-        gameObject.hideFlags = HideFlags.HideInHierarchy;
-        Object.DontDestroyOnLoad (gameObject);
+      // Instantiates the Callback Listener.
+      CallbackListener.Instantiate ();
 #if !UNITY_EDITOR && UNITY_TVOS
-        // Initialize the native Pillo Framework when we're on the right
-        // platform while not being in the Unity Editor.
-        PilloFrameworkInitialize ();
+      // Initialize the native Pillo Framework when we're on the right
+      // platform while not being in the Unity Editor.
+      PilloFrameworkInitialize ();
 #endif
-      }
     }
   }
 }
