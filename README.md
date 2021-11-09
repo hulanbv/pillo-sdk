@@ -18,10 +18,6 @@ The Pillo SDK includes a Framework which allows the developer to interact with t
 using Hulan.Pillo.SDK;
 ```
 
-```csharp
-PilloFramework.Initialize ();
-```
-
 ## Development Usage
 
 ...
