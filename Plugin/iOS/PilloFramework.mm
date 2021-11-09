@@ -68,7 +68,11 @@ extern "C" {
   // We pass nil here to request all Services be discovered.
   [peripheral discoverServices:nil];
   [self invokeUnityCallback:@"OnPilloDidConnect" parameter:peripheral.identifier.UUIDString];
-  // TODO implement disconnection.
+}
+
+// Delegate Method invoked when the Peripheral did disconnect.
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+  [self invokeUnityCallback:@"OnPilloDidDisconnect" parameter:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when the Peripheral did fail to connect.
@@ -105,7 +109,8 @@ extern "C" {
     uint32_t rawBatteryLevel = 0;
     [rawData getBytes:&rawBatteryLevel length:sizeof(rawBatteryLevel)];
     NSNumber *batteryLevel = [[NSNumber alloc]initWithUnsignedInt:rawBatteryLevel];
-    [self invokeUnityCallback:@"OnBatteryLevelDidChange" parameter:[batteryLevel stringValue]];
+    NSString *parameter = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, batteryLevel];
+    [self invokeUnityCallback:@"OnBatteryLevelDidChange" parameter:parameter];
   }
   // When the Characteristic's UUID matches the pressure's Characteristic UUID,
   // we'll extract the value as its pressure which should contain an interger
@@ -114,7 +119,8 @@ extern "C" {
     uint32_t rawPressure = 0;
     [rawData getBytes:&rawPressure length:sizeof(rawPressure)];
     NSNumber *pressure = [[NSNumber alloc]initWithUnsignedInt:rawPressure];
-    [self invokeUnityCallback:@"OnPressureDidChange" parameter:[pressure stringValue]];
+    NSString *parameter = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, pressure];
+    [self invokeUnityCallback:@"OnPressureDidChange" parameter:parameter];
   }
 }
 

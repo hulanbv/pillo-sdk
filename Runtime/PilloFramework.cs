@@ -23,14 +23,16 @@ namespace Hulan.Pillo.SDK {
       public delegate void OnDidInitialize ();
       public delegate void OnDidFailToInitialize (string reason);
       public delegate void OnPilloDidConnect (string identifier);
+      public delegate void OnPilloDidDisconnect (string identifier);
       public delegate void OnPilloDidFailToConnect (string identifier);
-      public delegate void OnBatteryLevelDidChange (int batteryLevel);
-      public delegate void OnPressureDidChange (int pressure);
+      public delegate void OnBatteryLevelDidChange (string identifier, int batteryLevel);
+      public delegate void OnPressureDidChange (string identifier, int pressure);
     }
 
     public static DelegateDefinitions.OnDidInitialize onDidInitialize;
     public static DelegateDefinitions.OnDidFailToInitialize onDidFailToInitialize;
     public static DelegateDefinitions.OnPilloDidConnect onPilloDidConnect;
+    public static DelegateDefinitions.OnPilloDidDisconnect onPilloDidDisconnect;
     public static DelegateDefinitions.OnPilloDidFailToConnect onPilloDidFailToConnect;
     public static DelegateDefinitions.OnBatteryLevelDidChange onBatteryLevelDidChange;
     public static DelegateDefinitions.OnPressureDidChange onPressureDidChange;
@@ -42,7 +44,6 @@ namespace Hulan.Pillo.SDK {
     /// by the native Pillo Framework.
     /// </summary>
     private class CallbackListener : MonoBehaviour {
-      /// TODO check if private methods can be invoked from the native code.
 
       /// <summary>
       /// Method invoked by the native Pillo Framework when it has been 
@@ -71,6 +72,15 @@ namespace Hulan.Pillo.SDK {
       }
 
       /// <summary>
+      /// Method invoked by the native Pillo Framework when a Pillo has been
+      /// disconnected.
+      /// </summary>
+      /// <param name="parameter">Contaning the Peripheral UUID.</param>
+      private void OnPilloDidDisconnect (string parameter) {
+        PilloFramework.onPilloDidDisconnect?.Invoke (parameter);
+      }
+
+      /// <summary>
       /// Method invoked by the native Pillo Framework when a Pillo has failed
       /// to connect.
       /// </summary>
@@ -85,7 +95,10 @@ namespace Hulan.Pillo.SDK {
       /// </summary>
       /// <param name="parameter">Containing the battery level.</param>
       private void OnBatteryLevelDidChange (string parameter) {
-        PilloFramework.onBatteryLevelDidChange?.Invoke (int.Parse (parameter));
+        var parts = parameter.Split ('~');
+        var identifier = parts[0];
+        var batteryLevel = int.Parse (parts[1]);
+        PilloFramework.onBatteryLevelDidChange?.Invoke (identifier, batteryLevel);
       }
 
       /// <summary>
@@ -94,7 +107,10 @@ namespace Hulan.Pillo.SDK {
       /// </summary>
       /// <param name="parameter">Containing the pressure.</param>
       private void OnPressureDidChange (string parameter) {
-        PilloFramework.onPressureDidChange?.Invoke (int.Parse (parameter));
+        var parts = parameter.Split ('~');
+        var identifier = parts[0];
+        var pressure = int.Parse (parts[1]);
+        PilloFramework.onPressureDidChange?.Invoke (identifier, pressure);
       }
 
 #if UNITY_EDITOR
@@ -107,7 +123,7 @@ namespace Hulan.Pillo.SDK {
         // event will be invoked.
         this.OnDidInitialize ();
         this.OnPilloDidConnect ("faux");
-        this.OnBatteryLevelDidChange ("100");
+        this.OnBatteryLevelDidChange ("faux~100");
       }
 
       /// <summary>
@@ -119,9 +135,9 @@ namespace Hulan.Pillo.SDK {
         // We'll use the Space bar to simulate the Pillo's Pressure
         // characteristic value change.
         if (Input.GetKeyDown (KeyCode.Space) == true) {
-          this.OnPressureDidChange ("255");
+          this.OnPressureDidChange ("faux~255");
         } else if (Input.GetKeyUp (KeyCode.Space) == true) {
-          this.OnPressureDidChange ("0");
+          this.OnPressureDidChange ("faux~0");
         }
       }
 #endif
