@@ -37,7 +37,7 @@ extern "C" {
       break;
     default:
       // When Bluetooth is not available, we'll just thrown a catch.
-      [self invokeUnityCallback:@"OnDidFailToInitialize" parameter:@"Bluetooth is not available."];
+      [self invokeUnityCallback:@"OnDidFailToInitialize" payload:@"Bluetooth is not available."];
       break;
   }
 }
@@ -67,17 +67,17 @@ extern "C" {
   // Once the Pillo Peripheral is connected, we'll start discovering Services.
   // We pass nil here to request all Services be discovered.
   [peripheral discoverServices:nil];
-  [self invokeUnityCallback:@"OnPilloDidConnect" parameter:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnDidConnect" payload:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when the Peripheral did disconnect.
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnPilloDidDisconnect" parameter:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnDidDisconnect" payload:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when the Peripheral did fail to connect.
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnPilloDidFailToConnect" parameter:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnDidFailToConnect" payload:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when a Service is discovered.
@@ -109,8 +109,8 @@ extern "C" {
     uint32_t rawBatteryLevel = 0;
     [rawData getBytes:&rawBatteryLevel length:sizeof(rawBatteryLevel)];
     NSNumber *batteryLevel = [[NSNumber alloc]initWithUnsignedInt:rawBatteryLevel];
-    NSString *parameter = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, batteryLevel];
-    [self invokeUnityCallback:@"OnBatteryLevelDidChange" parameter:parameter];
+    NSString *payload = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, batteryLevel];
+    [self invokeUnityCallback:@"OnBatteryLevelDidChange" payload:payload];
   }
   // When the Characteristic's UUID matches the pressure's Characteristic UUID,
   // we'll extract the value as its pressure which should contain an interger
@@ -119,8 +119,8 @@ extern "C" {
     uint32_t rawPressure = 0;
     [rawData getBytes:&rawPressure length:sizeof(rawPressure)];
     NSNumber *pressure = [[NSNumber alloc]initWithUnsignedInt:rawPressure];
-    NSString *parameter = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, pressure];
-    [self invokeUnityCallback:@"OnPressureDidChange" parameter:parameter];
+    NSString *payload = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, pressure];
+    [self invokeUnityCallback:@"OnPressureDidChange" payload:payload];
   }
 }
 
@@ -129,15 +129,15 @@ extern "C" {
 
 // Invokes a callback event on the Unity Scene to a specific Game Object.
 - (void)invokeUnityCallback:(NSString *)methodName {
-  [self invokeUnityCallback:methodName parameter:@""];
+  [self invokeUnityCallback:methodName payload:@""];
 }
 
 // Invokes a callback event on the Unity Scene to a specific Game Object with a
-// string parameter. This is the only type Unity accepts, to it might require
+// string payload. This is the only type Unity accepts, to it might require
 // a parse in order to be used.
-- (void)invokeUnityCallback:(NSString *)methodName parameter:(NSString *)parameter {
-  UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [parameter UTF8String]);
-  // NSLog(@"PILLO~ Invoking Unity Callback '%@' with param '%@'", methodName, parameter);
+- (void)invokeUnityCallback:(NSString *)methodName payload:(NSString *)payload {
+  UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [payload UTF8String]);
+  // NSLog(@"PILLO~ Invoking Unity Callback '%@' with param '%@'", methodName, payload);
 }
 
 @end

@@ -6,7 +6,7 @@ namespace Hulan.Pillo.SDK.Core {
   /// <summary>
   /// Containing the delegate definitions for the Pillo SDK.
   /// </summary>
-  public static class DelegateDefinitions {
+  public static class PilloInputDelegateDefinitions {
 
     /// <summary>
     /// Delegate invoked when the Framework has been initialized.
@@ -23,19 +23,19 @@ namespace Hulan.Pillo.SDK.Core {
     /// Delegate invoked when a Pillo has been connected.
     /// </summary>
     /// <param name="identifier">The identifier of the Pillo.</param>
-    public delegate void OnPilloDidConnect (string identifier);
+    public delegate void OnDidConnect (string identifier);
 
     /// <summary>
     /// Delegate invoked when a Pillo has been disconnected.
     /// </summary>
     /// <param name="identifier">The identifier of the Pillo.</param>
-    public delegate void OnPilloDidDisconnect (string identifier);
+    public delegate void OnDidDisconnect (string identifier);
 
     /// <summary>
     /// Delegate invoked when a Pillo has failed to connect.
     /// </summary>
     /// <param name="identifier">The identifier of the Pillo.</param>
-    public delegate void OnPilloDidFailToConnect (string identifier);
+    public delegate void OnDidFailToConnect (string identifier);
 
     /// <summary>
     /// Delegate invoked when the battery level has changed.
