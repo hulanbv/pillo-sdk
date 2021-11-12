@@ -12,6 +12,10 @@ using System.Linq;
 
 namespace Hulan.Pillo.SDK.InputSystemDevice {
 
+  // https://wilcoboode.com/2020/04/16/elementor-86/
+  // https://github.com/Unity-Technologies/InputSystem/blob/develop/Packages/com.unity.inputsystem/Documentation~/Devices.md
+  // https://github.com/Unity-Technologies/InputSystem/blob/develop/Packages/com.unity.inputsystem/InputSystem/Plugins/DualShock/DualShockGamepadHID.cs
+
   // InputControlLayoutAttribute attribute is only necessary if you want to 
   // override default behavior that occurs when registering your device as a 
   // layout. The most common use of InputControlLayoutAttribute is to direct the 
