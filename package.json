@@ -8,5 +8,8 @@
   "hideInEditor": false,
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk-package",
   "changelogUrl": "https://github.com/hulanbv/pillo-sdk-package/releases",
-  "licensesUrl": "https://github.com/hulanbv/pillo-sdk-package/blob/master/LICENSE.md"
+  "licensesUrl": "https://github.com/hulanbv/pillo-sdk-package/blob/master/LICENSE.md",
+  "dependencies": {
+    "com.unity.inputsystem": "0.0.0"
+  }
 }

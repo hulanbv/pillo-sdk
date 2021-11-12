@@ -102,11 +102,11 @@ namespace Hulan.Pillo.SDK.Core {
     private void Update () {
       // We'll use the Space bar to simulate the Pillo's Pressure
       // characteristic value change.
-      if (Input.GetKeyDown (KeyCode.Space) == true) {
-        this.OnPressureDidChange ("faux~255");
-      } else if (Input.GetKeyUp (KeyCode.Space) == true) {
-        this.OnPressureDidChange ("faux~0");
-      }
+      // if (Input.GetKeyDown (KeyCode.Space) == true) {
+      //   this.OnPressureDidChange ("faux~255");
+      // } else if (Input.GetKeyUp (KeyCode.Space) == true) {
+      //   this.OnPressureDidChange ("faux~0");
+      // }
     }
 #endif
 
