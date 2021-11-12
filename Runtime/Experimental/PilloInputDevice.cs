@@ -1,10 +1,14 @@
 #if PILLO_SDK_UNITY_INPUTSYSTEM
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.LowLevel;
+
+#if UNITY_EDITOR
+using UnityEditor;
+using System.Linq;
+#endif
 
 namespace Hulan.Pillo.SDK.InputSystemDevice {
 
@@ -15,7 +19,8 @@ namespace Hulan.Pillo.SDK.InputSystemDevice {
   [InputControlLayout (displayName = "Pillo", stateType = typeof (PilloInputDeviceState))]
   public class PilloInputDevice : InputDevice, IInputUpdateCallbackReceiver {
 
-    // public AxisControl pressure { get; private set; }
+    public ButtonControl hugGentlyButton { get; private set; }
+    public ButtonControl hugFirmlyButton { get; private set; }
 
     // The Input System calls this method after it constructs the Device,
     // but before it adds the device to the system. Do any last-minute setup
@@ -23,20 +28,61 @@ namespace Hulan.Pillo.SDK.InputSystemDevice {
     protected override void FinishSetup () {
       base.FinishSetup ();
 
-      // NOTE: The Input System creates the Controls automatically.
-      //       This is why don't do `new` here but rather just look
-      //       the Controls up.
-      // pressure = GetChildControl<AxisControl> ("pressure");
+      this.hugGentlyButton = this.GetChildControl<ButtonControl> ("hugGently");
+      this.hugFirmlyButton = this.GetChildControl<ButtonControl> ("hugFirmly");
     }
 
     public void OnUpdate () {
       // In practice, this would read out data from an external
       // API. This example uses some empty input.
       var state = new PilloInputDeviceState ();
-      state.pressure = (ushort)Random.Range (0, 255);
+      state.press = (ushort)Random.Range (0, 255);
       InputSystem.QueueStateEvent (this, state);
     }
+
+#if UNITY_EDITOR
+    [MenuItem ("Pillo SDK/Input System/Register Layout")]
+    private static void PilloSDKInputSystemRegisterLayout () {
+      var pilloInputDeviceMatcher = new InputDeviceMatcher ()
+        .WithInterface ("Pillo HID")
+        .WithProduct ("Pillo")
+        .WithManufacturer ("Hulan");
+      InputSystem.RegisterLayout<PilloInputDevice> ();
+      InputSystem.RegisterLayoutMatcher<PilloInputDevice> (pilloInputDeviceMatcher);
+    }
+
+    [MenuItem ("Pillo SDK/Input System/Add Virtual Device")]
+    private static void PilloSDKInputSystemAddVirtualDevice () {
+      // Adds a new device which matches the device description of the Pillo
+      // Input Device.
+      InputSystem.AddDevice (new InputDeviceDescription {
+        interfaceName = "Pillo HID",
+        product = "Pillo",
+        manufacturer = "Hulan",
+        // The serial indicated which Pillo is connected.
+        serial = "PILLO_HID_VIRTUAL",
+      });
+    }
+
+    [MenuItem ("Pillo SDK/Input System/Remove Virtual Device")]
+    private static void PilloSDKInputSystemRemoveVirtualDevice () {
+      // Removed a device which matches the device description of the Pillo
+      // Input Device.
+      var pilloInputDeviceDescription = new InputDeviceDescription {
+        interfaceName = "Pillo HID",
+        product = "Pillo",
+        manufacturer = "Hulan",
+        // The serial indicated which Pillo is connected.
+        serial = "PILLO_HID_VIRTUAL"
+      };
+      // If a device matches the description, remove it.
+      var device = InputSystem.devices.FirstOrDefault (
+        device => device.description == pilloInputDeviceDescription);
+      if (device != null) {
+        InputSystem.RemoveDevice (device);
+      }
+    }
+#endif
   }
 }
-
 #endif

@@ -1,5 +1,4 @@
 #if PILLO_SDK_UNITY_INPUTSYSTEM
-
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.LowLevel;
@@ -17,12 +16,9 @@ namespace Hulan.Pillo.SDK.InputSystemDevice {
     // recognize memory that belongs to your own Device.
     public FourCC format => new FourCC ('P', 'I', 'L', '0');
 
-    // Create a floating-point axis which contains the pressure which should
-    // contain a value from 0 to 255.
-    // TODO for some reason this doesn't appear in the Input System
-    [InputControl (layout = "axis", name = "Pressure")]
-    public ushort pressure;
+    [InputControl(name = "hugGently", layout = "Button", bit = 0, displayName = "Hug Gently")]
+    [InputControl(name = "hugFirmly", layout = "Button", bit = 1, displayName = "Hug Firmly")]
+    public ushort hug;
   }
 }
-
 #endif
