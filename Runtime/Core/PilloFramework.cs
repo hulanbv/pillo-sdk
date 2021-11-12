@@ -16,7 +16,8 @@ namespace Hulan.Pillo.SDK.Core {
     /// Framework. This initializes the Pillo Framework and sets up the
     /// connection to the Pillo Peripherals.
     /// </summary>
-    [DllImport ("__Internal")] private static extern void PilloFrameworkInitialize ();
+    [DllImport ("__Internal")]
+    private static extern void PilloFrameworkInitialize ();
 
     /// <summary>
     /// Invoked when the Runtime Application initializes and is loaded. This
