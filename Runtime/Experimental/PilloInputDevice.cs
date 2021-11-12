@@ -36,7 +36,7 @@ namespace Hulan.Pillo.SDK.InputSystemDevice {
       // In practice, this would read out data from an external
       // API. This example uses some empty input.
       var state = new PilloInputDeviceState ();
-      state.press = (ushort)Random.Range (0, 255);
+      // state.press = (ushort)Random.Range (0, 255);
       InputSystem.QueueStateEvent (this, state);
     }
 

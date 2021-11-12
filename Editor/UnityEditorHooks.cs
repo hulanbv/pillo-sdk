@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.iOS.Xcode;
 using System.IO;
 
-namespace Hulan.Pillo.Editor {
+namespace Hulan.Pillo.SDK.Editor {
   public static class UnityEditorHooks {
 
     /// <summary>
