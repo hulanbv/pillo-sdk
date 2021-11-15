@@ -33,11 +33,11 @@ extern "C" {
     case CBManagerStatePoweredOn:
       // When Bluetooth is available, we'll start scanning for Peripherals.
       [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-      [self invokeUnityCallback:@"OnDidInitialize"];
+      [self invokeUnityCallback:@"OnCentralDidInitialize"];
       break;
     default:
       // When Bluetooth is not available, we'll just thrown a catch.
-      [self invokeUnityCallback:@"OnDidFailToInitialize" payload:@"Bluetooth is not available."];
+      [self invokeUnityCallback:@"OnCentralDidFailToInitialize" payload:@"Bluetooth is not available."];
       break;
   }
 }
@@ -67,17 +67,17 @@ extern "C" {
   // Once the Pillo Peripheral is connected, we'll start discovering Services.
   // We pass nil here to request all Services be discovered.
   [peripheral discoverServices:nil];
-  [self invokeUnityCallback:@"OnDeviceDidConnect" payload:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnPeripheralDidConnect" payload:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when the Peripheral did disconnect.
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnDeviceDidDisconnect" payload:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnPeripheralDidDisconnect" payload:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when the Peripheral did fail to connect.
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnDeviceDidFailToConnect" payload:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnPeripheralDidFailToConnect"];
 }
 
 // Delegate Method invoked when a Service is discovered.
@@ -110,7 +110,7 @@ extern "C" {
     [rawData getBytes:&rawBatteryLevel length:sizeof(rawBatteryLevel)];
     NSNumber *batteryLevel = [[NSNumber alloc]initWithUnsignedInt:rawBatteryLevel];
     NSString *payload = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, batteryLevel];
-    [self invokeUnityCallback:@"OnDeviceBatteryLevelDidChange" payload:payload];
+    [self invokeUnityCallback:@"OnPeripheralBatteryLevelDidChange" payload:payload];
   }
   // When the Characteristic's UUID matches the pressure's Characteristic UUID,
   // we'll extract the value as its pressure which should contain an interger
@@ -120,7 +120,7 @@ extern "C" {
     [rawData getBytes:&rawPressure length:sizeof(rawPressure)];
     NSNumber *pressure = [[NSNumber alloc]initWithUnsignedInt:rawPressure];
     NSString *payload = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, pressure];
-    [self invokeUnityCallback:@"OnDevicePressureDidChange" payload:payload];
+    [self invokeUnityCallback:@"OnPeripheralPressureDidChange" payload:payload];
   }
 }
 

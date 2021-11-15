@@ -27,38 +27,6 @@ namespace Hulan.Pillo.SDK.Editor {
       // Writes the Info PList back to the Xcode project.
       File.WriteAllText (plistPath, plist.WriteToString ());
     }
-
-    [MenuItem ("Pillo SDK/Input System/Simulate OnDeviceDidConnect (1)")]
-    private static void SimulateOnDeviceDidConnect1 () {
-      if (Application.isPlaying == true) {
-        var pilloFrameworkCallbackListener = GameObject.FindObjectOfType<PilloFrameworkCallbackListener> ();
-        pilloFrameworkCallbackListener.OnDeviceDidConnect ("faux-pillo-1");
-      }
-    }
-
-    [MenuItem ("Pillo SDK/Input System/Simulate OnDeviceDidConnect (2)")]
-    private static void SimulateOnDeviceDidConnect2 () {
-      if (Application.isPlaying == true) {
-        var pilloFrameworkCallbackListener = GameObject.FindObjectOfType<PilloFrameworkCallbackListener> ();
-        pilloFrameworkCallbackListener.OnDeviceDidConnect ("faux-pillo-2");
-      }
-    }
-
-    [MenuItem ("Pillo SDK/Input System/Simulate OnDeviceDidDisconnect (1)")]
-    private static void SimulateOnDeviceDidDisconnect1 () {
-      if (Application.isPlaying == true) {
-        var pilloFrameworkCallbackListener = GameObject.FindObjectOfType<PilloFrameworkCallbackListener> ();
-        pilloFrameworkCallbackListener.OnDeviceDidDisconnect ("faux-pillo-1");
-      }
-    }
-
-    [MenuItem ("Pillo SDK/Input System/Simulate OnDeviceDidDisconnect (2)")]
-    private static void SimulateOnDeviceDidDisconnect2 () {
-      if (Application.isPlaying == true) {
-        var pilloFrameworkCallbackListener = GameObject.FindObjectOfType<PilloFrameworkCallbackListener> ();
-        pilloFrameworkCallbackListener.OnDeviceDidDisconnect ("faux-pillo-2");
-      }
-    }
   }
 }
 #endif

@@ -19,8 +19,8 @@ namespace Hulan.Pillo.SDK.Core.Framework {
     /// Method invoked by the native Pillo Framework when it has been 
     /// initialized.
     /// </summary>
-    internal void OnDidInitialize () {
-      PilloInput.OnDidInitialize ();
+    internal void OnCentralDidInitialize () {
+      PilloInput.OnCentralDidInitialize ();
     }
 
     /// <summary>
@@ -28,8 +28,8 @@ namespace Hulan.Pillo.SDK.Core.Framework {
     /// initialize.
     /// </summary>
     /// <param name="payload">Contaning the reason.</param>
-    internal void OnDidFailToInitialize (string payload) {
-      PilloInput.OnDidFailToInitialize (payload);
+    internal void OnCentralDidFailToInitialize (string payload) {
+      PilloInput.OnCentralDidFailToInitialize (payload);
     }
 
     /// <summary>
@@ -37,8 +37,8 @@ namespace Hulan.Pillo.SDK.Core.Framework {
     /// connected.
     /// </summary>
     /// <param name="payload">Contaning the Peripheral UUID.</param>
-    internal void OnDeviceDidConnect (string payload) {
-      PilloInput.OnDeviceDidConnect (payload);
+    internal void OnPeripheralDidConnect (string payload) {
+      PilloInput.OnPeripheralDidConnect (payload);
     }
 
     /// <summary>
@@ -46,17 +46,16 @@ namespace Hulan.Pillo.SDK.Core.Framework {
     /// disconnected.
     /// </summary>
     /// <param name="payload">Contaning the Peripheral UUID.</param>
-    internal void OnDeviceDidDisconnect (string payload) {
-      PilloInput.OnDeviceDidDisconnect (payload);
+    internal void OnPeripheralDidDisconnect (string payload) {
+      PilloInput.OnPeripheralDidDisconnect (payload);
     }
 
     /// <summary>
     /// Method invoked by the native Pillo Framework when a Pillo has failed
     /// to connect.
     /// </summary>
-    /// <param name="payload">Contaning the Peripheral UUID.</param>
-    internal void OnDeviceDidFailToConnect (string payload) {
-      PilloInput.OnDeviceDidFailToConnect (payload);
+    internal void OnPeripheralDidFailToConnect () {
+      PilloInput.OnPeripheralDidFailToConnect ();
     }
 
     /// <summary>
@@ -64,11 +63,11 @@ namespace Hulan.Pillo.SDK.Core.Framework {
     /// has changed.
     /// </summary>
     /// <param name="payload">Containing the battery level.</param>
-    internal void OnDeviceBatteryLevelDidChange (string payload) {
+    internal void OnPeripheralBatteryLevelDidChange (string payload) {
       var parts = payload.Split ('~');
       var identifier = parts[0];
       var batteryLevel = int.Parse (parts[1]);
-      PilloInput.OnBatteryLevelDidChange (identifier, batteryLevel);
+      PilloInput.OnPeripheralBatteryLevelDidChange (identifier, batteryLevel);
     }
 
     /// <summary>
@@ -76,11 +75,11 @@ namespace Hulan.Pillo.SDK.Core.Framework {
     /// Peripherals's pressure has ben changed.
     /// </summary>
     /// <param name="payload">Containing the pressure.</param>
-    internal void OnDevicePressureDidChange (string payload) {
+    internal void OnPeripheralPressureDidChange (string payload) {
       var parts = payload.Split ('~');
       var identifier = parts[0];
       var pressure = int.Parse (parts[1]);
-      PilloInput.OnPressureDidChange (identifier, pressure);
+      PilloInput.OnPeripheralPressureDidChange (identifier, pressure);
     }
 
     /// <summary>

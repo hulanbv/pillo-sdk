@@ -13,36 +13,35 @@ namespace Hulan.Pillo.SDK.Core {
     /// <summary>
     /// Delegate invoked when the Framework has been initialized.
     /// </summary>
-    public delegate void OnDidInitialize ();
+    public delegate void OnCentralDidInitialize ();
 
     /// <summary>
     /// Delegate invoked when the Framework has failed to initialize.
     /// </summary>
     /// <param name="reason">The reason why it failed.</param>
-    public delegate void OnDidFailToInitialize (string reason);
+    public delegate void OnCentralDidFailToInitialize (string reason);
 
     /// <summary>
-    /// Delegate invoked when a device has been connected.
+    /// Delegate invoked when a Pillo Input Device has been connected.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    public delegate void OnDeviceDidConnect (PilloInputDevice pilloInputDevice);
+    public delegate void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice);
 
     /// <summary>
-    /// Delegate invoked when a device has been disconnected.
+    /// Delegate invoked when a Pillo Input Device has been disconnected.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    public delegate void OnDeviceDidDisconnect (PilloInputDevice pilloInputDevice);
+    public delegate void OnPilloInputDeviceDidDisconnect (PilloInputDevice pilloInputDevice);
 
     /// <summary>
-    /// Delegate invoked when a device has failed to connect.
+    /// Delegate invoked when a Pillo Input Device has failed to connect.
     /// </summary>
-    /// <param name="identifier">The identifier of the Pillo.</param>
-    public delegate void OnDeviceDidFailToConnect (string identifier);
+    public delegate void OnPilloInputDeviceDidFailToConnect ();
 
     /// <summary>
-    /// Delegate invoked when the Pillo's state did change.
+    /// Delegate invoked when the Pillo Input Device's state did change.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    public delegate void OnDeviceStateDidChange (PilloInputDevice pilloInputDevice);
+    public delegate void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice);
   }
 }

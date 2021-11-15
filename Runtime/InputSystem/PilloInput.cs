@@ -15,104 +15,108 @@ namespace Hulan.Pillo.SDK.InputSystem {
   public static class PilloInput {
 
     /// <summary>
-    /// Delegate invoked when the Framework has been initialized.
+    /// Delegate invoked when the Central has been initialized.
     /// </summary>
-    public static PilloInputDelegate.OnDidInitialize onDidInitialize;
+    public static PilloInputDelegate.OnCentralDidInitialize onCentralDidInitialize;
 
     /// <summary>
-    /// Delegate invoked when the Framework has failed to initialize.
+    /// Delegate invoked when the Central has failed to initialize.
     /// </summary>
-    public static PilloInputDelegate.OnDidFailToInitialize onDidFailToInitialize;
+    public static PilloInputDelegate.OnCentralDidFailToInitialize onCentralDidFailToInitialize;
 
     /// <summary>
-    /// Delegate invoked when a Pillo has been connected.
+    /// Delegate invoked when a Pillo Input Device has been connected.
     /// </summary>
-    public static PilloInputDelegate.OnDeviceDidConnect onDeviceDidConnect;
+    public static PilloInputDelegate.OnPilloInputDeviceDidConnect onPilloInputDeviceDidConnect;
 
     /// <summary>
-    /// Delegate invoked when a Pillo has been disconnected.
+    /// Delegate invoked when a Pillo Input Device has been disconnected.
     /// </summary>
-    public static PilloInputDelegate.OnDeviceDidDisconnect onDeviceDidDisconnect;
+    public static PilloInputDelegate.OnPilloInputDeviceDidDisconnect onPilloInputDeviceDidDisconnect;
 
     /// <summary>
     /// Delegate invoked when a Pillo Input Device has failed to connect.
     /// </summary>
-    public static PilloInputDelegate.OnDeviceDidFailToConnect onDeviceDidFailToConnect;
+    public static PilloInputDelegate.OnPilloInputDeviceDidFailToConnect onPilloInputDeviceDidFailToConnect;
 
     /// <summary>
     /// Delegate invoked when the Pillo Input Device's state did changed.
     /// </summary>
-    public static PilloInputDelegate.OnDeviceStateDidChange onDeviceStateDidChange;
+    public static PilloInputDelegate.OnPilloInputDeviceStateDidChange onPilloInputDeviceStateDidChange;
 
     /// <summary>
     /// A list of connected Pillo Input Devices.
     /// </summary>
-    public static readonly List<PilloInputDevice> connections = new List<PilloInputDevice> ();
+    public static readonly List<PilloInputDevice> pilloInputDevices = new List<PilloInputDevice> ();
 
     /// <summary>
     /// The number of connected Pillo Input Devices.
     /// </summary>
-    public static int connectionCount {
+    public static int pilloInputDeviceCount {
       get {
-        return PilloInput.connections.Count;
+        return PilloInput.pilloInputDevices.Count;
       }
     }
 
     private static PilloInputDevice GetPilloInputDevice (string identifier) {
-      foreach (var connection in PilloInput.connections) {
-        if (connection.identifier == identifier) {
-          return connection;
+      foreach (var pilloInputDevice in PilloInput.pilloInputDevices) {
+        if (pilloInputDevice.identifier == identifier) {
+          return pilloInputDevice;
         }
       }
       return null;
     }
 
     private static void ReassignPilloInputDevicePlayerIndexes () {
-      for (var i = 0; i < PilloInput.connections.Count; i++) {
-        PilloInput.connections[i].playerIndex = i;
+      for (var i = 0; i < PilloInput.pilloInputDevices.Count; i++) {
+        PilloInput.pilloInputDevices[i].playerIndex = i;
       }
     }
 
-    internal static void OnDidInitialize () { }
+    internal static void OnCentralDidInitialize () {
+      PilloInput.onCentralDidInitialize?.Invoke ();
+    }
 
-    internal static void OnDidFailToInitialize (string reason) { }
+    internal static void OnCentralDidFailToInitialize (string reason) {
+      PilloInput.onCentralDidFailToInitialize?.Invoke (reason);
+    }
 
-    internal static void OnDeviceDidConnect (string identifier) {
+    internal static void OnPeripheralDidConnect (string identifier) {
       var pilloInputDevice = PilloInput.GetPilloInputDevice (identifier);
       if (pilloInputDevice == null) {
         pilloInputDevice = new PilloInputDevice (identifier);
-        PilloInput.connections.Add (pilloInputDevice);
+        PilloInput.pilloInputDevices.Add (pilloInputDevice);
       }
       PilloInput.ReassignPilloInputDevicePlayerIndexes ();
-      PilloInput.onDeviceDidConnect?.Invoke (pilloInputDevice);
+      PilloInput.onPilloInputDeviceDidConnect?.Invoke (pilloInputDevice);
     }
 
-    internal static void OnDeviceDidDisconnect (string identifier) {
+    internal static void OnPeripheralDidDisconnect (string identifier) {
       var pilloInputDevice = PilloInput.GetPilloInputDevice (identifier);
       if (pilloInputDevice != null) {
-        PilloInput.connections.Remove (pilloInputDevice);
+        PilloInput.pilloInputDevices.Remove (pilloInputDevice);
         PilloInput.ReassignPilloInputDevicePlayerIndexes ();
-        PilloInput.onDeviceDidDisconnect?.Invoke (pilloInputDevice);
+        PilloInput.onPilloInputDeviceDidDisconnect?.Invoke (pilloInputDevice);
       }
     }
 
-    internal static void OnDeviceDidFailToConnect (string identifier) {
-      PilloInput.onDeviceDidFailToConnect?.Invoke (identifier);
+    internal static void OnPeripheralDidFailToConnect () {
+      PilloInput.onPilloInputDeviceDidFailToConnect?.Invoke ();
     }
 
-    internal static void OnBatteryLevelDidChange (string identifier, int batteryLevel) {
+    internal static void OnPeripheralBatteryLevelDidChange (string identifier, int batteryLevel) {
       var pilloInputDevice = PilloInput.GetPilloInputDevice (identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.batteryLevel = batteryLevel;
-        PilloInput.onDeviceStateDidChange?.Invoke (pilloInputDevice);
+        PilloInput.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
       }
     }
 
-    internal static void OnPressureDidChange (string identifier, int pressure) {
+    internal static void OnPeripheralPressureDidChange (string identifier, int pressure) {
       var pilloInputDevice = PilloInput.GetPilloInputDevice (identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.pressure = pressure;
-        PilloInput.onDeviceStateDidChange?.Invoke (pilloInputDevice);
+        PilloInput.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
       }
     }
 
