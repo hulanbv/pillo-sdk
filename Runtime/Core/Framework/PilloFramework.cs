@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-// Pillo Framework Unity SDK
+// Unity Engine Pillo SDK Core Framework
 // Author: Jeffrey Lanters at Hulan
 
 namespace Hulan.Pillo.SDK.Core.Framework {

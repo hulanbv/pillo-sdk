@@ -1,7 +1,7 @@
 using UnityEngine;
 using Hulan.Pillo.SDK.InputSystem;
 
-// Pillo SDK for Unity
+// Unity Engine Pillo SDK Core Framework
 // Author: Jeffrey Lanters at Hulan
 
 namespace Hulan.Pillo.SDK.Core.Framework {

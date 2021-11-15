@@ -1,4 +1,7 @@
-namespace Hulan.Pillo.SDK.InputSystem {
+// Unity Engine Pillo SDK Core
+// Author: Jeffrey Lanters at Hulan
+
+namespace Hulan.Pillo.SDK.Core {
 
   /// <summary>
   /// The State of a Pillo Input Device.
@@ -30,8 +33,8 @@ namespace Hulan.Pillo.SDK.InputSystem {
 
     /// <summary>
     /// The Pillo Input Device's charging state.
-    /// TODO Implement this after the new Pillo Hardware arrives.
+    /// TODO Implement this!
     /// </summary>
-    public bool isCharging { internal set; get; } = false;
+    public PilloInputDeviceChargingState chargingState { internal set; get; } = PilloInputDeviceChargingState.UNKNOWN;
   }
 }

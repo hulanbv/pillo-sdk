@@ -18,12 +18,17 @@ The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware 
 - Apple iPhone running iOS 5.0 or later
 - Apple iPad running iPadOS 5.0 or later
 
-#### Getting Started
+#### Input System
 
-Get started by installing this package in your Unity project and Switching the build platform to Apple TV. Get started by importing the Pillo SDK Namespace.
+Get started by installing this package in your Unity project and Switching the build platform to Apple TV. Get started by importing the Pillo SDK Input System Namespace. Importing this namespace will expose the `PilloInput` class which contains all the methods, properties delegates of the Pillo SDK Input System.
 
 ```csharp
-using Hulan.Pillo.SDK;
+using Hulan.Pillo.SDK.InputSystem;
+// PilloInput is now available
+```
+
+```csharp
+PilloInput.onCentralDidInitialize
 ```
 
 ## Development

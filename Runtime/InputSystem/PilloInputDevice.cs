@@ -1,3 +1,8 @@
+using Hulan.Pillo.SDK.Core;
+
+// Unity Engine Pillo SDK Input System
+// Author: Jeffrey Lanters at Hulan
+
 namespace Hulan.Pillo.SDK.InputSystem {
 
   /// <summary>
@@ -11,6 +16,21 @@ namespace Hulan.Pillo.SDK.InputSystem {
     /// <param name="identifier">The bluetooth peripheral identifier.</param>
     public PilloInputDevice (string identifier) {
       this.identifier = identifier;
+    }
+
+    /// <summary>
+    /// Powers of the Pillo Input Device.
+    /// </summary>
+    public void PowerOff () {
+      // TODO Implement this!
+    }
+
+    /// <summary>
+    /// Sets the maximum pressure value of the Pillo Input Device.
+    /// </summary>
+    /// <param name="maxPressureValue">The maximum pressure value.</param>
+    public void SetMaximumPressure (int maximumPressureValue) {
+      // TODO Implement this!
     }
   }
 }

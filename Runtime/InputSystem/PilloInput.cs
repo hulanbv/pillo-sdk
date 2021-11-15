@@ -3,7 +3,7 @@ using Hulan.Pillo.SDK.Core;
 using UnityEngine;
 using System.Collections.Generic;
 
-// Pillo Framework Unity SDK
+// Unity Engine Pillo SDK Input System
 // Author: Jeffrey Lanters at Hulan
 
 namespace Hulan.Pillo.SDK.InputSystem {
@@ -118,10 +118,6 @@ namespace Hulan.Pillo.SDK.InputSystem {
         pilloInputDevice.pressure = pressure;
         PilloInput.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
       }
-    }
-
-    public static void DisconnectDevice (string pilloInputDeviceIdentifier) {
-      // TODO Implement this after the new Pillo Hardware arrives.
     }
   }
 }
