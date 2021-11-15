@@ -4,12 +4,12 @@ using UnityEngine;
 // Pillo Framework Unity SDK
 // Author: Jeffrey Lanters at Hulan
 
-namespace Hulan.Pillo.SDK.Core {
+namespace Hulan.Pillo.SDK.Core.Framework {
 
   /// <summary>
-  /// Containing the delegate definitions for the Pillo SDK.
+  /// Pillo Framework is responsible for setting up native bindings.
   /// </summary>
-  public static class PilloFramework {
+  internal class PilloFramework {
 
     /// <summary>
     /// Exposed method which invoked a native method from within the Pillo

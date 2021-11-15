@@ -67,17 +67,17 @@ extern "C" {
   // Once the Pillo Peripheral is connected, we'll start discovering Services.
   // We pass nil here to request all Services be discovered.
   [peripheral discoverServices:nil];
-  [self invokeUnityCallback:@"OnDidConnect" payload:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnDeviceDidConnect" payload:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when the Peripheral did disconnect.
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnDidDisconnect" payload:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnDeviceDidDisconnect" payload:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when the Peripheral did fail to connect.
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnDidFailToConnect" payload:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnDeviceDidFailToConnect" payload:peripheral.identifier.UUIDString];
 }
 
 // Delegate Method invoked when a Service is discovered.
@@ -110,7 +110,7 @@ extern "C" {
     [rawData getBytes:&rawBatteryLevel length:sizeof(rawBatteryLevel)];
     NSNumber *batteryLevel = [[NSNumber alloc]initWithUnsignedInt:rawBatteryLevel];
     NSString *payload = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, batteryLevel];
-    [self invokeUnityCallback:@"OnBatteryLevelDidChange" payload:payload];
+    [self invokeUnityCallback:@"OnDeviceBatteryLevelDidChange" payload:payload];
   }
   // When the Characteristic's UUID matches the pressure's Characteristic UUID,
   // we'll extract the value as its pressure which should contain an interger
@@ -120,7 +120,7 @@ extern "C" {
     [rawData getBytes:&rawPressure length:sizeof(rawPressure)];
     NSNumber *pressure = [[NSNumber alloc]initWithUnsignedInt:rawPressure];
     NSString *payload = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, pressure];
-    [self invokeUnityCallback:@"OnPressureDidChange" payload:payload];
+    [self invokeUnityCallback:@"OnDevicePressureDidChange" payload:payload];
   }
 }
 
