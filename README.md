@@ -115,7 +115,11 @@ public delegate void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInp
 
 #### Pillo Input Properties
 
-Use the `pilloInputDevices` and `pilloInputDevicesCount` respectively properties to get a list of connected Pillo Input Devices.
+**pilloInputDevices**
+
+> Available since version 2.0.0
+
+Use the `pilloInputDevices` and `pilloInputDevicesCount` respectively to get a list of connected Pillo Input Devices.
 
 ```csharp
 for (var i = 0; i < PilloInput.pilloInputDevicesCount; i++) {
@@ -128,7 +132,7 @@ for (var i = 0; i < PilloInput.pilloInputDevicesCount; i++) {
 
 **PowerOff**
 
-> Available since version 2.0.0
+> Available since version 2.1.0
 
 Turns off the Pillo Input Device.
 
@@ -138,7 +142,7 @@ public void PowerOff ();
 
 **SetMaximumPressure**
 
-> Available since version 2.0.0
+> Available since version 2.1.0
 
 Sets the maximum pressure value of the Pillo Input Device.
 
