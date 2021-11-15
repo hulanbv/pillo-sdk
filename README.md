@@ -12,7 +12,9 @@ Install the latest stable release using the Unity Package Manager by adding the 
 
 ## Documentation
 
-The Pillo SDK includes a Framework which allows the developer to interact with the Pillo hardware on an AppleTV using a Unity project.
+The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware on the following platforms:
+
+- AppleTV running tvOS 9.0 or later
 
 #### Getting Started
 
