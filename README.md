@@ -33,9 +33,23 @@ $ cd MyUnityProject/Packages
 $ git clone https://github.com/hulanbv/pillo-sdk-package pillo-sdk-package
 ```
 
+#### Termology
+
+The new Pillos communicate over BLE, this stands for Bluetooth Low Energy. The "Wokkel" developed by Vention provides an implementation which exposes various Services and Characteristics over this protocol.
+
+In Bluetooth-speak, the device that has the data is referred to as the Peripheral, and the device that wants the data contained in the Peripheral is known as the Central. In case of a Pillo app, this means that typically the iPhone, iPad or AppleTV app we are developing will be the Central, interacting with one or more Peripherals to glean information that can then be processed, analyzed, or stored in some meaningful fashion.
+
+An app using the Pillo SDK will act as a Central, we will want to know how to get the data we’re interested in out of the Peripheral. This is where Services and Characteristics come into play. You can think of Characteristics somewhat as being like properties of your device which and be read from and written to, and a Service is a collection of characteristics. A Peripheral can (and usually does) contain multiple services that we inspect to determine what characteristics are available with which to interact.
+
+Before you can read from or write to values on the device, you need to Discover it. As it turns out, if a Pillo is turned on and is in range, it periodically sends out a little signal that lets interested parties know that it’s alive and kicking. This process is known as Advertising, and the time between signals is known as the “advertising interval.”
+
+The Pillo SDK listens for those advertisements, and it will specify exactly which Services it is interested in. When going through its discovery phase, the SDK will find Pillos in the area that support the desired Services. This is very important, because the number of Bluetooth LE devices in existence, and which could potentially be in our vicinity, is constantly increasing. Therefore, it is helpful to let the framework weed out the devices that are not broadcasting the types of services we are interested in.
+
+On iOS and TVOS the Core Bluetooth framework provides the classes needed for your apps to communicate with Bluetooth-equipped low energy (LE) and Basic Rate / Enhanced Data Rate (BR/EDR) wireless technology.
+
 #### Structure
 
-...
+TODO ...
 
 ## Creating Releases
 
