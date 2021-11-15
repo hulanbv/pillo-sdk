@@ -214,9 +214,9 @@ Service for monitoring charge state.
 
 Service for sending commands.
 
-| name         | Service                              | Characteristic                       | Type      | Accessibility | Value                                                           |
-| ------------ | ------------------------------------ | ------------------------------------ | --------- | ------------- | --------------------------------------------------------------- |
-| Charge Value | 6ACCCABD-1728-4697-9B4A-BF25ECCA14AA | A9147E1F-E91F-4A02-B6E4-2869E0FE69BB | 1-5 Bytes | Write         | uint8_t, uint8_t[] 0x01:max_pressure_value 0x0F:turn_device_off |
+| name    | Service                              | Characteristic                       | Type      | Accessibility | Value                                                           |
+| ------- | ------------------------------------ | ------------------------------------ | --------- | ------------- | --------------------------------------------------------------- |
+| Command | 6ACCCABD-1728-4697-9B4A-BF25ECCA14AA | A9147E1F-E91F-4A02-B6E4-2869E0FE69BB | 1-5 Bytes | Write         | uint8_t, uint8_t[] 0x01:max_pressure_value 0x0F:turn_device_off |
 
 #### Structure
 
