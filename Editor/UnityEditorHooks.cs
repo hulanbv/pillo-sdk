@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR && UNITY_TVOS
+﻿#if UNITY_EDITOR && (UNITY_TVOS || UNITY_IOS)
 using UnityEditor.Callbacks;
 using UnityEditor;
 using UnityEditor.iOS.Xcode;
