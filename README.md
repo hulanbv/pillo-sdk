@@ -24,7 +24,7 @@ Get started by installing this package in your Unity project and Switching the b
 using Hulan.Pillo.SDK;
 ```
 
-## Development Usage
+## Development
 
 To contribute to the Pillo SDK package, create a new Unity Project and close this repository inside of the packages folder as following. This clones the Package as a development package inside of your Unity project. It will appear as a normal packages within the Unity Editor, but is editable. When any of the files within the Assembly Definition are changed, it will be recompiled and reimported.
 
@@ -46,6 +46,19 @@ Before you can read from or write to values on the device, you need to Discover 
 The Pillo SDK listens for those advertisements, and it will specify exactly which Services it is interested in. When going through its discovery phase, the SDK will find Pillos in the area that support the desired Services. This is very important, because the number of Bluetooth LE devices in existence, and which could potentially be in our vicinity, is constantly increasing. Therefore, it is helpful to let the framework weed out the devices that are not broadcasting the types of services we are interested in.
 
 On iOS and TVOS the Core Bluetooth framework provides the classes needed for your apps to communicate with Bluetooth-equipped low energy (LE) and Basic Rate / Enhanced Data Rate (BR/EDR) wireless technology.
+
+#### Pillo BLE GATT profiles
+
+###### BAS (battery)
+
+Generic service for monitoring battery state.
+
+Service_UUID: 180f
+Battery level: 2a19
+1 Byte, Read & Notify
+
+- uint8_t battery_level:
+  - 0-100
 
 #### Structure
 
