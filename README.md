@@ -18,17 +18,132 @@ The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware 
 - Apple iPhone running iOS 5.0 or later
 - Apple iPad running iPadOS 5.0 or later
 
-#### Input System
+#### Getting Started using the Input System
 
-Get started by installing this package in your Unity project and Switching the build platform to Apple TV. Get started by importing the Pillo SDK Input System Namespace. Importing this namespace will expose the `PilloInput` class which contains all the methods, properties delegates of the Pillo SDK Input System.
+Get started by installing this package in your Unity project and Switching the build platform to Apple TV. Then importing the Pillo SDK Input System Namespace. Importing this namespace will expose the `PilloInput` class which contains all the methods, properties delegates of the Pillo SDK Input System.
 
 ```csharp
 using Hulan.Pillo.SDK.InputSystem;
 // PilloInput is now available
 ```
 
+There is no need to initialize the Pillo SDK Input System. You can start using the Pillo SDK Input System right away by adding listeners to the Input System's delegates, reading it's properties and using the methods.
+
 ```csharp
-PilloInput.onCentralDidInitialize
+using UnityEngine;
+using Hulan.Pillo.SDK.InputSystem;
+
+public class PilloTestComponent : MonoBehaviour {
+  public void Start () {
+    PilloInput.onPilloInputDeviceDidConnect += this.OnPilloInputDeviceDidConnect;
+    PilloInput.onPilloInputDeviceStateDidChange += this.OnPilloInputDeviceStateDidChange;
+  }
+  public void OnDestroy () {
+    PilloInput.onPilloInputDeviceDidConnect -= this.OnPilloInputDeviceDidConnect;
+    PilloInput.onPilloInputDeviceStateDidChange -= this.OnPilloInputDeviceStateDidChange;
+  }
+  public void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice) {
+    // Say hello to 'pilloInputDevice.identifier', player 'pilloInputDevice.playerIndex'!
+  }
+  public void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice) {
+    // Feeling a bit heavy, 'pilloInputDevice.pressure'!
+  }
+}
+```
+
+#### Pillo Input Delegates
+
+**OnCentralDidInitialize**
+
+> Available since version 2.0.0
+
+Delegate invoked when the Framework has been initialized.
+
+```csharp
+public delegate void OnCentralDidInitialize ();
+```
+
+**OnCentralDidFailToInitialize**
+
+> Available since version 2.0.0
+
+Delegate invoked when the Framework has failed to initialize.
+
+```csharp
+public delegate void OnCentralDidFailToInitialize (string reason);
+```
+
+**OnPilloInputDeviceDidConnect**
+
+> Available since version 2.0.0
+
+Delegate invoked when a Pillo Input Device has been connected.
+
+```csharp
+public delegate void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice);
+```
+
+**OnPilloInputDeviceDidDisconnect**
+
+> Available since version 2.0.0
+
+Delegate invoked when a Pillo Input Device has been disconnected.
+
+```csharp
+public delegate void OnPilloInputDeviceDidDisconnect (PilloInputDevice pilloInputDevice);
+```
+
+**OnPilloInputDeviceDidFailToConnect**
+
+> Available since version 2.0.0
+
+Delegate invoked when a Pillo Input Device has failed to connect.
+
+```csharp
+public delegate void OnPilloInputDeviceDidFailToConnect ();
+```
+
+**OnPilloInputDeviceStateDidChange**
+
+> Available since version 2.0.0
+
+Delegate invoked when the Pillo Input Device's state did change.
+
+```csharp
+public delegate void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice);
+```
+
+#### Pillo Input Properties
+
+Use the `pilloInputDevices` and `pilloInputDevicesCount` respectively properties to get a list of connected Pillo Input Devices.
+
+```csharp
+for (var i = 0; i < PilloInput.pilloInputDevicesCount; i++) {
+  var pilloInputDevice = PilloInput.pilloInputDevices[i];
+  // Do something with 'pilloInputDevice'
+}
+```
+
+#### Pillo Input Device Methods
+
+**PowerOff**
+
+> Available since version 2.0.0
+
+Turns off the Pillo Input Device.
+
+```csharp
+public void PowerOff ();
+```
+
+**SetMaximumPressure**
+
+> Available since version 2.0.0
+
+Sets the maximum pressure value of the Pillo Input Device.
+
+```csharp
+public void SetMaximumPressure (int maximumPressureValue);
 ```
 
 ## Development
@@ -101,7 +216,11 @@ Service for sending commands.
 
 #### Structure
 
-TODO ...
+The most important parts of the Pillo SDK consist of:
+
+- **The Pillo Framework** which contains two layers. The Plugin, which is responsible for communicating with the Pillo hardware. And the Runtime, which is responsible for sending and receiving messages from the Plugin which toghether makes a bridge to form all communication between the Pillo hardware and the Pillo SDK.
+- **The Pillo Input System** which contains an abstraction layer for the Pillo hardware. It exposes the Pillo hardware as a set of properties and methods that can be used to interact with the hardware. The Pillo Input System uses the Framework to achieve this.
+- **The Pillo Core** which inclused all of the interal logic of the Pillo SDK.
 
 ## Creating Releases
 
