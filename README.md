@@ -49,16 +49,33 @@ On iOS and TVOS the Core Bluetooth framework provides the classes needed for you
 
 #### Pillo BLE GATT profiles
 
-###### BAS (battery)
+_Battery Service_
 
 Generic service for monitoring battery state.
 
-Service_UUID: 180f
-Battery level: 2a19
-1 Byte, Read & Notify
+| name          | Service | Characteristic | Type   | Accessibility | Value         |
+| ------------- | ------- | -------------- | ------ | ------------- | ------------- |
+| Battery Level | 0x180F  | 0x2A19         | 1 Byte | Read & Notify | uint8_t 0-100 |
 
-- uint8_t battery_level:
-  - 0-100
+_Device Information Service_
+
+Generic service for providing device information.
+
+| name              | Service | Characteristic | Type   | Accessibility | Value  |
+| ----------------- | ------- | -------------- | ------ | ------------- | ------ |
+| Model number      | 0x180A  | 0x2A24         | String | Read          | String |
+| Manufacturer name | 0x180A  | 0x2A29         | String | Read          | String |
+| Firmware version  | 0x180A  | 0x2A26         | String | Read          | String |
+| Hardware version  | 0x180A  | 0x2A27         | String | Read          | String |
+
+_Pressure Service_
+
+Service for monitoring pressure state.
+
+| name          | Service                              | Characteristic                       | Type   | Accessibility | Value         |
+| ------------- | ------------------------------------ | ------------------------------------ | ------ | ------------- | ------------- |
+| Battery Level | 579ba43d-a351-463d-92c7-911ec1b54e35 | 1470ca75-5d7e-4e16-a70d-d1476e8d0c6f | 1 Byte | Read & Notify | uint8_t 0-255 |
+| Charge Value  | 579ba43d-a351-463d-92c7-911ec1b54e35 | 22feb891-0057-4a3e-af5b-ec769849077c | 1 Byte | Read & Notify | uint8_t 0,1   |
 
 #### Structure
 
