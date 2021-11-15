@@ -11,7 +11,8 @@
 /Tmp
 
 ## User settings
-xcuserdata/
+/Plugin.xcodeproj/xcuserdata/
+/Plugin.xcodeproj/**/xcuserdata/
 
 ## Gcc Patch
 /*.gcno
