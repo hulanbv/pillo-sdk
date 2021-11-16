@@ -1,7 +1,7 @@
 // Unity Engine Pillo SDK Core
 // Author: Jeffrey Lanters at Hulan
 
-namespace Hulan.Pillo.SDK.Core {
+namespace Hulan.PilloSDK.Core {
 
   /// <summary>
   /// The Charging State of a Pillo Input Device.

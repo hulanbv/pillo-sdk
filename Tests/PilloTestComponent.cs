@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Hulan.Pillo.SDK.InputSystem;
+using Hulan.PilloSDK.InputSystem;
 
-namespace Hulan.Pillo.SDK.Tests {
+namespace Hulan.PilloSDK.Tests {
 
   [AddComponentMenu ("Pillo SDK/Tests/Pillo Test Component")]
   public class PilloTestComponent : MonoBehaviour {

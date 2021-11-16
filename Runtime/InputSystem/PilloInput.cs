@@ -1,12 +1,12 @@
 using System.Runtime.InteropServices;
-using Hulan.Pillo.SDK.Core;
+using Hulan.PilloSDK.Core;
 using UnityEngine;
 using System.Collections.Generic;
 
 // Unity Engine Pillo SDK Input System
 // Author: Jeffrey Lanters at Hulan
 
-namespace Hulan.Pillo.SDK.InputSystem {
+namespace Hulan.PilloSDK.InputSystem {
 
   /// <summary>
   /// The Pillo Input class exposes a set of methods and delegates to interact 

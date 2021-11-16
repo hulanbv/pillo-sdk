@@ -4,7 +4,7 @@ using UnityEngine;
 // Unity Engine Pillo SDK Core Framework
 // Author: Jeffrey Lanters at Hulan
 
-namespace Hulan.Pillo.SDK.Core.Framework {
+namespace Hulan.PilloSDK.Core.Framework {
 
   /// <summary>
   /// Pillo Framework is responsible for setting up native bindings.

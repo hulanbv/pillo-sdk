@@ -4,9 +4,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor.iOS.Xcode;
 using System.IO;
-using Hulan.Pillo.SDK.Core.Framework;
+using Hulan.PilloSDK.Core.Framework;
 
-namespace Hulan.Pillo.SDK.Editor {
+namespace Hulan.PilloSDK.Editor {
   public static class UnityEditorHooks {
 
     /// <summary>

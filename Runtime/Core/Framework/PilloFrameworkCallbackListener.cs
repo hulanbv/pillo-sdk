@@ -1,10 +1,10 @@
 using UnityEngine;
-using Hulan.Pillo.SDK.InputSystem;
+using Hulan.PilloSDK.InputSystem;
 
 // Unity Engine Pillo SDK Core Framework
 // Author: Jeffrey Lanters at Hulan
 
-namespace Hulan.Pillo.SDK.Core.Framework {
+namespace Hulan.PilloSDK.Core.Framework {
 
   /// <summary>
   /// The Callback Listener MonoBehaviour will be assigned to a specificly

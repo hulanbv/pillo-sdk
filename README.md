@@ -23,7 +23,7 @@ The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware 
 Get started by installing this package in your Unity project and Switching the build platform to Apple TV. Then importing the Pillo SDK Input System Namespace. Importing this namespace will expose the `PilloInput` class which contains all the methods, properties delegates of the Pillo SDK Input System.
 
 ```csharp
-using Hulan.Pillo.SDK.InputSystem;
+using Hulan.PilloSDK.InputSystem;
 // PilloInput is now available
 ```
 
@@ -31,7 +31,7 @@ There is no need to initialize the Pillo SDK Input System. You can start using t
 
 ```csharp
 using UnityEngine;
-using Hulan.Pillo.SDK.InputSystem;
+using Hulan.PilloSDK.InputSystem;
 
 public class PilloTestComponent : MonoBehaviour {
   public void Start () {
