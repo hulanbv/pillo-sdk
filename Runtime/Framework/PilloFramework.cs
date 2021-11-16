@@ -1,10 +1,10 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-// Unity Engine Pillo SDK Core Framework
+// Unity Engine Pillo SDK Framework
 // Author: Jeffrey Lanters at Hulan
 
-namespace Hulan.PilloSDK.Core.Framework {
+namespace Hulan.PilloSDK.Framework {
 
   /// <summary>
   /// Pillo Framework is responsible for setting up native bindings.

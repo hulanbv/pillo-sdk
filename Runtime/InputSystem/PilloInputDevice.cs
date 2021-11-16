@@ -1,4 +1,4 @@
-using Hulan.PilloSDK.Core;
+using Hulan.PilloSDK.InputSystem.Core;
 
 // Unity Engine Pillo SDK Input System
 // Author: Jeffrey Lanters at Hulan

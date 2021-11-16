@@ -1,9 +1,9 @@
 using Hulan.PilloSDK.InputSystem;
 
-// Unity Engine Pillo SDK Core
+// Unity Engine Pillo SDK Input System Core
 // Author: Jeffrey Lanters at Hulan
 
-namespace Hulan.PilloSDK.Core {
+namespace Hulan.PilloSDK.InputSystem.Core {
 
   /// <summary>
   /// Containing the delegate definitions for the Pillo Input.

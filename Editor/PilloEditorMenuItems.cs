@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor.iOS.Xcode;
 using System.IO;
-using Hulan.PilloSDK.Core.Framework;
+using Hulan.PilloSDK.Framework;
 
 namespace Hulan.PilloSDK.Editor {
   public static class PilloEditorMenuItems {

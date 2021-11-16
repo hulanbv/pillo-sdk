@@ -1,10 +1,10 @@
 using UnityEngine;
 using Hulan.PilloSDK.InputSystem;
 
-// Unity Engine Pillo SDK Core Framework
+// Unity Engine Pillo SDK Framework
 // Author: Jeffrey Lanters at Hulan
 
-namespace Hulan.PilloSDK.Core.Framework {
+namespace Hulan.PilloSDK.Framework {
 
   /// <summary>
   /// The Callback Listener MonoBehaviour will be assigned to a specificly
@@ -20,6 +20,7 @@ namespace Hulan.PilloSDK.Core.Framework {
     /// initialized.
     /// </summary>
     internal void OnCentralDidInitialize () {
+      // Inform the Input System that the Pillo Framework has been initialized.
       PilloInput.OnCentralDidInitialize ();
     }
 
@@ -29,6 +30,7 @@ namespace Hulan.PilloSDK.Core.Framework {
     /// </summary>
     /// <param name="payload">Contaning the reason.</param>
     internal void OnCentralDidFailToInitialize (string payload) {
+      // Inform the Input system that the Pillo Framework failed to initialize.
       PilloInput.OnCentralDidFailToInitialize (payload);
     }
 
@@ -38,6 +40,7 @@ namespace Hulan.PilloSDK.Core.Framework {
     /// </summary>
     /// <param name="payload">Contaning the Peripheral UUID.</param>
     internal void OnPeripheralDidConnect (string payload) {
+      // Inform the Input System that a Pillo has been connected.
       PilloInput.OnPeripheralDidConnect (payload);
     }
 
@@ -47,6 +50,7 @@ namespace Hulan.PilloSDK.Core.Framework {
     /// </summary>
     /// <param name="payload">Contaning the Peripheral UUID.</param>
     internal void OnPeripheralDidDisconnect (string payload) {
+      // Inform the Input System that a Pillo has been disconnected.
       PilloInput.OnPeripheralDidDisconnect (payload);
     }
 
@@ -55,6 +59,7 @@ namespace Hulan.PilloSDK.Core.Framework {
     /// to connect.
     /// </summary>
     internal void OnPeripheralDidFailToConnect () {
+      // Inform the Input System that a Pillo has failed to connect.
       PilloInput.OnPeripheralDidFailToConnect ();
     }
 
@@ -67,6 +72,7 @@ namespace Hulan.PilloSDK.Core.Framework {
       var parts = payload.Split ('~');
       var identifier = parts[0];
       var batteryLevel = int.Parse (parts[1]);
+      // Inform the Input System that the battery level has changed.
       PilloInput.OnPeripheralBatteryLevelDidChange (identifier, batteryLevel);
     }
 
@@ -79,6 +85,7 @@ namespace Hulan.PilloSDK.Core.Framework {
       var parts = payload.Split ('~');
       var identifier = parts[0];
       var pressure = int.Parse (parts[1]);
+      // Inform the Input System that the pressure has changed.
       PilloInput.OnPeripheralPressureDidChange (identifier, pressure);
     }
 
