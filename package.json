@@ -9,8 +9,5 @@
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk-package",
   "changelogUrl": "https://github.com/hulanbv/pillo-sdk-package/releases",
   "licensesUrl": "https://github.com/hulanbv/pillo-sdk-package/blob/master/LICENSE.md",
-  "dependencies": {},
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@hulanbv"
-  }
+  "dependencies": {}
 }

@@ -1,4 +1,4 @@
-name: Publish to Package Registry
+name: Create Release
 
 on:
   push:
@@ -14,11 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Publish Package
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Create Release
         id: create_release
