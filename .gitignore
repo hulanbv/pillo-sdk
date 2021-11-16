@@ -1,18 +1,14 @@
 ## System
 .DS_Store
 
-## Unwanted Meta Data
-/Plugin.xcodeproj/*.meta
-/Plugin.xcodeproj/**/*.meta
-/Documentation/*.meta
-/Documentation/**/*.meta
-
 ## Xcode Output
 /Tmp
 
 ## User settings
 /Plugin.xcodeproj/xcuserdata/
+/Plugin.xcodeproj/xcuserdata.meta
 /Plugin.xcodeproj/**/xcuserdata/
+/Plugin.xcodeproj/**/xcuserdata.meta
 
 ## Gcc Patch
 /*.gcno
