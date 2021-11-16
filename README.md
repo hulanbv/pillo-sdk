@@ -220,11 +220,12 @@ Service for sending commands.
 
 #### Structure
 
-The most important parts of the Pillo SDK consist of:
+The Pillo SDK consists of the following namespaces:
 
 - **The Pillo Framework** which contains two layers. The Plugin, which is responsible for communicating with the Pillo hardware. And the Runtime, which is responsible for sending and receiving messages from the Plugin which toghether makes a bridge to form all communication between the Pillo hardware and the Pillo SDK.
 - **The Pillo Input System** which contains an abstraction layer for the Pillo hardware. It exposes the Pillo hardware as a set of properties and methods that can be used to interact with the hardware. The Pillo Input System uses the Framework to achieve this.
-- **The Pillo Core** which inclused all of the interal logic of the Pillo SDK.
+
+_More Namespaces may be added in future releases._
 
 ## Creating Releases
 
