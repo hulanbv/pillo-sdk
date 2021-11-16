@@ -1,12 +1,6 @@
 ## System
 .DS_Store
 
-## Unwanted Meta Data
-# /Plugin.xcodeproj/*.meta
-# /Plugin.xcodeproj/**/*.meta
-# /Documentation/*.meta
-# /Documentation/**/*.meta
-
 ## Xcode Output
 /Tmp
 
