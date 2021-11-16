@@ -72,7 +72,7 @@ namespace Hulan.PilloSDK.Core.Framework {
 
     /// <summary>
     /// Method invoked by the native Pillo Framework when the Pillo 
-    /// Peripherals's pressure has ben changed.
+    /// Peripherals's pressure has been changed.
     /// </summary>
     /// <param name="payload">Containing the pressure.</param>
     internal void OnPeripheralPressureDidChange (string payload) {
