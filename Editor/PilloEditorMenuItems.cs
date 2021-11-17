@@ -14,7 +14,7 @@ namespace Hulan.PilloSDK.Editor {
 
     [MenuItem ("Pillo SDK/Update Package")]
     private static void UpdatePackage () {
-      PilloEditorMenuItems.packageAddRequest = Client.Add ("git+https://github.com/jeffreylanters/unity-tweens");
+      PilloEditorMenuItems.packageAddRequest = Client.Add ("git+https://github.com/hulanbv/pillo-sdk-package");
       EditorApplication.update += PilloEditorMenuItems.OnEditorApplicationDidUpdate;
     }
 
