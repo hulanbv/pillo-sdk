@@ -2,10 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hulan.PilloSDK.InputSystem;
 
-namespace Hulan.PilloSDK.Tests {
+namespace Hulan.PilloSDK.Samples {
 
-  [AddComponentMenu ("Pillo SDK/Tests/Pillo Test Component")]
-  public class PilloTestComponent : MonoBehaviour {
+  [AddComponentMenu ("Pillo SDK/Samples/Pillo Input System Test")]
+  public class PilloInputSystemTestComponent : MonoBehaviour {
+
+    public Text textDebug;
+
     public void Start () {
       PilloInput.onCentralDidInitialize += this.OnCentralDidInitialize;
       PilloInput.onCentralDidFailToInitialize += this.OnCentralDidFailToInitialize;
@@ -25,27 +28,33 @@ namespace Hulan.PilloSDK.Tests {
     }
 
     public void OnCentralDidInitialize () {
-      Debug.Log ("Pillo Test Component: did initialize");
+      this.Log ("Pillo Test Component: did initialize");
     }
 
     public void OnCentralDidFailToInitialize (string reason) {
-      Debug.Log ("Pillo Test Component: did fail to initialize: " + reason);
+      this.Log ("Pillo Test Component: did fail to initialize: " + reason);
     }
 
     public void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice) {
-      Debug.Log ("Pillo Test Component: connection successful: " + pilloInputDevice.identifier);
+      this.Log ("Pillo Test Component: connection successful: " + pilloInputDevice.identifier);
     }
 
     public void OnPilloInputDeviceDidDisconnect (PilloInputDevice pilloInputDevice) {
-      Debug.Log ("Pillo Test Component: disconnected: " + pilloInputDevice.identifier);
+      this.Log ("Pillo Test Component: disconnected: " + pilloInputDevice.identifier);
     }
 
     public void OnPilloInputDeviceDidFailToConnect () {
-      Debug.Log ("Pillo Test Component: connection failed");
+      this.Log ("Pillo Test Component: connection failed");
     }
 
     public void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice) {
-      Debug.Log ("Pillo Test Component: state change: " + pilloInputDevice.identifier + "\n- Pressure: " + pilloInputDevice.pressure + "\n- Battery: " + pilloInputDevice.batteryLevel);
+      this.Log ("Pillo Test Component: state change: " + pilloInputDevice.identifier + "\n> Pressure: " + pilloInputDevice.pressure + "\n> Battery: " + pilloInputDevice.batteryLevel);
+    }
+
+    private void Log (string text) {
+      if (this.textDebug != null) {
+        this.textDebug.text = text + "\n" + this.textDebug.text;
+      }
     }
   }
 }

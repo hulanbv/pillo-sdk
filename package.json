@@ -3,11 +3,18 @@
   "displayName": "Pillo SDK",
   "version": "2.0.3",
   "unity": "2021.1",
-  "description": "Pillo SDK",
+  "description": "The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware.",
   "type": "library",
   "hideInEditor": false,
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk-package",
   "changelogUrl": "https://github.com/hulanbv/pillo-sdk-package/releases",
   "licensesUrl": "https://github.com/hulanbv/pillo-sdk-package/blob/master/LICENSE.md",
-  "dependencies": {}
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "Input System Example Implementation",
+      "description": "This example implementation hooks onto the Pillo Input System and prints its output on a canvas.",
+      "path": "Samples/InputSystemExampleImplementation"
+    }
+  ]
 }

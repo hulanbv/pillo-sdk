@@ -12,7 +12,7 @@ Install the latest stable release using the Unity Package Manager by adding the 
 
 ## Documentation
 
-The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware on the following platforms:
+The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware. The Framework is available on the following platforms:
 
 - AppleTV running tvOS 9.0 or later
 - Apple iPhone running iOS 5.0 or later
