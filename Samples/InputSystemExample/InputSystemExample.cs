@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hulan.PilloSDK.InputSystem;
 
-namespace Hulan.PilloSDK.Samples {
+namespace Hulan.PilloSDK.Samples.InputSystemExample {
 
-  [AddComponentMenu ("Pillo SDK/Samples/Pillo Input System Test")]
-  public class PilloInputSystemTestComponent : MonoBehaviour {
+  [AddComponentMenu ("Pillo SDK/Samples/Input System Example")]
+  public class InputSystemExample : MonoBehaviour {
 
     public Text textDebug;
 

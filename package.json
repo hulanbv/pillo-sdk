@@ -12,9 +12,9 @@
   "dependencies": {},
   "samples": [
     {
-      "displayName": "Input System Example Implementation",
-      "description": "This example implementation hooks onto the Pillo Input System and prints its output on a canvas.",
-      "path": "Samples/InputSystemExampleImplementation"
+      "displayName": "Input System Example",
+      "description": "This example implementation hooks onto the Pillo Input System and prints the output on a Text component.",
+      "path": "Samples/InputSystemExample"
     }
   ]
 }
