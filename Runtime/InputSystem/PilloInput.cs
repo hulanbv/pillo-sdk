@@ -67,12 +67,6 @@ namespace Hulan.PilloSDK.InputSystem {
       return null;
     }
 
-    private static void ReassignPilloInputDevicePlayerIndexes () {
-      for (var i = 0; i < PilloInput.pilloInputDevices.Count; i++) {
-        PilloInput.pilloInputDevices[i].playerIndex = i;
-      }
-    }
-
     internal static void OnCentralDidInitialize () {
       PilloInput.onCentralDidInitialize?.Invoke ();
     }
@@ -117,6 +111,16 @@ namespace Hulan.PilloSDK.InputSystem {
       if (pilloInputDevice != null) {
         pilloInputDevice.pressure = pressure;
         PilloInput.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
+      }
+    }
+
+    /// <summary>
+    /// Resets all of the Pillo Input Device's player indexes back to
+    /// their original values.
+    /// </summary>
+    public static void ResetPilloInputDevicePlayerIndexes () {
+      for (var i = 0; i < PilloInput.pilloInputDevices.Count; i++) {
+        PilloInput.pilloInputDevices[i].playerIndex = i;
       }
     }
   }

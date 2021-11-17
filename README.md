@@ -128,6 +128,18 @@ for (var i = 0; i < PilloInput.pilloInputDevicesCount; i++) {
 }
 ```
 
+#### Pillo Input Methods
+
+**ReassignPilloInputDevicePlayerIndexes**
+
+> Available since version 2.1.0
+
+Resets all of the Pillo Input Device's player indexes back to their original values.
+
+```csharp
+public static void ResetPilloInputDevicePlayerIndexes ();
+```
+
 #### Pillo Input Device Methods
 
 **PowerOff**
