@@ -48,7 +48,7 @@ namespace Hulan.PilloSDK.Tests {
     }
 
     public void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice) {
-      this.Log ("Pillo Test Component: state change: " + pilloInputDevice.identifier);
+      this.Log ("Pillo Test Component: state change: " + pilloInputDevice.identifier + "\n> Pressure: " + pilloInputDevice.pressure + "\n> Battery: " + pilloInputDevice.batteryLevel);
     }
 
     private void Log (string text) {
