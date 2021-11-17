@@ -5,9 +5,28 @@ using UnityEngine;
 using UnityEditor.iOS.Xcode;
 using System.IO;
 using Hulan.PilloSDK.Framework;
+using UnityEditor.PackageManager.Requests;
+using UnityEditor.PackageManager;
 
 namespace Hulan.PilloSDK.Editor {
-  public static class PilloEditorMenuItems {
+  internal static class PilloEditorMenuItems {
+    private static AddRequest packageAddRequest;
+
+    [MenuItem ("Pillo SDK/Update Package")]
+    private static void UpdatePackage () {
+      PilloEditorMenuItems.packageAddRequest = Client.Add ("git+https://github.com/jeffreylanters/unity-tweens");
+      EditorApplication.update += PilloEditorMenuItems.OnEditorApplicationDidUpdate;
+    }
+
+    private static void OnEditorApplicationDidUpdate () {
+      if (PilloEditorMenuItems.packageAddRequest.IsCompleted == true) {
+        if (PilloEditorMenuItems.packageAddRequest.Status == StatusCode.Success)
+          Debug.Log ($"Pillo SDK Package Updated to version {PilloEditorMenuItems.packageAddRequest.Result.version}");
+        else if (PilloEditorMenuItems.packageAddRequest.Status >= StatusCode.Failure)
+          Debug.LogError ($"Something went wrong while updating {PilloEditorMenuItems.packageAddRequest.Error.message}");
+        EditorApplication.update -= PilloEditorMenuItems.OnEditorApplicationDidUpdate;
+      }
+    }
 
     [MenuItem ("Pillo SDK/Input System/Simulate OnPeripheralDidConnect (1)")]
     private static void SimulateOnPeripheralDidConnect1 () {
