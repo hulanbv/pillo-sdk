@@ -33,11 +33,11 @@ namespace Hulan.PilloSDK.Tests {
     }
 
     public void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice) {
-      Debug.Log ("Pillo Test Component: connection successful: " + pilloInputDevice.identifier);
+      Debug.Log ("Pillo Test Component: connection successful: " + pilloInputDevice.identifier + " (" + pilloInputDevice.playerIndex + ")");
     }
 
     public void OnPilloInputDeviceDidDisconnect (PilloInputDevice pilloInputDevice) {
-      Debug.Log ("Pillo Test Component: disconnected: " + pilloInputDevice.identifier);
+      Debug.Log ("Pillo Test Component: disconnected: " + pilloInputDevice.identifier + " (" + pilloInputDevice.playerIndex + ")");
     }
 
     public void OnPilloInputDeviceDidFailToConnect () {
@@ -45,7 +45,13 @@ namespace Hulan.PilloSDK.Tests {
     }
 
     public void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice) {
-      Debug.Log ("Pillo Test Component: state change: " + pilloInputDevice.identifier + "\n- Pressure: " + pilloInputDevice.pressure + "\n- Battery: " + pilloInputDevice.batteryLevel);
+      Debug.Log ("Pillo Test Component: state change: " + pilloInputDevice.identifier + " (" + pilloInputDevice.playerIndex + ")" + "\n- Pressure: " + pilloInputDevice.pressure + "\n- Battery: " + pilloInputDevice.batteryLevel);
+    }
+
+    public void Update () {
+      foreach (var pilloInputDevice in PilloInput.pilloInputDevices) {
+        Debug.Log ("PilloInputDevice " + pilloInputDevice.identifier + " (" + pilloInputDevice.playerIndex + ")");
+      }
     }
   }
 }
