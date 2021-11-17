@@ -67,6 +67,11 @@ namespace Hulan.PilloSDK.InputSystem {
       return null;
     }
 
+    private static void ReassignPilloInputDevicePlayerIndexes () {
+      // TODO Do actual reassign
+      this.ResetPilloInputDevicePlayerIndexes ();
+    }
+
     internal static void OnCentralDidInitialize () {
       PilloInput.onCentralDidInitialize?.Invoke ();
     }
