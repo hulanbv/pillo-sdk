@@ -18,12 +18,15 @@ namespace Hulan.PilloSDK.Editor {
       EditorApplication.update += PilloEditorMenuItems.OnEditorApplicationDidUpdate;
     }
 
+    // Event invoked everytime the Unity Editor updates.
     private static void OnEditorApplicationDidUpdate () {
+      // We'll wait until the package is installed.
       if (PilloEditorMenuItems.packageAddRequest.IsCompleted == true) {
         if (PilloEditorMenuItems.packageAddRequest.Status == StatusCode.Success)
           Debug.Log ($"Pillo SDK Package Updated to version {PilloEditorMenuItems.packageAddRequest.Result.version}");
         else if (PilloEditorMenuItems.packageAddRequest.Status >= StatusCode.Failure)
           Debug.LogError ($"Something went wrong while updating {PilloEditorMenuItems.packageAddRequest.Error.message}");
+        // If the package is installed, we can stop listening for updates.
         EditorApplication.update -= PilloEditorMenuItems.OnEditorApplicationDidUpdate;
       }
     }
@@ -31,28 +34,28 @@ namespace Hulan.PilloSDK.Editor {
     [MenuItem ("Pillo SDK/Input System/Simulate OnPeripheralDidConnect (1)")]
     private static void SimulateOnPeripheralDidConnect1 () {
       // Simlates a SendMessage to the Pillo Framework's Callback Listener
-      // which tells the Pillo Framework that a peripheral has been connected
+      // which tells the Pillo Framework that a peripheral has been connected.
       GameObject.Find ("~PilloFrameworkCallbackListener").SendMessage ("OnPeripheralDidConnect", "faux-pillo-1");
     }
 
     [MenuItem ("Pillo SDK/Input System/Simulate OnPeripheralDidConnect (2)")]
     private static void SimulateOnPeripheralDidConnect2 () {
       // Simlates a SendMessage to the Pillo Framework's Callback Listener
-      // which tells the Pillo Framework that a peripheral has been connected
+      // which tells the Pillo Framework that a peripheral has been connected.
       GameObject.Find ("~PilloFrameworkCallbackListener").SendMessage ("OnPeripheralDidConnect", "faux-pillo-2");
     }
 
     [MenuItem ("Pillo SDK/Input System/Simulate OnPeripheralDidDisconnect (1)")]
     private static void SimulateOnPeripheralDidDisconnect1 () {
       // Simlates a SendMessage to the Pillo Framework's Callback Listener
-      // which tells the Pillo Framework that a peripheral has been disconnected
+      // which tells the Pillo Framework that a peripheral has been disconnected.
       GameObject.Find ("~PilloFrameworkCallbackListener").SendMessage ("OnPeripheralDidDisconnect", "faux-pillo-1");
     }
 
     [MenuItem ("Pillo SDK/Input System/Simulate OnPeripheralDidDisconnect (2)")]
     private static void SimulateOnPeripheralDidDisconnect2 () {
       // Simlates a SendMessage to the Pillo Framework's Callback Listener
-      // which tells the Pillo Framework that a peripheral has been disconnected
+      // which tells the Pillo Framework that a peripheral has been disconnected.
       GameObject.Find ("~PilloFrameworkCallbackListener").SendMessage ("OnPeripheralDidDisconnect", "faux-pillo-2");
     }
   }
