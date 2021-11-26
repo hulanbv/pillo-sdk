@@ -68,8 +68,29 @@ namespace Hulan.PilloSDK.InputSystem {
     }
 
     private static void ReassignPilloInputDevicePlayerIndexes () {
-      // TODO Do actual reassign
-      this.ResetPilloInputDevicePlayerIndexes ();
+      // TODO recode this
+      foreach (var pilloInputDevice in PilloInput.pilloInputDevices) {
+        if (pilloInputDevice.playerIndex == -1) {
+          pilloInputDevice.playerIndex = PilloInput.GetNextPilloInputDevicePlayerIndexes ();
+        }
+      }
+    }
+
+    private static int GetNextPilloInputDevicePlayerIndexes () {
+      // TODO recode this
+      var nextPlayerIndex = 0;
+      while (true) {
+        var playerIndexIsInUse = false;
+        foreach (var pilloInputDevice in PilloInput.pilloInputDevices) {
+          if (pilloInputDevice.playerIndex == nextPlayerIndex) {
+            playerIndexIsInUse = true;
+          }
+        }
+        if (playerIndexIsInUse == false) {
+          return nextPlayerIndex;
+        }
+        nextPlayerIndex++;
+      }
     }
 
     internal static void OnCentralDidInitialize () {
