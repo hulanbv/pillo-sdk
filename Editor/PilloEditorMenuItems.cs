@@ -12,13 +12,18 @@ namespace Hulan.PilloSDK.Editor {
   internal static class PilloEditorMenuItems {
     private static AddRequest packageAddRequest;
 
+    /// <summary>
+    /// Updates the Pillo SDK package using the Unity Package manager.
+    /// </summary>
     [MenuItem ("Pillo SDK/Update Package", false, 0)]
     private static void UpdatePackage () {
       PilloEditorMenuItems.packageAddRequest = Client.Add ("git+https://github.com/hulanbv/pillo-sdk-package");
       EditorApplication.update += PilloEditorMenuItems.OnEditorApplicationDidUpdate;
     }
 
-    // Event invoked everytime the Unity Editor updates.
+    /// <summary>
+    /// Event invoked everytime the Unity Editor updates.
+    /// </summary>
     private static void OnEditorApplicationDidUpdate () {
       // We'll wait until the package is installed.
       if (PilloEditorMenuItems.packageAddRequest.IsCompleted == true) {
