@@ -24,6 +24,7 @@ extern "C" {
 #define BATTERY_LEVEL_CHARACTERISTIC_UUID @"2A19"
 
 - (void)initialize {
+  // Creates an instance of the central manager with a delegate of itself.
   self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
 }
 
@@ -106,6 +107,7 @@ extern "C" {
   // UUID, we'll extract the value as its battery level which should contain
   // an interger from 0 to 100. We'll forward this using a Unity callback.
   if ([characteristicUUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
+    // TODO directly send this data as a string instead of parsing it around!
     uint32_t rawBatteryLevel = 0;
     [rawData getBytes:&rawBatteryLevel length:sizeof(rawBatteryLevel)];
     NSNumber *batteryLevel = [[NSNumber alloc]initWithUnsignedInt:rawBatteryLevel];
@@ -116,6 +118,7 @@ extern "C" {
   // we'll extract the value as its pressure which should contain an interger
   // from 0 to 255. We'll forward this using a Unity callback.
   else if ([characteristicUUIDString isEqualToString:PRESSURE_CHARACTERISTIC_UUID]) {
+    // TODO directly send this data as a string instead of parsing it around!
     uint32_t rawPressure = 0;
     [rawData getBytes:&rawPressure length:sizeof(rawPressure)];
     NSNumber *pressure = [[NSNumber alloc]initWithUnsignedInt:rawPressure];

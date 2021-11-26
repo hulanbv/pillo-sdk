@@ -5,15 +5,16 @@
 // Author: Jeffrey Lanters at Hulan
 
 // Interface for the PilloFramework Objective-C implementation.
- @interface PilloFramework : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate> { }
+@interface PilloFramework : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate, UIGestureRecognizerDelegate> { }
 
 // Instance Properties.
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) CBPeripheral *peripheral;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 // Instance Methods.
 - (void)initialize;
 - (void)invokeUnityCallback:(NSString *)methodName;
-- (void)invokeUnityCallback:(NSString *)methodName parameter:(NSString *)parameter;
+- (void)invokeUnityCallback:(NSString *)methodName payload:(NSString *)payload;
 
 @end
