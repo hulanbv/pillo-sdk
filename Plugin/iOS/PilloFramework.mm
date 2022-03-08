@@ -8,9 +8,12 @@ extern "C" {
   PilloFramework* pilloFramework = nil;
 
   void PilloFrameworkInitialize() {
-    // TODO Check beforehand if a PilloFramework instance already exists.
-    pilloFramework = [PilloFramework new];
-    [pilloFramework initialize];
+    if (pilloFramework == nil) {
+      // If the pillo framework has not been initialized before. A new instance
+      // will be created here. Then the initialize method will be invoked.
+      pilloFramework = [PilloFramework new];
+      [pilloFramework initialize];
+    }
   }
 }
 
