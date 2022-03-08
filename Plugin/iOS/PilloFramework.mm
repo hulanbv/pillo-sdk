@@ -27,8 +27,10 @@ extern "C" {
 #define BATTERY_LEVEL_CHARACTERISTIC_UUID @"2A19"
 
 - (void)initialize {
-  // Creates an instance of the central manager with a delegate of itself.
+  // Instansatiate the central manager with a delegate to this class while also
+  // instansatiating the array which will hold the peripherals.
   self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+  self.peripherals = [NSMutableArray<CBPeripheral *> new];
 }
 
 // Delegate Method invoked when the Center Manager's state did update.
@@ -50,19 +52,19 @@ extern "C" {
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
   // Retrieve the peripheral name from the advertisement data. If the name
   // contains Pillo, we'll attempt to connect.
-  // TODO check the UUID instead.
+  // TODO -- check the UUID instead.
   if ([peripheral.name containsString:@"Pillo"]) {
-    // We'll store the Peripheral in the Pillo Peripheral property. This is
-    // required in order to use the delegates. Next set the Implementation as
-    // the Peripheral's delegate. Then connect to the peripheral, when the
-    // connection state changes an event will be raised.
-    // TODO add support for multiple Pillo Peripherals.
-    self.peripheral = peripheral;
-    self.peripheral.delegate = self;
-    [self.centralManager connectPeripheral:self.peripheral options:nil];
-    // Stop scanning, we've found our Pillo.
-    // TODO implement periodic scanning and reconnecting.
-    [self.centralManager stopScan];
+    // The Pillo Peripheral will be stored within the Pillo Peripherals array.
+    // The index in the array will be determained by the current number of
+    // Pillo Peripheralss currently in the array.
+    NSUInteger peripheralIndex = [self.peripherals count];
+    [self.peripherals insertObject:peripheral atIndex:peripheralIndex];
+    // When the Pillo Peripherals is stored in the array, this class will be set
+    // as it's delegate. The use of delegates require the Pillo Peripherals to
+    // be stored somewhere, this is why they are kept in the array.
+    self.peripherals[peripheralIndex].delegate = self;
+    // The central will attempt to connect to the Pillo Peripheral.
+    [self.centralManager connectPeripheral:self.peripherals[peripheralIndex] options:nil];
   }
 }
 
@@ -72,11 +74,22 @@ extern "C" {
   // We pass nil here to request all Services be discovered.
   [peripheral discoverServices:nil];
   [self invokeUnityCallback:@"OnPeripheralDidConnect" payload:peripheral.identifier.UUIDString];
+  // When two (or more) Pillo Peripherals are connected, scanning is stopped
+  // since not more Pillo Peripherals can be connected at once. When one of
+  // these Peripherals will disconnect, scanning will be resumed.
+  if ([self.peripherals count] >= 2) {
+    [self.centralManager stopScan];
+  }
 }
 
 // Delegate Method invoked when the Peripheral did disconnect.
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
   [self invokeUnityCallback:@"OnPeripheralDidDisconnect" payload:peripheral.identifier.UUIDString];
+  // TODO -- remove from the array of Pillo Peripherals
+  // TODO -- start scanning again when there are less than 2 connected Pillo Peripherals
+  // HACK -- this propably doesnt work since peripheral is a new object????
+  NSUInteger peripheralIndex = [self.peripherals indexOfObject:peripheral];
+  [self.peripherals removeObjectAtIndex:peripheralIndex];
 }
 
 // Delegate Method invoked when the Peripheral did fail to connect.
@@ -97,7 +110,7 @@ extern "C" {
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
   for (CBCharacteristic *characteristic in service.characteristics) {
     // We'll loop all of the Service's Characteristics and enable Notifications.
-    [self.peripheral setNotifyValue:YES forCharacteristic:characteristic];
+    [peripheral setNotifyValue:YES forCharacteristic:characteristic];
   }
 }
 
@@ -110,7 +123,7 @@ extern "C" {
   // UUID, we'll extract the value as its battery level which should contain
   // an interger from 0 to 100. We'll forward this using a Unity callback.
   if ([characteristicUUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
-    // TODO directly send this data as a string instead of parsing it around!
+    // TODO -- directly send this data as a string instead of parsing it around!
     uint32_t rawBatteryLevel = 0;
     [rawData getBytes:&rawBatteryLevel length:sizeof(rawBatteryLevel)];
     NSNumber *batteryLevel = [[NSNumber alloc]initWithUnsignedInt:rawBatteryLevel];
@@ -121,7 +134,7 @@ extern "C" {
   // we'll extract the value as its pressure which should contain an interger
   // from 0 to 255. We'll forward this using a Unity callback.
   else if ([characteristicUUIDString isEqualToString:PRESSURE_CHARACTERISTIC_UUID]) {
-    // TODO directly send this data as a string instead of parsing it around!
+    // TODO -- directly send this data as a string instead of parsing it around!
     uint32_t rawPressure = 0;
     [rawData getBytes:&rawPressure length:sizeof(rawPressure)];
     NSNumber *pressure = [[NSNumber alloc]initWithUnsignedInt:rawPressure];
@@ -143,7 +156,6 @@ extern "C" {
 // a parse in order to be used.
 - (void)invokeUnityCallback:(NSString *)methodName payload:(NSString *)payload {
   UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [payload UTF8String]);
-  // NSLog(@"PILLO~ Invoking Unity Callback '%@' with param '%@'", methodName, payload);
 }
 
 @end
