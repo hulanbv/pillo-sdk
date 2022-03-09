@@ -61,9 +61,7 @@ Delegate invoked when the Framework has been initialized.
 public delegate void OnCentralDidInitialize ();
 ```
 
-**OnCentralDidFailToInitialize**
-
-> Available since version 2.0.0
+**OnCentralDidFailToInitialize `Version 2.0.0`**
 
 Delegate invoked when the Framework has failed to initialize.
 
@@ -71,9 +69,7 @@ Delegate invoked when the Framework has failed to initialize.
 public delegate void OnCentralDidFailToInitialize (string reason);
 ```
 
-**OnPilloInputDeviceDidConnect**
-
-> Available since version 2.0.0
+**OnPilloInputDeviceDidConnect `Version 2.0.0`**
 
 Delegate invoked when a Pillo Input Device has been connected.
 
@@ -81,9 +77,7 @@ Delegate invoked when a Pillo Input Device has been connected.
 public delegate void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice);
 ```
 
-**OnPilloInputDeviceDidDisconnect**
-
-> Available since version 2.0.0
+**OnPilloInputDeviceDidDisconnect `Version 2.0.0`**
 
 Delegate invoked when a Pillo Input Device has been disconnected.
 
@@ -91,9 +85,7 @@ Delegate invoked when a Pillo Input Device has been disconnected.
 public delegate void OnPilloInputDeviceDidDisconnect (PilloInputDevice pilloInputDevice);
 ```
 
-**OnPilloInputDeviceDidFailToConnect**
-
-> Available since version 2.0.0
+**OnPilloInputDeviceDidFailToConnect `Version 2.0.0`**
 
 Delegate invoked when a Pillo Input Device has failed to connect.
 
@@ -101,9 +93,7 @@ Delegate invoked when a Pillo Input Device has failed to connect.
 public delegate void OnPilloInputDeviceDidFailToConnect ();
 ```
 
-**OnPilloInputDeviceStateDidChange**
-
-> Available since version 2.0.0
+**OnPilloInputDeviceStateDidChange `Version 2.0.0`**
 
 Delegate invoked when the Pillo Input Device's state did change.
 
@@ -113,9 +103,9 @@ public delegate void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInp
 
 ### Pillo Input Properties
 
-**pilloInputDevices**
+**pilloInputDevices `Version 2.0.0`**
 
-> Available since version 2.0.0
+**pilloInputDevicesCount `Version 2.0.0`**
 
 Use the `pilloInputDevices` and `pilloInputDevicesCount` respectively to get a list of connected Pillo Input Devices.
 
@@ -128,9 +118,7 @@ for (var i = 0; i < PilloInput.pilloInputDevicesCount; i++) {
 
 ### Pillo Input Methods
 
-**ReassignPilloInputDevicePlayerIndexes**
-
-> Available since version 2.1.0
+**ReassignPilloInputDevicePlayerIndexes `Version 2.1.0`**
 
 Resets all of the Pillo Input Device's player indexes back to their original values.
 
@@ -140,9 +128,7 @@ public static void ResetPilloInputDevicePlayerIndexes ();
 
 ### Pillo Input Device Methods
 
-**PowerOff**
-
-> Available since version 2.1.0
+**PowerOff `Version 2.1.0`**
 
 Turns off the Pillo Input Device.
 
@@ -150,9 +136,7 @@ Turns off the Pillo Input Device.
 public void PowerOff ();
 ```
 
-**SetMaximumPressure**
-
-> Available since version 2.1.0
+**SetMaximumPressure `Version 2.1.0`**
 
 Sets the maximum pressure value of the Pillo Input Device.
 
