@@ -54,6 +54,8 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     public static int pilloInputDeviceCount {
       get {
+        // The number of Pillo Input Devices is determined by the number of
+        // Pillo Input Device objects in the pilloInputDevices list.
         return PilloInput.pilloInputDevices.Count;
       }
     }

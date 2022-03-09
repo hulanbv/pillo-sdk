@@ -33,7 +33,7 @@ namespace Hulan.PilloSDK.InputSystem.Core {
 
     /// <summary>
     /// The Pillo Input Device's charging state.
-    /// TODO Implement this!
+    /// TODO -- Implement this!
     /// </summary>
     public PilloInputDeviceChargingState chargingState { internal set; get; } = PilloInputDeviceChargingState.UNKNOWN;
   }

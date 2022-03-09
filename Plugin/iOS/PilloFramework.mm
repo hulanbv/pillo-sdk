@@ -78,6 +78,7 @@ extern "C" {
   // since not more Pillo Peripherals can be connected at once. When one of
   // these Peripherals will disconnect, scanning will be resumed.
   if ([self.peripherals count] >= 2) {
+    // TODO -- Check this, it seems to have a racing condition.
     [self.centralManager stopScan];
   }
 }
