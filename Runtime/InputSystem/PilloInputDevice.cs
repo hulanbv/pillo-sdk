@@ -19,10 +19,28 @@ namespace Hulan.PilloSDK.InputSystem {
     }
 
     /// <summary>
+    /// The Pillo Input Device's model number.
+    /// TODO -- Implement this!
+    /// </summary>
+    public string modelNumber { internal set; get; } = "";
+
+    /// <summary>
+    /// The Pillo Input Device's firmware version.
+    /// TODO -- Implement this!
+    /// </summary>
+    public string firmwareVersion { internal set; get; } = "";
+
+    /// <summary>
+    /// The Pillo Input Device's hardware version.
+    /// TODO -- Implement this!
+    /// </summary>
+    public string hardwareVersion { internal set; get; } = "";
+
+    /// <summary>
     /// Powers of the Pillo Input Device.
     /// </summary>
     public void PowerOff () {
-      // TODO Implement this!
+      // TODO -- Implement this!
     }
 
     /// <summary>
@@ -30,7 +48,7 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     /// <param name="maxPressureValue">The maximum pressure value.</param>
     public void SetMaximumPressure (int maximumPressureValue) {
-      // TODO Implement this!
+      // TODO -- Implement this!
     }
   }
 }
