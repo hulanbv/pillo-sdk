@@ -53,9 +53,7 @@ public class PilloTestComponent : MonoBehaviour {
 
 ### Pillo Input Delegates
 
-**OnCentralDidInitialize**
-
-> Available since version 2.0.0
+**OnCentralDidInitialize `Version 2.0.0`**
 
 Delegate invoked when the Framework has been initialized.
 
