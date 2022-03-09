@@ -1,7 +1,7 @@
 {
   "name": "nl.hulan.pillo-sdk",
   "displayName": "Pillo SDK",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "unity": "2021.1",
   "description": "The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware.",
   "type": "library",
