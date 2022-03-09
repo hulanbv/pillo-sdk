@@ -18,7 +18,7 @@ The Pillo SDK provides a High-Level API for interacting with the Pillo Hardware.
 - Apple iPhone running iOS 5.0 or later
 - Apple iPad running iPadOS 5.0 or later
 
-#### Getting Started using the Input System
+### Getting Started using the Input System
 
 Get started by installing this package in your Unity project and Switching the build platform to Apple TV. Then importing the Pillo SDK Input System Namespace. Importing this namespace will expose the `PilloInput` class which contains all the methods, properties delegates of the Pillo SDK Input System.
 
@@ -51,7 +51,7 @@ public class PilloTestComponent : MonoBehaviour {
 }
 ```
 
-#### Pillo Input Delegates
+### Pillo Input Delegates
 
 **OnCentralDidInitialize**
 
@@ -113,7 +113,7 @@ Delegate invoked when the Pillo Input Device's state did change.
 public delegate void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice);
 ```
 
-#### Pillo Input Properties
+### Pillo Input Properties
 
 **pilloInputDevices**
 
@@ -128,7 +128,7 @@ for (var i = 0; i < PilloInput.pilloInputDevicesCount; i++) {
 }
 ```
 
-#### Pillo Input Methods
+### Pillo Input Methods
 
 **ReassignPilloInputDevicePlayerIndexes**
 
@@ -140,7 +140,7 @@ Resets all of the Pillo Input Device's player indexes back to their original val
 public static void ResetPilloInputDevicePlayerIndexes ();
 ```
 
-#### Pillo Input Device Methods
+### Pillo Input Device Methods
 
 **PowerOff**
 
