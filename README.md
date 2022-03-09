@@ -103,9 +103,7 @@ public delegate void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInp
 
 ### Pillo Input Properties
 
-**pilloInputDevices `Version 2.0.0`**
-
-**pilloInputDevicesCount `Version 2.0.0`**
+**pilloInputDevices `Version 2.0.0` and pilloInputDevicesCount `Version 2.0.0`**
 
 Use the `pilloInputDevices` and `pilloInputDevicesCount` respectively to get a list of connected Pillo Input Devices.
 
@@ -126,6 +124,32 @@ Resets all of the Pillo Input Device's player indexes back to their original val
 public static void ResetPilloInputDevicePlayerIndexes ();
 ```
 
+### Pillo Input Device Properties
+
+**modelNumber `Version 2.2.0`**
+
+The model number of the Pillo Peripheral.
+
+```csharp
+public string modelNumber;
+```
+
+**firmwareVersion `Version 2.2.0`**
+
+The firmware version of the Pillo Peripheral.
+
+```csharp
+public string firmwareVersion;
+```
+
+**hardwareVersion `Version 2.2.0`**
+
+The hardware version of the Pillo Peripheral.
+
+```csharp
+public string hardwareVersion;
+```
+
 ### Pillo Input Device Methods
 
 **PowerOff `Version 2.1.0`**
@@ -142,6 +166,48 @@ Sets the maximum pressure value of the Pillo Input Device.
 
 ```csharp
 public void SetMaximumPressure (int maximumPressureValue);
+```
+
+### Pillo Input Device State Properties
+
+**modelNumber `Version 2.0.0`**
+
+The Pillo Input Device's unique identifier assigned by the Pillo Bluetooth peripheral.
+
+```csharp
+public string identifier;
+```
+
+**playerIndex `Version 2.1.0`**
+
+Internally assigned player indexes. These indexes are assigned automatically and are used to identify the player that the device belongs to. If a device disconnects, the player index is reassigned.
+
+```csharp
+public int playerIndex;
+```
+
+**pressure `Version 2.0.0`**
+
+The Pillo Input Device's pressure level.
+
+```csharp
+public int pressure;
+```
+
+**batteryLevel `Version 2.0.0`**
+
+The Pillo Input Device's battery level.
+
+```csharp
+public int batteryLevel;
+```
+
+**chargingState `Version 2.0.0`**
+
+The Pillo Input Device's charging state.
+
+```csharp
+public PilloInputDeviceChargingState chargingState;
 ```
 
 ## Development
