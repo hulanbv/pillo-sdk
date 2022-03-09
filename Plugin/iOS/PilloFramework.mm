@@ -77,10 +77,10 @@ extern "C" {
   // When two (or more) Pillo Peripherals are connected, scanning is stopped
   // since not more Pillo Peripherals can be connected at once. When one of
   // these Peripherals will disconnect, scanning will be resumed.
-  if ([self.peripherals count] >= 2) {
-    // TODO -- Check this, it seems to have a racing condition.
-    [self.centralManager stopScan];
-  }
+  // TODO -- This is temporary disabled, sometimes scanning stops to soon resulting in only one connected Pillo Peripheral.
+  // if ([self.peripherals count] >= 2) {
+  //   [self.centralManager stopScan];
+  // }
 }
 
 // Delegate Method invoked when the Peripheral did disconnect.
