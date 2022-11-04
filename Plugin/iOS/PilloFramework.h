@@ -5,7 +5,7 @@
 // Author: Jeffrey Lanters at Hulan
 
 // Interface for the PilloFramework Objective-C implementation.
-@interface PilloFramework : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate, UIGestureRecognizerDelegate> {}
+@interface PilloFramework : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate> {}
 
 // Instance Properties.
 @property (nonatomic, strong) CBCentralManager *centralManager;
