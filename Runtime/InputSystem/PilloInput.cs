@@ -70,7 +70,7 @@ namespace Hulan.PilloSDK.InputSystem {
     }
 
     private static void ReassignPilloInputDevicePlayerIndexes () {
-      // TODO recode this
+      // TODO -- Improve logic implementation.
       foreach (var pilloInputDevice in PilloInput.pilloInputDevices) {
         if (pilloInputDevice.playerIndex == -1) {
           pilloInputDevice.playerIndex = PilloInput.GetNextPilloInputDevicePlayerIndexes ();
@@ -79,7 +79,7 @@ namespace Hulan.PilloSDK.InputSystem {
     }
 
     private static int GetNextPilloInputDevicePlayerIndexes () {
-      // TODO recode this
+      // TODO -- Improve logic implementation.
       var nextPlayerIndex = 0;
       while (true) {
         var playerIndexIsInUse = false;
