@@ -32,24 +32,47 @@ extern "C" {
   // Instansatiate the central manager with a delegate to this class while also instansatiating the array which will hold the peripherals and the known peripheral UUIDs.
   self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
   self.peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
-  // Interval for scanning for Peripherals.
-  [NSTimer scheduledTimerWithTimeInterval:SCAN_INTERVAL_SECONDS target:self selector:@selector(scanForPeripherals) userInfo:nil repeats:YES];
+  // Start the scan for peripherals routine.
+  [self startScanningForPeripheralsRoutine];
 }
 
 // Starts scanning for peripherals for a set duration.
--(void)scanForPeripherals {
-  // When the maximum simulataneously allows peripheral connections is not exceeded.
-  if ([self.peripherals count] < MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION) {
+-(void)startScanningForPeripheralsRoutine {
+  // If the central manager was already scanning,
+  if ([self.centralManager isScanning] == true) {
+    // If at least one peripheral is connected,
+    if ([self.peripherals count] > 0) {
+      // Scanning is stopped.
+      [self.centralManager stopScan];
+    }
+    // A routine cycle will be scheduled.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+      [self startScanningForPeripheralsRoutine];
+    });
+  }
+  // If the central manager was not scanning, and the maximum simulataneously allowed peripheral connections is not exceeded,
+  else if ([self.peripherals count] < MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION) {
     // Scanning for peripherals will start, the allow duplicate keys option is passed along in order to allow the Central Manager to discover Perhiperals that have been disconnected before. This is an expensive operation and should only be executed periodically.
     [self.centralManager scanForPeripheralsWithServices:nil options:[NSDictionary dictionaryWithObjectsAndKeys:@YES, CBCentralManagerScanOptionAllowDuplicatesKey, nil]];
-    // After a set amount of time, the scanning will stop. Await the next periodically execution.
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-      [self.centralManager stopScan];
+    // After a set amount of time,
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+      // If at least one peripheral is connected,
+      if ([self.peripherals count] > 0) {
+        // Scanning is stopped.
+        [self.centralManager stopScan];
+      }
+      // A routine cycle will be scheduled.
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        [self startScanningForPeripheralsRoutine];
+      });
     });
-  } else if (![self.centralManager isScanning]) {
-    // If this number of simulataneously connected peripherals is exceeded, but the Central Manager was still scanning - it may stop scanning.
-    [self.centralManager stopScan];
+  }
+  // If the maximum simulaneously allowed peripheral connections is exceeded.
+  else {
+    // A routine cycle will be scheduled.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+      [self startScanningForPeripheralsRoutine];
+    });
   }
 }
 
