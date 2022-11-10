@@ -14,6 +14,6 @@
 // Instance Methods.
 - (void)initialize;
 - (void)invokeUnityCallback:(NSString *)methodName;
-- (void)invokeUnityCallback:(NSString *)methodName payload:(NSString *)payload;
+- (void)invokeUnityCallback:(NSString *)methodName payload:(NSDictionary *)payload;
 
 @end

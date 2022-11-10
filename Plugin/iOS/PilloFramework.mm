@@ -61,7 +61,9 @@ extern "C" {
       [self invokeUnityCallback:@"OnCentralDidInitialize"];
       break;
     default:
-      [self invokeUnityCallback:@"OnCentralDidFailToInitialize" payload:@"Bluetooth is not available."];
+      [self invokeUnityCallback:@"OnCentralDidFailToInitialize" payload:@{
+        @"message": @"Unable to initialize CoreBluetooth Central Manager"
+      }];
       break;
   }
 }
@@ -85,14 +87,18 @@ extern "C" {
 
 // Delegate Method invoked when the Peripheral did connect.
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-  [self invokeUnityCallback:@"OnPeripheralDidConnect" payload:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnPeripheralDidConnect" payload:@{
+    @"identifier": peripheral.identifier.UUIDString
+  }];
   // Once the Pillo Peripheral is connected, we'll start discovering Services, we will pass nil here to request all Services be discovered.
   [peripheral discoverServices:nil];
 }
 
 // Delegate Method invoked when the Peripheral did disconnect.
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnPeripheralDidDisconnect" payload:peripheral.identifier.UUIDString];
+  [self invokeUnityCallback:@"OnPeripheralDidDisconnect" payload:@{
+    @"identifier": peripheral.identifier.UUIDString
+  }];
   [self.centralManager cancelPeripheralConnection:peripheral];
   // The Peripheral will be removed from the array of Peripherals.
   [self.peripherals removeObjectAtIndex:[self.peripherals indexOfObject:peripheral]];
@@ -127,21 +133,21 @@ extern "C" {
   NSString *characteristicUUIDString = characteristic.UUID.UUIDString;
   // When the Characteristic's UUID matches the battery level's Characteristic UUID, we'll extract the value as its battery level which should contain an interger from 0 to 100. We'll forward this using a Unity callback.
   if ([characteristicUUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
-    /// TODO directly send this data as a string instead of parsing it around!
-    uint32_t rawBatteryLevel = 0;
-    [rawData getBytes:&rawBatteryLevel length:sizeof(rawBatteryLevel)];
-    NSNumber *batteryLevel = [[NSNumber alloc]initWithUnsignedInt:rawBatteryLevel];
-    NSString *payload = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, batteryLevel];
-    [self invokeUnityCallback:@"OnPeripheralBatteryLevelDidChange" payload:payload];
+    uint32_t battery = 0;
+    [rawData getBytes:&battery length:sizeof(battery)];
+    [self invokeUnityCallback:@"OnPeripheralBatteryLevelDidChange" payload:@{
+      @"identifier": peripheral.identifier.UUIDString,
+      @"battery": @(battery)
+    }];
   }
   // When the Characteristic's UUID matches the pressure's Characteristic UUID, we'll extract the value as its pressure which should contain an interger from 0 to 255. We'll forward this using a Unity callback.
   else if ([characteristicUUIDString isEqualToString:PRESSURE_CHARACTERISTIC_UUID]) {
-    /// TODO directly send this data as a string instead of parsing it around!
-    uint32_t rawPressure = 0;
-    [rawData getBytes:&rawPressure length:sizeof(rawPressure)];
-    NSNumber *pressure = [[NSNumber alloc]initWithUnsignedInt:rawPressure];
-    NSString *payload = [NSString stringWithFormat:@"%@~%@", peripheral.identifier.UUIDString, pressure];
-    [self invokeUnityCallback:@"OnPeripheralPressureDidChange" payload:payload];
+    uint32_t pressure = 0;
+    [rawData getBytes:&pressure length:sizeof(pressure)];
+    [self invokeUnityCallback:@"OnPeripheralPressureDidChange" payload:@{
+      @"identifier": peripheral.identifier.UUIDString,
+      @"pressure": @(pressure)
+    }];
   }
 }
 
@@ -150,12 +156,15 @@ extern "C" {
 
 // Invokes a callback event on the Unity Scene to a specific Game Object.
 - (void)invokeUnityCallback:(NSString *)methodName {
-  [self invokeUnityCallback:methodName payload:@""];
+  UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [@"" UTF8String]);
 }
 
 // Invokes a callback event on the Unity Scene to a specific Game Object with a string payload. This is the only type Unity accepts, to it might require a parse in order to be used.
-- (void)invokeUnityCallback:(NSString *)methodName payload:(NSString *)payload {
-  UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [payload UTF8String]);
+- (void)invokeUnityCallback:(NSString *)methodName payload:(NSDictionary *)payload {
+  NSError *error;
+  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:kNilOptions error:&error];
+  NSString *json = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+  UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [json UTF8String]);
 }
 
 @end
