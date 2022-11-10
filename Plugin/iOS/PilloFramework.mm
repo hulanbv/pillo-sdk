@@ -46,7 +46,7 @@ extern "C" {
       [self.centralManager stopScan];
     }
     // A routine cycle will be scheduled.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
       [self startScanningForPeripheralsRoutine];
     });
   }
