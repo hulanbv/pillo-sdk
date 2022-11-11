@@ -137,6 +137,14 @@ namespace Hulan.PilloSDK.InputSystem {
       }
     }
 
+    internal static void OnPeripheralChargeStateDidChange (string identifier, PilloInputDeviceChargeState chargeState) {
+      var pilloInputDevice = PilloInput.GetPilloInputDevice (identifier);
+      if (pilloInputDevice != null) {
+        pilloInputDevice.chargeState = chargeState;
+        PilloInput.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
+      }
+    }
+
     /// <summary>
     /// Resets all of the Pillo Input Device's player indexes back to
     /// their original values.

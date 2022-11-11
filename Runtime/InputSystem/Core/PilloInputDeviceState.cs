@@ -29,9 +29,9 @@ namespace Hulan.PilloSDK.InputSystem.Core {
     public int batteryLevel { internal set; get; } = 0;
 
     /// <summary>
-    /// The Pillo Input Device's charging state.
+    /// The Pillo Input Device's charge state.
     /// TODO -- Implement this!
     /// </summary>
-    public PilloInputDeviceChargingState chargingState { internal set; get; } = PilloInputDeviceChargingState.UNKNOWN;
+    public PilloInputDeviceChargeState chargeState { internal set; get; } = PilloInputDeviceChargeState.UNKNOWN;
   }
 }

@@ -4,7 +4,7 @@ namespace Hulan.PilloSDK.InputSystem.Core {
   /// <summary>
   /// The Charging State of a Pillo Input Device.
   /// </summary>
-  public enum PilloInputDeviceChargingState {
+  public enum PilloInputDeviceChargeState {
     /// <summary>
     /// The Pillo Input Device's charging state is unkown.
     /// </summary>
