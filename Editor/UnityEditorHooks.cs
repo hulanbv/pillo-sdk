@@ -4,9 +4,13 @@ using UnityEditor;
 using UnityEditor.iOS.Xcode;
 using System.IO;
 
+// Unity Engine Pillo SDK Framework
+// Author: Jeffrey Lanters at Hulan
 namespace Hulan.PilloSDK.Editor {
-  public static class UnityEditorHooks {
-
+  /// <summary>
+  /// Contains the methods to hook into the Unity Editor.
+  /// </summary>
+  internal static class UnityEditorHooks {
     /// <summary>
     /// When the Unity build is succesfull, this hook will be invoked. This adds
     /// the required usage descriptions to the Info PList to the Xcode project.
