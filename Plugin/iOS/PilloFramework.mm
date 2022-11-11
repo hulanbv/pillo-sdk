@@ -22,7 +22,7 @@ extern "C" {
 // Configuration.
 #define PILLO_SERVICE_UUID @"579BA43D-A351-463D-92C7-911EC1B54E35"
 #define PRESSURE_CHARACTERISTIC_UUID @"1470CA75-5D7E-4E16-A70D-D1476E8D0C6F"
-#define CHARGE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
+#define CHARGE_STATE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
 #define BATTERY_LEVEL_CHARACTERISTIC_UUID @"2A19"
 #define SCAN_DURATION_SECONDS 2
 #define SCAN_INTERVAL_SECONDS 10
@@ -157,8 +157,17 @@ extern "C" {
   // Extract the data from the Characteristic's value property and convert it into raw data based on the Characteristic's UUID.
   NSData *rawData = characteristic.value;
   NSString *characteristicUUIDString = characteristic.UUID.UUIDString;
+  // When the Characteristic's UUID matches the pressure's Characteristic UUID, we'll extract the value as its pressure which should contain an interger from 0 to 255. We'll forward this using a Unity callback.
+  if ([characteristicUUIDString isEqualToString:PRESSURE_CHARACTERISTIC_UUID]) {
+    uint32_t pressure = 0;
+    [rawData getBytes:&pressure length:sizeof(pressure)];
+    [self invokeUnityCallback:@"OnPeripheralPressureDidChange" payload:@{
+      @"identifier": peripheral.identifier.UUIDString,
+      @"pressure": @(pressure)
+    }];
+  }
   // When the Characteristic's UUID matches the battery level's Characteristic UUID, we'll extract the value as its battery level which should contain an interger from 0 to 100. We'll forward this using a Unity callback.
-  if ([characteristicUUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
+  else if ([characteristicUUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
     uint32_t batteryLevel = 0;
     [rawData getBytes:&batteryLevel length:sizeof(batteryLevel)];
     [self invokeUnityCallback:@"OnPeripheralBatteryLevelDidChange" payload:@{
@@ -166,13 +175,13 @@ extern "C" {
       @"batteryLevel": @(batteryLevel)
     }];
   }
-  // When the Characteristic's UUID matches the pressure's Characteristic UUID, we'll extract the value as its pressure which should contain an interger from 0 to 255. We'll forward this using a Unity callback.
-  else if ([characteristicUUIDString isEqualToString:PRESSURE_CHARACTERISTIC_UUID]) {
-    uint32_t pressure = 0;
-    [rawData getBytes:&pressure length:sizeof(pressure)];
-    [self invokeUnityCallback:@"OnPeripheralPressureDidChange" payload:@{
+  // When the Chracteristic's UUID matches the charge state's Characteristic UUID, we'll extract the value as its charge state. This value will be casted within Unity to an equal value from an enum.
+  else if ([characteristicUUIDString isEqualToString:CHARGE_STATE_CHARACTERISTIC_UUID]) {
+    uint32_t chargeState = 0;
+    [rawData getBytes:&chargeState length:sizeof(chargeState)];
+    [self invokeUnityCallback:@"OnPeripheralChargeStateDidChange" payload:@{
       @"identifier": peripheral.identifier.UUIDString,
-      @"pressure": @(pressure)
+      @"chargeState": @(chargeState)
     }];
   }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Hulan.PilloSDK.InputSystem;
+using Hulan.PilloSDK.InputSystem.Core;
 using Hulan.PilloSDK.Framework.Payloads;
 
 // Unity Engine Pillo SDK Framework
@@ -86,6 +87,17 @@ namespace Hulan.PilloSDK.Framework {
       var payload = JsonUtility.FromJson<PeripheralPressureDidChangePayload> (payloadJson);
       // Inform the Input System that the pressure has changed.
       PilloInput.OnPeripheralPressureDidChange (payload.identifier, payload.pressure);
+    }
+
+    /// <summary>
+    /// Method invoked by the native Pillo Framework when the Pillo 
+    /// Peripherals's charge state has been changed.
+    /// </summary>
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralChargeStateDidChange (string payloadJson) {
+      var payload = JsonUtility.FromJson<PeripheralChargeStateDidChangePayload> (payloadJson);
+      // Inform the Input System that the charge state has changed.
+      PilloInput.OnPeripheralChargeStateDidChange (payload.identifier, (PilloInputDeviceChargeState)payload.chargeState);
     }
 
     /// <summary>
