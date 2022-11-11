@@ -202,12 +202,12 @@ The Pillo Input Device's battery level.
 public int batteryLevel;
 ```
 
-**chargingState `Version 2.0.0`**
+**chargeState `Version 2.0.0`**
 
 The Pillo Input Device's charging state.
 
 ```csharp
-public PilloInputDeviceChargingState chargingState;
+public PilloInputDeviceChargeState chargeState;
 ```
 
 ## Development
