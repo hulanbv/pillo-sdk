@@ -31,8 +31,8 @@ namespace Hulan.PilloSDK.Samples.InputSystemExample {
       this.Log ("Pillo Test Component: did initialize");
     }
 
-    public void OnCentralDidFailToInitialize (string reason) {
-      this.Log ("Pillo Test Component: did fail to initialize: " + reason);
+    public void OnCentralDidFailToInitialize (string message) {
+      this.Log ("Pillo Test Component: did fail to initialize: " + message);
     }
 
     public void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice) {

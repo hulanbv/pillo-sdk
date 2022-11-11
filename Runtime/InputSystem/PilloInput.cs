@@ -1,19 +1,14 @@
-using System.Runtime.InteropServices;
 using Hulan.PilloSDK.InputSystem.Core;
-using UnityEngine;
 using System.Collections.Generic;
 
 // Unity Engine Pillo SDK Input System
 // Author: Jeffrey Lanters at Hulan
-
 namespace Hulan.PilloSDK.InputSystem {
-
   /// <summary>
   /// The Pillo Input class exposes a set of methods and delegates to interact 
   /// with the Pillo Peripherals, Services and Characteristics.
   /// </summary>
   public static class PilloInput {
-
     /// <summary>
     /// Delegate invoked when the Central has been initialized.
     /// </summary>
@@ -99,8 +94,8 @@ namespace Hulan.PilloSDK.InputSystem {
       PilloInput.onCentralDidInitialize?.Invoke ();
     }
 
-    internal static void OnCentralDidFailToInitialize (string reason) {
-      PilloInput.onCentralDidFailToInitialize?.Invoke (reason);
+    internal static void OnCentralDidFailToInitialize (string message) {
+      PilloInput.onCentralDidFailToInitialize?.Invoke (message);
     }
 
     internal static void OnPeripheralDidConnect (string identifier) {

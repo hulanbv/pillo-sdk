@@ -1,13 +1,10 @@
 // Unity Engine Pillo SDK Input System Core
 // Author: Jeffrey Lanters at Hulan
-
 namespace Hulan.PilloSDK.InputSystem.Core {
-
   /// <summary>
   /// The State of a Pillo Input Device.
   /// </summary>
   public abstract class PilloInputDeviceState {
-
     /// <summary>
     /// The Pillo Input Device's unique identifier assigned by the Pillo
     /// Bluetooth peripheral.

@@ -3,9 +3,7 @@ using UnityEngine;
 
 // Unity Engine Pillo SDK Framework
 // Author: Jeffrey Lanters at Hulan
-
 namespace Hulan.PilloSDK.Framework {
-
   /// <summary>
   /// The Pillo Framework is responsible binding the events sent by the Pillo
   /// Frmaework iOS Plugin to the Unity Engine. It also exposes a set of methods
@@ -13,7 +11,6 @@ namespace Hulan.PilloSDK.Framework {
   /// and going to the iOS Plugin can be matched one to one.
   /// </summary>
   internal class PilloFramework {
-
     /// <summary>
     /// Exposed method which invoked a native method from within the Pillo
     /// Framework. This initializes the Pillo Framework and sets up the

@@ -2,14 +2,11 @@ using Hulan.PilloSDK.InputSystem.Core;
 
 // Unity Engine Pillo SDK Input System
 // Author: Jeffrey Lanters at Hulan
-
 namespace Hulan.PilloSDK.InputSystem {
-
   /// <summary>
   /// The Pillo input device represents a fysical Pillo peripheral.
   /// </summary>
   public class PilloInputDevice : PilloInputDeviceState {
-
     /// <summary>
     /// Initializes a new instance of a Pillo Input Device.
     /// </summary>

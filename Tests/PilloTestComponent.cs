@@ -28,8 +28,8 @@ namespace Hulan.PilloSDK.Tests {
       Debug.Log ("Pillo Test Component: did initialize");
     }
 
-    public void OnCentralDidFailToInitialize (string reason) {
-      Debug.Log ("Pillo Test Component: did fail to initialize: " + reason);
+    public void OnCentralDidFailToInitialize (string message) {
+      Debug.Log ("Pillo Test Component: did fail to initialize: " + message);
     }
 
     public void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice) {

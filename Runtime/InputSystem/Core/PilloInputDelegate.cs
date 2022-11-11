@@ -1,10 +1,6 @@
-using Hulan.PilloSDK.InputSystem;
-
 // Unity Engine Pillo SDK Input System Core
 // Author: Jeffrey Lanters at Hulan
-
 namespace Hulan.PilloSDK.InputSystem.Core {
-
   /// <summary>
   /// Containing the delegate definitions for the Pillo Input.
   /// </summary>
@@ -18,8 +14,8 @@ namespace Hulan.PilloSDK.InputSystem.Core {
     /// <summary>
     /// Delegate invoked when the Framework has failed to initialize.
     /// </summary>
-    /// <param name="reason">The reason why it failed.</param>
-    public delegate void OnCentralDidFailToInitialize (string reason);
+    /// <param name="message">The reason why it failed.</param>
+    public delegate void OnCentralDidFailToInitialize (string message);
 
     /// <summary>
     /// Delegate invoked when a Pillo Input Device has been connected.

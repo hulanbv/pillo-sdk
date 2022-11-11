@@ -1,13 +1,10 @@
 // Unity Engine Pillo SDK Input System Core
 // Author: Jeffrey Lanters at Hulan
-
 namespace Hulan.PilloSDK.InputSystem.Core {
-
   /// <summary>
   /// The Charging State of a Pillo Input Device.
   /// </summary>
   public enum PilloInputDeviceChargingState {
-
     /// <summary>
     /// The Pillo Input Device's charging state is unkown.
     /// </summary>

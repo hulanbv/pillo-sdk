@@ -1,11 +1,10 @@
 using UnityEngine;
 using Hulan.PilloSDK.InputSystem;
+using Hulan.PilloSDK.Framework.Payloads;
 
 // Unity Engine Pillo SDK Framework
 // Author: Jeffrey Lanters at Hulan
-
 namespace Hulan.PilloSDK.Framework {
-
   /// <summary>
   /// The Callback Listener MonoBehaviour will be assigned to a specificly
   /// named GameObject in the scene. This GameObject will be created by the
@@ -14,7 +13,6 @@ namespace Hulan.PilloSDK.Framework {
   /// </summary>
   [AddComponentMenu ("")]
   internal class PilloFrameworkCallbackListener : MonoBehaviour {
-
     /// <summary>
     /// Method invoked by the native Pillo Framework when it has been 
     /// initialized.
@@ -28,37 +26,42 @@ namespace Hulan.PilloSDK.Framework {
     /// Method invoked by the native Pillo Framework when it has failed to
     /// initialize.
     /// </summary>
-    /// <param name="payload">Contaning the reason.</param>
-    internal void OnCentralDidFailToInitialize (string payload) {
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnCentralDidFailToInitialize (string payloadJson) {
+      var payload = JsonUtility.FromJson<CentralDidFailToInitializePayload> (payloadJson);
       // Inform the Input system that the Pillo Framework failed to initialize.
-      PilloInput.OnCentralDidFailToInitialize (payload);
+      PilloInput.OnCentralDidFailToInitialize (payload.message);
     }
 
     /// <summary>
     /// Method invoked by the native Pillo Framework when a Pillo has been
     /// connected.
     /// </summary>
-    /// <param name="payload">Contaning the Peripheral UUID.</param>
-    internal void OnPeripheralDidConnect (string payload) {
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralDidConnect (string payloadJson) {
+      var payload = JsonUtility.FromJson<PeripheralDidConnectPayload> (payloadJson);
       // Inform the Input System that a Pillo has been connected.
-      PilloInput.OnPeripheralDidConnect (payload);
+      PilloInput.OnPeripheralDidConnect (payload.identifier);
     }
 
     /// <summary>
     /// Method invoked by the native Pillo Framework when a Pillo has been
     /// disconnected.
     /// </summary>
-    /// <param name="payload">Contaning the Peripheral UUID.</param>
-    internal void OnPeripheralDidDisconnect (string payload) {
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralDidDisconnect (string payloadJson) {
+      var payload = JsonUtility.FromJson<PeripheralDidDisconnectPayload> (payloadJson);
       // Inform the Input System that a Pillo has been disconnected.
-      PilloInput.OnPeripheralDidDisconnect (payload);
+      PilloInput.OnPeripheralDidDisconnect (payload.identifier);
     }
 
     /// <summary>
     /// Method invoked by the native Pillo Framework when a Pillo has failed
     /// to connect.
     /// </summary>
-    internal void OnPeripheralDidFailToConnect () {
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralDidFailToConnect (string payloadJson) {
+      var payload = JsonUtility.FromJson<PeripheralDidFailToConnectPayload> (payloadJson);
       // Inform the Input System that a Pillo has failed to connect.
       PilloInput.OnPeripheralDidFailToConnect ();
     }
@@ -67,26 +70,22 @@ namespace Hulan.PilloSDK.Framework {
     /// Method invoked by the native Pillo Framework when the battery level
     /// has changed.
     /// </summary>
-    /// <param name="payload">Containing the battery level.</param>
-    internal void OnPeripheralBatteryLevelDidChange (string payload) {
-      var parts = payload.Split ('~');
-      var identifier = parts[0];
-      var batteryLevel = int.Parse (parts[1]);
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralBatteryLevelDidChange (string payloadJson) {
+      var payload = JsonUtility.FromJson<PeripheralBatteryLevelDidChangePayload> (payloadJson);
       // Inform the Input System that the battery level has changed.
-      PilloInput.OnPeripheralBatteryLevelDidChange (identifier, batteryLevel);
+      PilloInput.OnPeripheralBatteryLevelDidChange (payload.identifier, payload.batteryLevel);
     }
 
     /// <summary>
     /// Method invoked by the native Pillo Framework when the Pillo 
     /// Peripherals's pressure has been changed.
     /// </summary>
-    /// <param name="payload">Containing the pressure.</param>
-    internal void OnPeripheralPressureDidChange (string payload) {
-      var parts = payload.Split ('~');
-      var identifier = parts[0];
-      var pressure = int.Parse (parts[1]);
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralPressureDidChange (string payloadJson) {
+      var payload = JsonUtility.FromJson<PeripheralPressureDidChangePayload> (payloadJson);
       // Inform the Input System that the pressure has changed.
-      PilloInput.OnPeripheralPressureDidChange (identifier, pressure);
+      PilloInput.OnPeripheralPressureDidChange (payload.identifier, payload.pressure);
     }
 
     /// <summary>
@@ -100,7 +99,7 @@ namespace Hulan.PilloSDK.Framework {
       var gameObject = new GameObject ("~PilloFrameworkCallbackListener");
       gameObject.AddComponent<PilloFrameworkCallbackListener> ();
       gameObject.hideFlags = HideFlags.HideInHierarchy;
-      Object.DontDestroyOnLoad (gameObject);
+      GameObject.DontDestroyOnLoad (gameObject);
     }
   }
 }

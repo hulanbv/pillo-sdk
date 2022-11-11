@@ -66,7 +66,7 @@ public delegate void OnCentralDidInitialize ();
 Delegate invoked when the Framework has failed to initialize.
 
 ```csharp
-public delegate void OnCentralDidFailToInitialize (string reason);
+public delegate void OnCentralDidFailToInitialize (string message);
 ```
 
 **OnPilloInputDeviceDidConnect `Version 2.0.0`**

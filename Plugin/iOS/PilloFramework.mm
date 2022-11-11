@@ -129,7 +129,10 @@ extern "C" {
 
 // Delegate Method invoked when the Peripheral did fail to connect.
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnPeripheralDidFailToConnect"];
+  [self invokeUnityCallback:@"OnPeripheralDidFailToConnect" payload:@{
+    @"identifier": peripheral.identifier.UUIDString
+  }];
+  [self.centralManager cancelPeripheralConnection:peripheral];
   // The Peripheral will be removed from the array of Peripherals.
   [self.peripherals removeObjectAtIndex:[self.peripherals indexOfObject:peripheral]];
 }
@@ -156,11 +159,11 @@ extern "C" {
   NSString *characteristicUUIDString = characteristic.UUID.UUIDString;
   // When the Characteristic's UUID matches the battery level's Characteristic UUID, we'll extract the value as its battery level which should contain an interger from 0 to 100. We'll forward this using a Unity callback.
   if ([characteristicUUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
-    uint32_t battery = 0;
-    [rawData getBytes:&battery length:sizeof(battery)];
+    uint32_t batteryLevel = 0;
+    [rawData getBytes:&batteryLevel length:sizeof(batteryLevel)];
     [self invokeUnityCallback:@"OnPeripheralBatteryLevelDidChange" payload:@{
       @"identifier": peripheral.identifier.UUIDString,
-      @"battery": @(battery)
+      @"batteryLevel": @(batteryLevel)
     }];
   }
   // When the Characteristic's UUID matches the pressure's Characteristic UUID, we'll extract the value as its pressure which should contain an interger from 0 to 255. We'll forward this using a Unity callback.
@@ -185,9 +188,9 @@ extern "C" {
 // Invokes a callback event on the Unity Scene to a specific Game Object with a string payload. This is the only type Unity accepts, to it might require a parse in order to be used.
 - (void)invokeUnityCallback:(NSString *)methodName payload:(NSDictionary *)payload {
   NSError *error;
-  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:kNilOptions error:&error];
-  NSString *json = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-  UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [json UTF8String]);
+  NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:kNilOptions error:&error];
+  NSString *payloadJson = [[NSString alloc]initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
+  UnitySendMessage("~PilloFrameworkCallbackListener", [methodName UTF8String], [payloadJson UTF8String]);
 }
 
 @end
