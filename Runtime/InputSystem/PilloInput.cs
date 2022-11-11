@@ -45,6 +45,11 @@ namespace Hulan.PilloSDK.InputSystem {
     public static readonly List<PilloInputDevice> pilloInputDevices = new List<PilloInputDevice> ();
 
     /// <summary>
+    /// Determines whether the Central is initialized.
+    /// </summary>
+    public static bool isCentralInitialized { get; private set; }
+
+    /// <summary>
     /// The number of connected Pillo Input Devices.
     /// </summary>
     public static int pilloInputDeviceCount {
@@ -91,10 +96,12 @@ namespace Hulan.PilloSDK.InputSystem {
     }
 
     internal static void OnCentralDidInitialize () {
+      isCentralInitialized = true;
       PilloInput.onCentralDidInitialize?.Invoke ();
     }
 
     internal static void OnCentralDidFailToInitialize (string message) {
+      isCentralInitialized = false;
       PilloInput.onCentralDidFailToInitialize?.Invoke (message);
     }
 
