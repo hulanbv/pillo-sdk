@@ -233,51 +233,6 @@ The Pillo SDK listens for those advertisements, and it will specify exactly whic
 
 On iOS and TVOS the Core Bluetooth framework provides the classes needed for your apps to communicate with Bluetooth-equipped low energy (LE) and Basic Rate / Enhanced Data Rate (BR/EDR) wireless technology.
 
-#### Pillo BLE GATT profiles
-
-**Battery Service**
-
-Generic service for monitoring battery state.
-
-| name          | Service | Characteristic | Type | Accessibility | Value         |
-| ------------- | ------- | -------------- | ---- | ------------- | ------------- |
-| Battery Level | 180F    | 2A19           | Byte | Read & Notify | uint8_t 0-100 |
-
-**Device Information Service**
-
-Generic service for providing device information.
-
-| name              | Service | Characteristic | Type   | Accessibility | Value  |
-| ----------------- | ------- | -------------- | ------ | ------------- | ------ |
-| Model number      | 180A    | 2A24           | String | Read          | String |
-| Manufacturer name | 180A    | 2A29           | String | Read          | String |
-| Firmware version  | 180A    | 2A26           | String | Read          | String |
-| Hardware version  | 180A    | 2A27           | String | Read          | String |
-
-**Hulan Pressure Service**
-
-Service for monitoring pressure state.
-
-| name          | Service                              | Characteristic                       | Type | Accessibility | Value         |
-| ------------- | ------------------------------------ | ------------------------------------ | ---- | ------------- | ------------- |
-| Battery Level | 579BA43D-A351-463D-92C7-911EC1B54E35 | 1470CA75-5D7E-4E16-A70D-D1476E8D0C6F | Byte | Read & Notify | uint8_t 0-255 |
-
-**Charge Service**
-
-Service for monitoring charge state.
-
-| name         | Service                              | Characteristic                       | Type | Accessibility | Value                               |
-| ------------ | ------------------------------------ | ------------------------------------ | ---- | ------------- | ----------------------------------- |
-| Charge Value | 044402A3-F8B4-479A-B995-63E99ACB2735 | 22FEB891-0057-4A3E-AF5B-EC769849077C | Byte | Read & Notify | uint8_t 0:pre 1:fast 2:done 3:sleep |
-
-**Command Service**
-
-Service for sending commands.
-
-| name    | Service                              | Characteristic                       | Type      | Accessibility | Value                                                           |
-| ------- | ------------------------------------ | ------------------------------------ | --------- | ------------- | --------------------------------------------------------------- |
-| Command | 6ACCCABD-1728-4697-9B4A-BF25ECCA14AA | A9147E1F-E91F-4A02-B6E4-2869E0FE69BB | 1-5 Bytes | Write         | uint8_t, uint8_t[] 0x01:max_pressure_value 0x0F:turn_device_off |
-
 #### Structure
 
 The Pillo SDK consists of the following namespaces:
