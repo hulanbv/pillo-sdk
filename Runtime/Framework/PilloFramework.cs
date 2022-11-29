@@ -25,9 +25,10 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     [RuntimeInitializeOnLoadMethod]
     private static void RuntimeInitializeOnLoad () {
-#if UNITY_EDITOR == false && UNITY_TVOS == true
-      // Initialize the native Pillo Framework when we're on the right platform
-      // while not being in the Unity Editor.
+      // Even though the Pillo Framework Runtime Initialization Method is
+      // available, it should only be invoked when the Pillo Framework is
+      // running in a non Editor environment.
+#if UNITY_EDITOR == false
       PilloFrameworkInitialize ();
 #endif
     }
