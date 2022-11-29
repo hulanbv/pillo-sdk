@@ -7,7 +7,11 @@ This repository contains the Unity Package for the Pillo SDK.
 Install the latest stable release using the Unity Package Manager by adding the following line to your manifest.json file located within your project's Packages directory, or by adding the Git URL to the Package Manager Window inside of Unity. To make sure you're using a stable version, use a tag at the end of the Git URL in order to install a specific release.
 
 ```json
-"nl.hulan.pillo-sdk": "git+https://github.com/hulanbv/pillo-sdk-package#v1.0.0"
+{
+  "dependencies": {
+    "nl.hulan.pillo-sdk.framework": "git+https://github.com/hulanbv/pillo-sdk-package.git?path=/Framework#v1.0.0"
+  }
+}
 ```
 
 ## Documentation
