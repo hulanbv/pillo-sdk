@@ -46,18 +46,5 @@ namespace Hulan.PilloSDK.Tests {
     public void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice) {
       Debug.Log ("Pillo Test Component: state change: " + pilloInputDevice.identifier + " (" + pilloInputDevice.playerIndex + ")" + "\n- Pressure: " + pilloInputDevice.pressure + "\n- Battery: " + pilloInputDevice.batteryLevel);
     }
-
-    private void OnGUI () {
-      GUILayout.Label ("Pillo SDK Pillo Input Tests");
-      GUILayout.Label ("Pillo Input Central Initialized: " + PilloInput.isCentralInitialized);
-      GUILayout.Label ("Pillo Input Device Count: " + PilloInput.pilloInputDeviceCount);
-      GUILayout.Label ("Pillo Input Devices:");
-      foreach (var pilloInputDevice in PilloInput.pilloInputDevices) {
-        GUILayout.Label ("- " + pilloInputDevice.identifier + " (" + pilloInputDevice.playerIndex + ")");
-        GUILayout.Label ("  - Pressure: " + pilloInputDevice.pressure);
-        GUILayout.Label ("  - Battery Level: " + pilloInputDevice.batteryLevel);
-        GUILayout.Label ("  - Charge State: " + pilloInputDevice.chargeState);
-      }
-    }
   }
 }
