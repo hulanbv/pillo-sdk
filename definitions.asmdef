@@ -1,10 +1,14 @@
 {
     "name": "nl.hulan.pillo-sdk",
-    "rootNamespace": "",
+    "rootNamespace": "Hulan.PilloSDK",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor",
+        "iOS",
+        "tvOS"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
