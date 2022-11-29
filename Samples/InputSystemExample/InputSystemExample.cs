@@ -9,52 +9,18 @@ namespace Hulan.PilloSDK.Samples.InputSystemExample {
 
     public Text textDebug;
 
-    public void Start () {
-      PilloInput.onCentralDidInitialize += this.OnCentralDidInitialize;
-      PilloInput.onCentralDidFailToInitialize += this.OnCentralDidFailToInitialize;
-      PilloInput.onPilloInputDeviceDidConnect += this.OnPilloInputDeviceDidConnect;
-      PilloInput.onPilloInputDeviceDidDisconnect += this.OnPilloInputDeviceDidDisconnect;
-      PilloInput.onPilloInputDeviceDidFailToConnect += this.OnPilloInputDeviceDidFailToConnect;
-      PilloInput.onPilloInputDeviceStateDidChange += this.OnPilloInputDeviceStateDidChange;
-    }
-
-    public void OnDestroy () {
-      PilloInput.onCentralDidInitialize -= this.OnCentralDidInitialize;
-      PilloInput.onCentralDidFailToInitialize -= this.OnCentralDidFailToInitialize;
-      PilloInput.onPilloInputDeviceDidConnect -= this.OnPilloInputDeviceDidConnect;
-      PilloInput.onPilloInputDeviceDidDisconnect -= this.OnPilloInputDeviceDidDisconnect;
-      PilloInput.onPilloInputDeviceDidFailToConnect -= this.OnPilloInputDeviceDidFailToConnect;
-      PilloInput.onPilloInputDeviceStateDidChange -= this.OnPilloInputDeviceStateDidChange;
-    }
-
-    public void OnCentralDidInitialize () {
-      this.Log ("Pillo Test Component: did initialize");
-    }
-
-    public void OnCentralDidFailToInitialize (string message) {
-      this.Log ("Pillo Test Component: did fail to initialize: " + message);
-    }
-
-    public void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice) {
-      this.Log ("Pillo Test Component: connection successful: " + pilloInputDevice.identifier);
-    }
-
-    public void OnPilloInputDeviceDidDisconnect (PilloInputDevice pilloInputDevice) {
-      this.Log ("Pillo Test Component: disconnected: " + pilloInputDevice.identifier);
-    }
-
-    public void OnPilloInputDeviceDidFailToConnect () {
-      this.Log ("Pillo Test Component: connection failed");
-    }
-
-    public void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice) {
-      this.Log ("Pillo Test Component: state change: " + pilloInputDevice.identifier + "\n> Pressure: " + pilloInputDevice.pressure + "\n> Battery: " + pilloInputDevice.batteryLevel);
-    }
-
-    private void Log (string text) {
-      if (this.textDebug != null) {
-        this.textDebug.text = text + "\n" + this.textDebug.text;
+    private void Update () {
+      var text = "Pillo SDK Pillo Input Tests\n";
+      text += "Pillo Input Central Initialized: " + PilloInput.isCentralInitialized + "\n";
+      text += "Pillo Input Device Count: " + PilloInput.pilloInputDeviceCount + "\n";
+      text += "Pillo Input Devices:\n";
+      foreach (var pilloInputDevice in PilloInput.pilloInputDevices) {
+        text += "- " + pilloInputDevice.identifier + " (" + pilloInputDevice.playerIndex + ")\n";
+        text += "  - Pressure: " + pilloInputDevice.pressure + "\n";
+        text += "  - Battery Level: " + pilloInputDevice.batteryLevel + "\n";
+        text += "  - Charge State: " + pilloInputDevice.chargeState + "\n";
       }
+      this.textDebug.text = text;
     }
   }
 }
