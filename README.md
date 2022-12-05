@@ -1,7 +1,5 @@
 # Pillo SDK
 
-## Documentation
-
 The Pillo SDK a series of packages for interacting with the Pillo Hardware using the Unity engine. The SDK is supported on the following build platforms:
 
 - AppleTV running tvOS 9.0 or later
@@ -10,7 +8,7 @@ The Pillo SDK a series of packages for interacting with the Pillo Hardware using
 
 ## Pillo SDK Framework
 
-This repository contains the Unity Package for the Pillo SDK.
+The Pillo SDK Framework provides the core functionality for interacting with the Pillo Hardware.
 
 ### Installation
 
