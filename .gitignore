@@ -1,6 +1,6 @@
 ## System
 .DS_Store
 
-# Generated Files
+# Generated Development Files
 /manifest.json
 /packages-lock.json
