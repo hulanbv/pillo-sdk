@@ -21,3 +21,7 @@ Install the latest stable release using the Unity Package Manager by adding the 
   }
 }
 ```
+
+## Development
+
+To start developing on the Pillo SDK, clone the repository as if it were the Unity's Packages directory by checking it out in your Unity project's base directory and renaming it to `Packages`. This will allow you to develop on the SDK and test it in your Unity project as if all the packages were installed using the Unity Package Manager.
