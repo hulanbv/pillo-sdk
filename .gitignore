@@ -2,5 +2,4 @@
 .DS_Store
 
 # Generated Development Files
-/manifest.json
-/packages-lock.json
+/*.meta
