@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		820FB7C0273445D2004F02C5 /* PilloFramework.mm in Sources */ = {isa = PBXBuildFile; fileRef = 820FB7BF273445D2004F02C5 /* PilloFramework.mm */; };
-		820FB7C1273445D2004F02C5 /* PilloFramework.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 820FB7BE273445D2004F02C5 /* PilloFramework.h */; };
+		820FB7C0273445D2004F02C5 /* DeviceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 820FB7BF273445D2004F02C5 /* DeviceManager.mm */; };
+		820FB7C1273445D2004F02C5 /* DeviceManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 820FB7BE273445D2004F02C5 /* DeviceManager.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,7 +18,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				820FB7C1273445D2004F02C5 /* PilloFramework.h in CopyFiles */,
+				820FB7C1273445D2004F02C5 /* DeviceManager.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -26,8 +26,8 @@
 
 /* Begin PBXFileReference section */
 		820FB7BB273445D2004F02C5 /* libPlugin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlugin.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		820FB7BE273445D2004F02C5 /* PilloFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PilloFramework.h; sourceTree = "<group>"; };
-		820FB7BF273445D2004F02C5 /* PilloFramework.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PilloFramework.mm; sourceTree = "<group>"; };
+		820FB7BE273445D2004F02C5 /* DeviceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceManager.h; sourceTree = "<group>"; };
+		820FB7BF273445D2004F02C5 /* DeviceManager.mm */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.objcpp; path = DeviceManager.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +60,8 @@
 		820FB7BD273445D2004F02C5 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				820FB7BE273445D2004F02C5 /* PilloFramework.h */,
-				820FB7BF273445D2004F02C5 /* PilloFramework.mm */,
+				820FB7BE273445D2004F02C5 /* DeviceManager.h */,
+				820FB7BF273445D2004F02C5 /* DeviceManager.mm */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -131,7 +131,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				820FB7C0273445D2004F02C5 /* PilloFramework.mm in Sources */,
+				820FB7C0273445D2004F02C5 /* DeviceManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

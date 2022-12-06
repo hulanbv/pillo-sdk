@@ -1,27 +1,28 @@
 using UnityEngine;
+using Hulan.PilloSDK.Framework.Payloads;
 
 // Unity Engine Pillo SDK Framework
 // Author: Jeffrey Lanters at Hulan
-namespace Hulan.PilloSDK.Framework {
+namespace Hulan.PilloSDK.Framework.Core {
   /// <summary>
-  /// The Callback Listener MonoBehaviour will be assigned to a specificly
-  /// named GameObject in the scene. This GameObject will be created by the
-  /// Pillo Framework and is used to listen for Pillo Framework events invoked
-  /// by the native Pillo Framework.
+  /// The Callback Listener MonoBehaviour will be assigned to a specifically
+  /// named GameObject in the scene. This GameObject will be created automatic-
+  /// ally and is used receive callbacks sent by the Device Manager Native Plug-
+  /// in.
   /// </summary>
   [AddComponentMenu ("")]
-  internal class PilloFrameworkCallbackListener : MonoBehaviour {
+  internal class DeviceManagerCallbackListener : MonoBehaviour {
     /// <summary>
-    /// Method invoked by the native Pillo Framework when it has been 
-    /// initialized.
+    /// Method invoked by the Device Manager when the Central has been init-
+    /// ialized.
     /// </summary>
     internal void OnCentralDidInitialize () {
       PilloFramework.onCentralDidInitialize ();
     }
 
     /// <summary>
-    /// Method invoked by the native Pillo Framework when it has failed to
-    /// initialize.
+    /// Method invoked by the Device Manager when the Central has failed to ini-
+    /// tialize.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnCentralDidFailToInitialize (string payloadJson) {
@@ -30,8 +31,7 @@ namespace Hulan.PilloSDK.Framework {
     }
 
     /// <summary>
-    /// Method invoked by the native Pillo Framework when a Pillo has been
-    /// connected.
+    /// Method invoked by the Device Manager when a Peripheral did connect.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralDidConnect (string payloadJson) {
@@ -40,8 +40,7 @@ namespace Hulan.PilloSDK.Framework {
     }
 
     /// <summary>
-    /// Method invoked by the native Pillo Framework when a Pillo has been
-    /// disconnected.
+    /// Method invoked by the Device Manager when a Peripheral did disconnect.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralDidDisconnect (string payloadJson) {
@@ -50,8 +49,8 @@ namespace Hulan.PilloSDK.Framework {
     }
 
     /// <summary>
-    /// Method invoked by the native Pillo Framework when a Pillo has failed
-    /// to connect.
+    /// Method invoked by the Device Manager when a Peripheral did fail to con-
+    /// nect.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralDidFailToConnect (string payloadJson) {
@@ -60,8 +59,8 @@ namespace Hulan.PilloSDK.Framework {
     }
 
     /// <summary>
-    /// Method invoked by the native Pillo Framework when the battery level
-    /// has changed.
+    /// Method invoked by the Device Manager when the Peripheral's battery level
+    /// did change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralBatteryLevelDidChange (string payloadJson) {
@@ -70,8 +69,8 @@ namespace Hulan.PilloSDK.Framework {
     }
 
     /// <summary>
-    /// Method invoked by the native Pillo Framework when the Pillo 
-    /// Peripherals's pressure has been changed.
+    /// Method invoked by the Device Manager when the Peripheral's pressure did
+    /// change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralPressureDidChange (string payloadJson) {
@@ -80,8 +79,8 @@ namespace Hulan.PilloSDK.Framework {
     }
 
     /// <summary>
-    /// Method invoked by the native Pillo Framework when the Pillo 
-    /// Peripherals's charge state has been changed.
+    /// Method invoked by the Device Manager when the Peripheral's charge state
+    /// did change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralChargeStateDidChange (string payloadJson) {
@@ -91,14 +90,14 @@ namespace Hulan.PilloSDK.Framework {
 
     /// <summary>
     /// Invoked when the Runtime Application initializes and is loaded. This
-    /// Instantiates a new Callback Listener GameObject and assigns it to the
-    /// Pillo Framework Callback Listener which receives messages from the
-    /// Native Pillo Framework.
+    /// instantiates a new GameObject and adds this class as its component in
+    /// order to receive callbacks from the native plugin.
     /// </summary>
     [RuntimeInitializeOnLoadMethod]
     private static void RuntimeInitializeOnLoad () {
-      var gameObject = new GameObject ("~PilloFrameworkCallbackListener");
-      gameObject.AddComponent<PilloFrameworkCallbackListener> ();
+      // TODO -- Replace the need of this class with actual callbacks.
+      var gameObject = new GameObject ("~DeviceManagerCallbackListener");
+      gameObject.AddComponent<DeviceManagerCallbackListener> ();
       gameObject.hideFlags = HideFlags.HideInHierarchy;
       GameObject.DontDestroyOnLoad (gameObject);
     }
