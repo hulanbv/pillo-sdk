@@ -9,8 +9,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
   /// </summary>
   internal class PilloFrameworkTest : MonoBehaviour {
     /// <summary>
-    /// Binds the Pillo Framework events to the Pillo Framework Test
-    /// MonoBehaviour.
+    /// Binds the Pillo Framework events to the Pillo Framework Test MonoBe-
+    /// haviour.
     /// </summary>
     private void Start () {
       PilloFramework.onCentralDidInitialize += OnCentralDidInitialize;
@@ -62,8 +62,7 @@ namespace Hulan.PilloSDK.Framework.Tests {
     }
 
     /// <summary>
-    /// Delegate will be invoked when the Peripheral's battery level did 
-    /// change.
+    /// Delegate will be invoked when the Peripheral's battery level did change.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="batteryLevel">The battery level of the Peripheral.</param>
