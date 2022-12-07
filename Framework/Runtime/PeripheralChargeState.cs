@@ -4,7 +4,7 @@ namespace Hulan.PilloSDK.Framework {
   /// <summary>
   /// The Charging State of a Peripheral.
   /// </summary>
-  internal enum PeripheralChargeState {
+  public enum PeripheralChargeState {
     /// <summary>
     /// The Peripheral's charging state is unkown.
     /// </summary>

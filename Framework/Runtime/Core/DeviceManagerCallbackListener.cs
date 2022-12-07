@@ -89,12 +89,10 @@ namespace Hulan.PilloSDK.Framework.Core {
     }
 
     /// <summary>
-    /// Invoked when the Runtime Application initializes and is loaded. This
-    /// instantiates a new GameObject and adds this class as its component in
-    /// order to receive callbacks from the native plugin.
+    /// This instantiates a new GameObject and adds this class as its component
+    /// in order to receive callbacks from the native plugin.
     /// </summary>
-    [RuntimeInitializeOnLoadMethod]
-    private static void RuntimeInitializeOnLoad () {
+    internal static void Instantiate () {
       // TODO -- Replace the need of this class with actual callbacks.
       var gameObject = new GameObject ("~DeviceManagerCallbackListener");
       gameObject.AddComponent<DeviceManagerCallbackListener> ();

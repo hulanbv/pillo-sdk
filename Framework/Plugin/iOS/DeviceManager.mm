@@ -5,10 +5,16 @@
 extern "C" {
   DeviceManager* deviceManager = nil;
 
-  void InstantiateDeviceManager() {
+  void _DeviceManagerInstantiate() {
     if (deviceManager == nil) {
       deviceManager = [DeviceManager new];
       [deviceManager initialize];
+    }
+  }
+
+  void _DeviceManagerCancelPeripheralConnection(const char* identifier) {
+    if (deviceManager != nil) {
+      [deviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
     }
   }
 }
@@ -29,7 +35,7 @@ extern "C" {
   [self startScanningForPeripheralsRoutine];
 }
 
--(void)startScanningForPeripheralsRoutine {
+- (void)startScanningForPeripheralsRoutine {
   if ([self.centralManager isScanning] == true) {
     if ([self.peripherals count] > 0) {
       [self.centralManager stopScan];
@@ -143,6 +149,15 @@ extern "C" {
 }
 
 - (void)peripheralManagerDidUpdateState:(nonnull CBPeripheralManager *)peripheral { }
+
+- (void)cancelPeripheralConnection:(NSString *)identifier {
+  for (CBPeripheral *peripheral in self.peripherals) {
+    if ([peripheral.identifier.UUIDString isEqualToString:identifier]) {
+      [self.centralManager cancelPeripheralConnection:peripheral];
+      break;
+    }
+  }
+}
 
 - (void)invokeUnityCallback:(NSString *)methodName {
   UnitySendMessage("~DeviceManagerCallbackListener", [methodName UTF8String], [@"" UTF8String]);
