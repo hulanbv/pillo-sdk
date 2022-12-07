@@ -2,29 +2,18 @@
 
 // Pillo Framework Device Manager Implementation File
 // Author: Jeffrey Lanters at Hulan
-extern "C" {
-  DeviceManager* deviceManager = nil;
-
-  void _DeviceManagerInstantiate() {
-    if (deviceManager == nil) {
-      deviceManager = [DeviceManager new];
-      [deviceManager initialize];
-    }
-  }
-
-  void _DeviceManagerCancelPeripheralConnection(const char* identifier) {
-    if (deviceManager != nil) {
-      [deviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
-    }
-  }
-}
-
 @implementation DeviceManager
 
-#define PILLO_SERVICE_UUID @"579BA43D-A351-463D-92C7-911EC1B54E35"
-#define PRESSURE_CHARACTERISTIC_UUID @"1470CA75-5D7E-4E16-A70D-D1476E8D0C6F"
-#define CHARGE_STATE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
+#define DEVICEINFORMATION_SERVICE_UUID @"180A"
+#define DEVICEINFORMATION_MODELNUMBER_CHARACTERISTIC_UUID @"2A24"
+#define DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID @"2A26"
+#define DEVICEINFORMATION_HARDWAREVERSION_CHARACTERISTIC_UUID @"2A27"
+#define BATTERY_SERVICE_UUID @"180F"
 #define BATTERY_LEVEL_CHARACTERISTIC_UUID @"2A19"
+#define PRESSURE_SERVICE_UUID @"579BA43D-A351-463D-92C7-911EC1B54E35"
+#define PRESSURE_VALUE_CHARACTERISTIC_UUID @"1470CA75-5D7E-4E16-A70D-D1476E8D0C6F"
+#define CHARGE_SERVICE_UUID @"044402A3-F8B4-479A-B995-63E99ACB2735"
+#define CHARGE_STATE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
 #define SCAN_DURATION_SECONDS 2
 #define SCAN_INTERVAL_SECONDS 10
 #define MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION 2
@@ -88,7 +77,12 @@ extern "C" {
   [self invokeUnityCallback:@"OnPeripheralDidConnect" payload:@{
     @"identifier": peripheral.identifier.UUIDString
   }];
-  [peripheral discoverServices:nil];
+  [peripheral discoverServices:@[
+    [CBUUID UUIDWithString:DEVICEINFORMATION_SERVICE_UUID],
+    [CBUUID UUIDWithString:BATTERY_SERVICE_UUID],
+    [CBUUID UUIDWithString:PRESSURE_SERVICE_UUID],
+    [CBUUID UUIDWithString:CHARGE_SERVICE_UUID]
+  ]];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -121,30 +115,37 @@ extern "C" {
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
   NSData *rawData = characteristic.value;
-  NSString *characteristicUUIDString = characteristic.UUID.UUIDString;
-  if ([characteristicUUIDString isEqualToString:PRESSURE_CHARACTERISTIC_UUID]) {
-    uint32_t pressure = 0;
-    [rawData getBytes:&pressure length:sizeof(pressure)];
-    [self invokeUnityCallback:@"OnPeripheralPressureDidChange" payload:@{
-      @"identifier": peripheral.identifier.UUIDString,
-      @"pressure": @(pressure)
-    }];
+  NSString *serviceUUID = characteristic.service.UUID.UUIDString;
+  NSString *characteristicUUID = characteristic.UUID.UUIDString;
+  if ([serviceUUID isEqualToString:PRESSURE_SERVICE_UUID]) {
+    if ([characteristicUUID isEqualToString:PRESSURE_VALUE_CHARACTERISTIC_UUID]) {
+      uint32_t pressure = 0;
+      [rawData getBytes:&pressure length:sizeof(pressure)];
+      [self invokeUnityCallback:@"OnPeripheralPressureDidChange" payload:@{
+        @"identifier": peripheral.identifier.UUIDString,
+        @"pressure": @(pressure)
+      }];
+    }
   }
-  else if ([characteristicUUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
-    uint32_t batteryLevel = 0;
-    [rawData getBytes:&batteryLevel length:sizeof(batteryLevel)];
-    [self invokeUnityCallback:@"OnPeripheralBatteryLevelDidChange" payload:@{
-      @"identifier": peripheral.identifier.UUIDString,
-      @"batteryLevel": @(batteryLevel)
-    }];
+  else if ([serviceUUID isEqualToString:BATTERY_SERVICE_UUID]) {
+    if ([characteristicUUID isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
+      uint32_t batteryLevel = 0;
+      [rawData getBytes:&batteryLevel length:sizeof(batteryLevel)];
+      [self invokeUnityCallback:@"OnPeripheralBatteryLevelDidChange" payload:@{
+        @"identifier": peripheral.identifier.UUIDString,
+        @"batteryLevel": @(batteryLevel)
+      }];
+    }
   }
-  else if ([characteristicUUIDString isEqualToString:CHARGE_STATE_CHARACTERISTIC_UUID]) {
-    uint32_t chargeState = 0;
-    [rawData getBytes:&chargeState length:sizeof(chargeState)];
-    [self invokeUnityCallback:@"OnPeripheralChargeStateDidChange" payload:@{
-      @"identifier": peripheral.identifier.UUIDString,
-      @"chargeState": @(chargeState)
-    }];
+  else if ([serviceUUID isEqualToString:CHARGE_SERVICE_UUID]) {
+    if ([characteristicUUID isEqualToString:CHARGE_STATE_CHARACTERISTIC_UUID]) {
+      uint32_t chargeState = 0;
+      [rawData getBytes:&chargeState length:sizeof(chargeState)];
+      [self invokeUnityCallback:@"OnPeripheralChargeStateDidChange" payload:@{
+        @"identifier": peripheral.identifier.UUIDString,
+        @"chargeState": @(chargeState)
+      }];
+    }
   }
 }
 
@@ -171,3 +172,20 @@ extern "C" {
 }
 
 @end
+
+extern "C" {
+  DeviceManager* deviceManager = nil;
+
+  void _DeviceManagerInstantiate() {
+    if (deviceManager == nil) {
+      deviceManager = [DeviceManager new];
+      [deviceManager initialize];
+    }
+  }
+
+  void _DeviceManagerCancelPeripheralConnection(const char* identifier) {
+    if (deviceManager != nil) {
+      [deviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
+    }
+  }
+}
