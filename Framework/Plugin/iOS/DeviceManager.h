@@ -9,7 +9,6 @@
 @property (nonatomic, strong) NSMutableArray<CBPeripheral *> *peripherals;
 
 - (void)initialize;
-- (void)invokeUnityCallback:(NSString *)methodName;
-- (void)invokeUnityCallback:(NSString *)methodName payload:(NSDictionary *)payload;
+- (void)cancelPeripheralConnection:(NSString *)identifier;
 
 @end
