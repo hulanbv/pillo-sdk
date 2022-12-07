@@ -57,9 +57,6 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     [RuntimeInitializeOnLoadMethod]
     private static void RuntimeInitializeOnLoad () {
-      // Even though the Device Manager Initialization Method is available, it
-      // should only be invoked when the Pillo Framework is running in a non
-      // Editor environment.
 #if UNITY_EDITOR == false
       DeviceManager.Instantiate ();
       DeviceManagerCallbackListener.Instantiate ();
@@ -69,6 +66,12 @@ namespace Hulan.PilloSDK.Framework {
     public static void CancelPeripheralConnection (string identifier) {
 #if UNITY_EDITOR == false
       DeviceManager.CancelPeripheralConnection (identifier);
+#endif
+    }
+
+    public static void PowerOffPeripheral (string identifier) {
+#if UNITY_EDITOR == false
+      DeviceManager.PowerOffPeripheral (identifier);
 #endif
     }
   }
