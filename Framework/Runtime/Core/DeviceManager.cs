@@ -22,6 +22,13 @@ namespace Hulan.PilloSDK.Framework.Core {
     private static extern void _DeviceManagerCancelPeripheralConnection (string identifier);
 
     /// <summary>
+    /// Exposed Device Manager Native Plugin method to power off a Peripheral.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
+    [DllImport ("__Internal")]
+    private static extern void _DeviceManagerPowerOffPeripheral (string identifier);
+
+    /// <summary>
     /// Initializes the Device Manager.
     /// </summary>
     internal static void Instantiate () => _DeviceManagerInstantiate ();
@@ -31,5 +38,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     internal static void CancelPeripheralConnection (string identifier) => _DeviceManagerCancelPeripheralConnection (identifier);
+
+    /// <summary>
+    /// Powers off a Peripheral.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
+    internal static void PowerOffPeripheral (string identifier) => _DeviceManagerPowerOffPeripheral (identifier);
   }
 }
