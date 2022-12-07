@@ -14,6 +14,8 @@
 #define PRESSURE_VALUE_CHARACTERISTIC_UUID @"1470CA75-5D7E-4E16-A70D-D1476E8D0C6F"
 #define CHARGE_SERVICE_UUID @"044402A3-F8B4-479A-B995-63E99ACB2735"
 #define CHARGE_STATE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
+#define COMMAND_SERVICE_UUID @"6ACCCABD-1728-4697-9B4A-BF25ECCA14AA"
+#define COMMAND_CHARACTER_UUID @"A9147E1F-E91F-4A02-B6E4-2869E0FE69BB"
 #define SCAN_DURATION_SECONDS 2
 #define SCAN_INTERVAL_SECONDS 10
 #define MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION 2
@@ -81,7 +83,8 @@
     [CBUUID UUIDWithString:DEVICEINFORMATION_SERVICE_UUID],
     [CBUUID UUIDWithString:BATTERY_SERVICE_UUID],
     [CBUUID UUIDWithString:PRESSURE_SERVICE_UUID],
-    [CBUUID UUIDWithString:CHARGE_SERVICE_UUID]
+    [CBUUID UUIDWithString:CHARGE_SERVICE_UUID],
+    [CBUUID UUIDWithString:COMMAND_SERVICE_UUID]
   ]];
 }
 
@@ -160,6 +163,27 @@
   }
 }
 
+- (void)powerOffPeripheral:(NSString *)identifier {
+  NSData *data = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
+  [self sendDataToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_CHARACTER_UUID data:data];
+}
+
+- (void)sendDataToPeripheral:(NSString *)identifier serviceUUID:(NSString *)serviceUUID characteristicUUID:(NSString *)characteristicUUID data:(NSData *)data {
+  for (CBPeripheral *peripheral in self.peripherals) {
+    if ([peripheral.identifier.UUIDString isEqualToString:identifier]) {
+      for (CBService *service in peripheral.services) {
+        if ([service.UUID.UUIDString isEqualToString:serviceUUID]) {
+          for (CBCharacteristic *characteristic in service.characteristics) {
+            if ([characteristic.UUID.UUIDString isEqualToString:characteristicUUID]) {
+              [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 - (void)invokeUnityCallback:(NSString *)methodName {
   UnitySendMessage("~DeviceManagerCallbackListener", [methodName UTF8String], [@"" UTF8String]);
 }
@@ -186,6 +210,12 @@ extern "C" {
   void _DeviceManagerCancelPeripheralConnection(const char* identifier) {
     if (deviceManager != nil) {
       [deviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
+    }
+  }
+
+  void _DeviceManagerPowerOffPeripheral(const char* identifier) {
+    if (deviceManager != nil) {
+      [deviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
     }
   }
 }
