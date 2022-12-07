@@ -26,8 +26,12 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnCentralDidFailToInitialize (string payloadJson) {
-      var payload = JsonUtility.FromJson<CentralDidFailToInitializePayload> (payloadJson);
-      PilloFramework.onCentralDidFailToInitialize (payload.message);
+      if (PilloFramework.onCentralDidFailToInitialize != null) {
+        var payload = JsonUtility.FromJson<CentralDidFailToInitializePayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onCentralDidFailToInitialize (payload.message);
+        }
+      }
     }
 
     /// <summary>
@@ -35,8 +39,12 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralDidConnect (string payloadJson) {
-      var payload = JsonUtility.FromJson<PeripheralDidConnectPayload> (payloadJson);
-      PilloFramework.onPeripheralDidConnect (payload.identifier);
+      if (PilloFramework.onPeripheralDidConnect != null) {
+        var payload = JsonUtility.FromJson<PeripheralDidConnectPayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralDidConnect (payload.identifier);
+        }
+      }
     }
 
     /// <summary>
@@ -44,8 +52,12 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralDidDisconnect (string payloadJson) {
-      var payload = JsonUtility.FromJson<PeripheralDidDisconnectPayload> (payloadJson);
-      PilloFramework.onPeripheralDidDisconnect (payload.identifier);
+      if (PilloFramework.onPeripheralDidDisconnect != null) {
+        var payload = JsonUtility.FromJson<PeripheralDidDisconnectPayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralDidDisconnect (payload.identifier);
+        }
+      }
     }
 
     /// <summary>
@@ -54,8 +66,12 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralDidFailToConnect (string payloadJson) {
-      var payload = JsonUtility.FromJson<PeripheralDidFailToConnectPayload> (payloadJson);
-      PilloFramework.onPeripheralDidFailToConnect (payload.identifier);
+      if (PilloFramework.onPeripheralDidFailToConnect != null) {
+        var payload = JsonUtility.FromJson<PeripheralDidFailToConnectPayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralDidFailToConnect (payload.identifier);
+        }
+      }
     }
 
     /// <summary>
@@ -64,8 +80,12 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralBatteryLevelDidChange (string payloadJson) {
-      var payload = JsonUtility.FromJson<PeripheralBatteryLevelDidChangePayload> (payloadJson);
-      PilloFramework.onPeripheralBatteryLevelDidChange (payload.identifier, payload.batteryLevel);
+      if (PilloFramework.onPeripheralBatteryLevelDidChange != null) {
+        var payload = JsonUtility.FromJson<PeripheralBatteryLevelDidChangePayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralBatteryLevelDidChange (payload.identifier, payload.batteryLevel);
+        }
+      }
     }
 
     /// <summary>
@@ -74,8 +94,12 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralPressureDidChange (string payloadJson) {
-      var payload = JsonUtility.FromJson<PeripheralPressureDidChangePayload> (payloadJson);
-      PilloFramework.onPeripheralPressureDidChange (payload.identifier, payload.pressure);
+      if (PilloFramework.onPeripheralPressureDidChange != null) {
+        var payload = JsonUtility.FromJson<PeripheralPressureDidChangePayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralPressureDidChange (payload.identifier, payload.pressure);
+        }
+      }
     }
 
     /// <summary>
@@ -84,8 +108,12 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
     internal void OnPeripheralChargeStateDidChange (string payloadJson) {
-      var payload = JsonUtility.FromJson<PeripheralChargeStateDidChangePayload> (payloadJson);
-      PilloFramework.onPeripheralChargeStateDidChange (payload.identifier, payload.chargeState);
+      if (PilloFramework.onPeripheralChargeStateDidChange != null) {
+        var payload = JsonUtility.FromJson<PeripheralChargeStateDidChangePayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralChargeStateDidChange (payload.identifier, payload.chargeState);
+        }
+      }
     }
 
     /// <summary>

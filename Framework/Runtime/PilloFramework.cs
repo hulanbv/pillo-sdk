@@ -14,42 +14,42 @@ namespace Hulan.PilloSDK.Framework {
     /// <summary>
     /// Delegate will be invoked when the Central has been initialized.
     /// </summary>
-    public static PilloFrameworkDelegate.OnCentralDidInitialize onCentralDidInitialize = delegate { };
+    public static PilloFrameworkDelegate.OnCentralDidInitialize onCentralDidInitialize;
 
     /// <summary>
     /// Delegate will be invoked when the Central has failed to initialize.
     /// </summary>
-    public static PilloFrameworkDelegate.OnCentralDidFailToInitialize onCentralDidFailToInitialize = delegate { };
+    public static PilloFrameworkDelegate.OnCentralDidFailToInitialize onCentralDidFailToInitialize;
 
     /// <summary>
     /// Delegate will be invoked when a Peripheral did connect.
     /// </summary>
-    public static PilloFrameworkDelegate.OnPeripheralDidConnect onPeripheralDidConnect = delegate { };
+    public static PilloFrameworkDelegate.OnPeripheralDidConnect onPeripheralDidConnect;
 
     /// <summary>
     /// Delegate will be invoked when a Peripheral did disconnect.
     /// </summary>
-    public static PilloFrameworkDelegate.OnPeripheralDidDisconnect onPeripheralDidDisconnect = delegate { };
+    public static PilloFrameworkDelegate.OnPeripheralDidDisconnect onPeripheralDidDisconnect;
 
     /// <summary>
     /// Delegate will be invoked when a Peripheral did fail to connect.
     /// </summary>
-    public static PilloFrameworkDelegate.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect = delegate { };
+    public static PilloFrameworkDelegate.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect;
 
     /// <summary>
     /// Delegate will be invoked when the Peripheral's battery level did 
     /// </summary>
-    public static PilloFrameworkDelegate.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange = delegate { };
+    public static PilloFrameworkDelegate.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange;
 
     /// <summary>
     /// Delegate will be invoked when the Peripheral's pressure did change.
     /// </summary>
-    public static PilloFrameworkDelegate.OnPeripheralPressureDidChange onPeripheralPressureDidChange = delegate { };
+    public static PilloFrameworkDelegate.OnPeripheralPressureDidChange onPeripheralPressureDidChange;
 
     /// <summary>
     /// Delegate will be invoked when the Peripheral's charge state did change.
     /// </summary>
-    public static PilloFrameworkDelegate.OnPeripheralChargeStateDidChange onPeripheralChargeStateDidChange = delegate { };
+    public static PilloFrameworkDelegate.OnPeripheralChargeStateDidChange onPeripheralChargeStateDidChange;
 
     /// <summary>
     /// Invoked when the Runtime Application initializes and is loaded. This
