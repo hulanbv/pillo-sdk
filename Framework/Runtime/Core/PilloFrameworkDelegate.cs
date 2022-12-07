@@ -52,7 +52,6 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// Delegate should be invoked when the Peripheral's charge state did 
     /// change.
     /// </summary>
-    /// <param name="payload">The payload.</param>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="chargeState">The charge state of the Peripheral.</param>
     public delegate void OnPeripheralChargeStateDidChange (string identifier, PeripheralChargeState chargeState);
