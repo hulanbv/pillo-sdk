@@ -5,10 +5,8 @@ using UnityEngine;
 // Author: Jeffrey Lanters at Hulan
 namespace Hulan.PilloSDK.Framework {
   /// <summary>
-  /// The Pillo Framework is responsible binding the events sent by the Pillo
-  /// Frmaework iOS Plugin to the Unity Engine. It also exposes a set of methods
-  /// and delegates to interact with the Pillo Framework. The data coming from
-  /// and going to the iOS Plugin can be matched one to one.
+  /// The Pillo Framework is responsible for binding the events sent by the 
+  /// Pillo Framework's Device Manager Native iOS Plugin to the Unity Engine.
   /// </summary>
   public class PilloFramework {
     /// <summary>
@@ -63,12 +61,20 @@ namespace Hulan.PilloSDK.Framework {
 #endif
     }
 
+    /// <summary>
+    /// Cancels a Peripheral connection.
+    /// </summary>
+    /// <param name="identifier">The identifier of the peripheral.</param>
     public static void CancelPeripheralConnection (string identifier) {
 #if UNITY_EDITOR == false
       DeviceManager.CancelPeripheralConnection (identifier);
 #endif
     }
 
+    /// <summary>
+    /// Powers off a Peripheral.
+    /// </summary>
+    /// <param name="identifier">The identifier of the peripheral.</param>
     public static void PowerOffPeripheral (string identifier) {
 #if UNITY_EDITOR == false
       DeviceManager.PowerOffPeripheral (identifier);
