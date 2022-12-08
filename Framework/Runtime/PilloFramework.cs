@@ -80,5 +80,15 @@ namespace Hulan.PilloSDK.Framework {
       DeviceManager.PowerOffPeripheral (identifier);
 #endif
     }
+
+    /// <summary>
+    /// Starts a Peripheral calibration.
+    /// </summary>
+    /// <param name="identifier">The identifier of the peripheral.</param>
+    public static void StartPeripheralCalibration (string identifier) {
+#if UNITY_EDITOR == false
+      DeviceManager.StartPeripheralCalibration (identifier);
+#endif
+    }
   }
 }

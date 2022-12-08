@@ -15,7 +15,9 @@
 #define CHARGE_SERVICE_UUID @"044402A3-F8B4-479A-B995-63E99ACB2735"
 #define CHARGE_STATE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
 #define COMMAND_SERVICE_UUID @"6ACCCABD-1728-4697-9B4A-BF25ECCA14AA"
-#define COMMAND_CHARACTER_UUID @"A9147E1F-E91F-4A02-B6E4-2869E0FE69BB"
+#define COMMAND_COMMAND_CHARACTERISTIC_UUID @"A9147E1F-E91F-4A02-B6E4-2869E0FE69BB"
+#define CALIBRATION_SERVICE_UUID @"7E238267-146F-461C-8615-39B358A428A5"
+#define CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID @"46F9AB5B-D01A-4353-9DB4-176C4F3200CF"
 #define SCAN_DURATION_SECONDS 2
 #define SCAN_INTERVAL_SECONDS 10
 #define MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION 2
@@ -84,7 +86,8 @@
     [CBUUID UUIDWithString:BATTERY_SERVICE_UUID],
     [CBUUID UUIDWithString:PRESSURE_SERVICE_UUID],
     [CBUUID UUIDWithString:CHARGE_SERVICE_UUID],
-    [CBUUID UUIDWithString:COMMAND_SERVICE_UUID]
+    [CBUUID UUIDWithString:COMMAND_SERVICE_UUID],
+    [CBUUID UUIDWithString:CALIBRATION_SERVICE_UUID]
   ]];
 }
 
@@ -164,18 +167,23 @@
 }
 
 - (void)powerOffPeripheral:(NSString *)identifier {
-  NSData *data = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
-  [self sendDataToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_CHARACTER_UUID data:data];
+  NSData *value = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
+  [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_COMMAND_CHARACTERISTIC_UUID value:value];
 }
 
-- (void)sendDataToPeripheral:(NSString *)identifier serviceUUID:(NSString *)serviceUUID characteristicUUID:(NSString *)characteristicUUID data:(NSData *)data {
+- (void)startPeripheralCalibration:(NSString *)identifier {
+  NSData *value = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
+  [self writeValueToPeripheral:identifier serviceUUID:CALIBRATION_SERVICE_UUID characteristicUUID:CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID value:value];
+}
+
+- (void)writeValueToPeripheral:(NSString *)identifier serviceUUID:(NSString *)serviceUUID characteristicUUID:(NSString *)characteristicUUID value:(NSData *)value {
   for (CBPeripheral *peripheral in self.peripherals) {
     if ([peripheral.identifier.UUIDString isEqualToString:identifier]) {
       for (CBService *service in peripheral.services) {
         if ([service.UUID.UUIDString isEqualToString:serviceUUID]) {
           for (CBCharacteristic *characteristic in service.characteristics) {
             if ([characteristic.UUID.UUIDString isEqualToString:characteristicUUID]) {
-              [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
+              [peripheral writeValue:value forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
             }
           }
         }
@@ -216,6 +224,12 @@ extern "C" {
   void _DeviceManagerPowerOffPeripheral(const char* identifier) {
     if (deviceManager != nil && identifier != nil) {
       [deviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
+    }
+  }
+
+  void _DeviceManagerStartPeripheralCalibration(const char* identifier) {
+    if (deviceManager != nil && identifier != nil) {
+      [deviceManager startPeripheralCalibration:[NSString stringWithUTF8String:identifier]];
     }
   }
 }
