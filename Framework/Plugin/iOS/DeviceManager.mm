@@ -208,13 +208,13 @@ extern "C" {
   }
 
   void _DeviceManagerCancelPeripheralConnection(const char* identifier) {
-    if (deviceManager != nil) {
+    if (deviceManager != nil && identifier != nil) {
       [deviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
     }
   }
 
   void _DeviceManagerPowerOffPeripheral(const char* identifier) {
-    if (deviceManager != nil) {
+    if (deviceManager != nil && identifier != nil) {
       [deviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
     }
   }
