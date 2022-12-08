@@ -95,27 +95,61 @@
   [self invokeUnityCallback:@"OnPeripheralDidDisconnect" payload:@{
     @"identifier": peripheral.identifier.UUIDString
   }];
-  [self.centralManager cancelPeripheralConnection:peripheral];
-  [self.peripherals removeObjectAtIndex:[self.peripherals indexOfObject:peripheral]];
+  [self.centralManager cancelPeripheralConnection:peripheral]; // TODO: Is this necessary?
+  if ([self.peripherals containsObject:peripheral]) {
+    [self.peripherals removeObjectAtIndex:[self.peripherals indexOfObject:peripheral]];
+  }
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
   [self invokeUnityCallback:@"OnPeripheralDidFailToConnect" payload:@{
     @"identifier": peripheral.identifier.UUIDString
   }];
-  [self.centralManager cancelPeripheralConnection:peripheral];
-  [self.peripherals removeObjectAtIndex:[self.peripherals indexOfObject:peripheral]];
+  [self.centralManager cancelPeripheralConnection:peripheral]; // TODO: Is this necessary?
+  if ([self.peripherals containsObject:peripheral]) {
+    [self.peripherals removeObjectAtIndex:[self.peripherals indexOfObject:peripheral]];
+  }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
   for (CBService *service in peripheral.services) {
-    [peripheral discoverCharacteristics:nil forService:service];
+    if ([service.UUID.UUIDString isEqualToString:BATTERY_SERVICE_UUID]) {
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:BATTERY_LEVEL_CHARACTERISTIC_UUID]] forService:service];
+    } else if ([service.UUID.UUIDString isEqualToString:PRESSURE_SERVICE_UUID]) {
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:PRESSURE_VALUE_CHARACTERISTIC_UUID]] forService:service];
+    } else if ([service.UUID.UUIDString isEqualToString:CHARGE_SERVICE_UUID]) {
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:CHARGE_STATE_CHARACTERISTIC_UUID]] forService:service];
+    } else if ([service.UUID.UUIDString isEqualToString:COMMAND_SERVICE_UUID]) {
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:COMMAND_COMMAND_CHARACTERISTIC_UUID]] forService:service];
+    } else if ([service.UUID.UUIDString isEqualToString:CALIBRATION_SERVICE_UUID]) {
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID]] forService:service];
+    } else if ([service.UUID.UUIDString isEqualToString:DEVICEINFORMATION_SERVICE_UUID]) {
+      // selectedPeripheral.readValue(for: txCharacteristic)
+      // TODO -- Implement
+    }
   }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
-  for (CBCharacteristic *characteristic in service.characteristics) {
-    [peripheral setNotifyValue:true forCharacteristic:characteristic];
+  NSString *serviceUUID = service.UUID.UUIDString;
+  if ([serviceUUID isEqualToString:BATTERY_SERVICE_UUID]) {
+    for (CBCharacteristic *characteristic in service.characteristics) {
+      if ([characteristic.UUID.UUIDString isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
+        [peripheral setNotifyValue:true forCharacteristic:characteristic];
+      }
+    }
+  } else if ([serviceUUID isEqualToString:PRESSURE_SERVICE_UUID]) {
+    for (CBCharacteristic *characteristic in service.characteristics) {
+      if ([characteristic.UUID.UUIDString isEqualToString:PRESSURE_VALUE_CHARACTERISTIC_UUID]) {
+        [peripheral setNotifyValue:true forCharacteristic:characteristic];
+      }
+    }
+  } else if ([serviceUUID isEqualToString:CHARGE_SERVICE_UUID]) {
+    for (CBCharacteristic *characteristic in service.characteristics) {
+      if ([characteristic.UUID.UUIDString isEqualToString:CHARGE_STATE_CHARACTERISTIC_UUID]) {
+        [peripheral setNotifyValue:true forCharacteristic:characteristic];
+      }
+    }
   }
 }
 
@@ -132,8 +166,7 @@
         @"pressure": @(pressure)
       }];
     }
-  }
-  else if ([serviceUUID isEqualToString:BATTERY_SERVICE_UUID]) {
+  } else if ([serviceUUID isEqualToString:BATTERY_SERVICE_UUID]) {
     if ([characteristicUUID isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
       uint32_t batteryLevel = 0;
       [rawData getBytes:&batteryLevel length:sizeof(batteryLevel)];
@@ -142,8 +175,7 @@
         @"batteryLevel": @(batteryLevel)
       }];
     }
-  }
-  else if ([serviceUUID isEqualToString:CHARGE_SERVICE_UUID]) {
+  } else if ([serviceUUID isEqualToString:CHARGE_SERVICE_UUID]) {
     if ([characteristicUUID isEqualToString:CHARGE_STATE_CHARACTERISTIC_UUID]) {
       uint32_t chargeState = 0;
       [rawData getBytes:&chargeState length:sizeof(chargeState)];
@@ -155,7 +187,9 @@
   }
 }
 
-- (void)peripheralManagerDidUpdateState:(nonnull CBPeripheralManager *)peripheral { }
+- (void)peripheralManagerDidUpdateState:(nonnull CBPeripheralManager *)peripheral {
+  // TODO -- Is this something we need to send to Unity?
+}
 
 - (void)cancelPeripheralConnection:(NSString *)identifier {
   for (CBPeripheral *peripheral in self.peripherals) {
@@ -171,7 +205,7 @@
   [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_COMMAND_CHARACTERISTIC_UUID value:value];
 }
 
-- (void)startPeripheralCalibration:(NSString *)identifier {
+- (void)calibratePeripheral:(NSString *)identifier {
   NSData *value = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
   [self writeValueToPeripheral:identifier serviceUUID:CALIBRATION_SERVICE_UUID characteristicUUID:CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID value:value];
 }
@@ -229,7 +263,7 @@ extern "C" {
 
   void _DeviceManagerStartPeripheralCalibration(const char* identifier) {
     if (deviceManager != nil && identifier != nil) {
-      [deviceManager startPeripheralCalibration:[NSString stringWithUTF8String:identifier]];
+      [deviceManager calibratePeripheral:[NSString stringWithUTF8String:identifier]];
     }
   }
 }
