@@ -32,15 +32,18 @@
   if ([self.centralManager isScanning] == true) {
     if ([self.peripherals count] > 0) {
       [self.centralManager stopScan];
+      [self invokeUnityCallback:@"OnCentralDidStopScanning"];
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
       [self startScanningForPeripheralsRoutine];
     });
   } else if ([self.peripherals count] < MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION) {
     [self.centralManager scanForPeripheralsWithServices:nil options:[NSDictionary dictionaryWithObjectsAndKeys:@YES, CBCentralManagerScanOptionAllowDuplicatesKey, nil]];
+    [self invokeUnityCallback:@"OnCentralDidStartScanning"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
       if ([self.peripherals count] > 0) {
         [self.centralManager stopScan];
+      [self invokeUnityCallback:@"OnCentralDidStopScanning"];
       }
       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [self startScanningForPeripheralsRoutine];

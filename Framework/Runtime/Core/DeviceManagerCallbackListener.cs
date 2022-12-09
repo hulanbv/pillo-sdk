@@ -37,6 +37,26 @@ namespace Hulan.PilloSDK.Framework.Core {
     }
 
     /// <summary>
+    /// Method invoked by the Device Manager when the Central has been started
+    /// scanning.
+    /// </summary>
+    internal void OnCentralDidStartScanning () {
+      if (PilloFramework.onCentralDidStartScanning != null) {
+        PilloFramework.onCentralDidStartScanning ();
+      }
+    }
+
+    /// <summary>
+    /// Method invoked by the Device Manager when the Central has been stopped
+    /// scanning.
+    /// </summary>
+    internal void OnCentralDidStopScanning () {
+      if (PilloFramework.onCentralDidStopScanning != null) {
+        PilloFramework.onCentralDidStopScanning ();
+      }
+    }
+
+    /// <summary>
     /// Method invoked by the Device Manager when a Peripheral did connect.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>

@@ -17,6 +17,16 @@ namespace Hulan.PilloSDK.Framework.Core {
     public delegate void OnCentralDidFailToInitialize (string message);
 
     /// <summary>
+    /// Delegate should be invoked when the Central has started scanning.
+    /// </summary>
+    public delegate void OnCentralDidStartScanning ();
+
+    /// <summary>
+    /// Delegate should be invoked when the Central has stopped scanning.
+    /// </summary>
+    public delegate void OnCentralDidStopScanning ();
+
+    /// <summary>
     /// Delegate should be invoked when a Peripheral did connect.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>

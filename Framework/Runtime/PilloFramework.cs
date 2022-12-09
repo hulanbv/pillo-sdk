@@ -20,6 +20,16 @@ namespace Hulan.PilloSDK.Framework {
     public static PilloFrameworkDelegate.OnCentralDidFailToInitialize onCentralDidFailToInitialize;
 
     /// <summary>
+    /// Delegate will be invoked when the Central has started scanning.
+    /// </summary>
+    public static PilloFrameworkDelegate.OnCentralDidStartScanning onCentralDidStartScanning;
+
+    /// <summary>
+    /// Delegate will be invoked when the Central has stopped scanning.
+    /// </summary>
+    public static PilloFrameworkDelegate.OnCentralDidStopScanning onCentralDidStopScanning;
+
+    /// <summary>
     /// Delegate will be invoked when a Peripheral did connect.
     /// </summary>
     public static PilloFrameworkDelegate.OnPeripheralDidConnect onPeripheralDidConnect;

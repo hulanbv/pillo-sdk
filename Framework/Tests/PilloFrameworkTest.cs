@@ -18,6 +18,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
       PilloFramework.onCentralDidFailToInitialize += OnCentralDidFailToInitialize;
       PilloFramework.onPeripheralDidConnect += OnPeripheralDidConnect;
       PilloFramework.onPeripheralDidDisconnect += OnPeripheralDidDisconnect;
+      PilloFramework.onCentralDidStartScanning += OnCentralDidStartScanning;
+      PilloFramework.onCentralDidStopScanning += OnCentralDidStopScanning;
       PilloFramework.onPeripheralDidFailToConnect += OnPeripheralDidFailToConnect;
       PilloFramework.onPeripheralBatteryLevelDidChange += OnPeripheralBatteryLevelDidChange;
       PilloFramework.onPeripheralPressureDidChange += OnPeripheralPressureDidChange;
@@ -40,6 +42,20 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// <param name="message">The error message.</param>
     private void OnCentralDidFailToInitialize (string message) {
       Debug.Log ($"Pillo Framework Central Did Fail To Initialize with message {message}");
+    }
+
+    /// <summary>
+    /// Delegate will be invoked when the Central has started scanning.
+    /// </summary>
+    private void OnCentralDidStartScanning () {
+      Debug.Log ("Pillo Framework Central Did Start Scanning");
+    }
+
+    /// <summary>
+    /// Delegate will be invoked when the Central has stopped scanning.
+    /// </summary>
+    private void OnCentralDidStopScanning () {
+      Debug.Log ("Pillo Framework Central Did Stop Scanning");
     }
 
     /// <summary>
