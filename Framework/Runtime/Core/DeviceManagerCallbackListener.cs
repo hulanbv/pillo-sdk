@@ -17,7 +17,9 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// ialized.
     /// </summary>
     internal void OnCentralDidInitialize () {
-      PilloFramework.onCentralDidInitialize ();
+      if (PilloFramework.onCentralDidInitialize != null) {
+        PilloFramework.onCentralDidInitialize ();
+      }
     }
 
     /// <summary>
