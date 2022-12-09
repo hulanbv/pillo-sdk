@@ -124,8 +124,7 @@
     } else if ([service.UUID.UUIDString isEqualToString:CALIBRATION_SERVICE_UUID]) {
       [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID]] forService:service];
     } else if ([service.UUID.UUIDString isEqualToString:DEVICEINFORMATION_SERVICE_UUID]) {
-      // selectedPeripheral.readValue(for: txCharacteristic)
-      // TODO -- Implement
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:DEVICEINFORMATION_MODELNUMBER_CHARACTERISTIC_UUID], [CBUUID UUIDWithString:DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID], [CBUUID UUIDWithString:DEVICEINFORMATION_HARDWAREVERSION_CHARACTERISTIC_UUID]] forService:service];
     }
   }
 }
@@ -148,6 +147,16 @@
     for (CBCharacteristic *characteristic in service.characteristics) {
       if ([characteristic.UUID.UUIDString isEqualToString:CHARGE_STATE_CHARACTERISTIC_UUID]) {
         [peripheral setNotifyValue:true forCharacteristic:characteristic];
+      }
+    }
+  } else if ([serviceUUID isEqualToString:DEVICEINFORMATION_SERVICE_UUID]) {
+    for (CBCharacteristic *characteristic in service.characteristics) {
+      if ([characteristic.UUID.UUIDString isEqualToString:DEVICEINFORMATION_MODELNUMBER_CHARACTERISTIC_UUID]) {
+        [peripheral readValueForCharacteristic:characteristic];
+      } else if ([characteristic.UUID.UUIDString isEqualToString:DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID]) {
+        [peripheral readValueForCharacteristic:characteristic];
+      } else if ([characteristic.UUID.UUIDString isEqualToString:DEVICEINFORMATION_HARDWAREVERSION_CHARACTERISTIC_UUID]) {
+        [peripheral readValueForCharacteristic:characteristic];
       }
     }
   }
@@ -182,6 +191,26 @@
       [self invokeUnityCallback:@"OnPeripheralChargeStateDidChange" payload:@{
         @"identifier": peripheral.identifier.UUIDString,
         @"chargeState": @(chargeState)
+      }];
+    }
+  } else if ([serviceUUID isEqualToString:DEVICEINFORMATION_SERVICE_UUID]) {
+    if ([characteristicUUID isEqualToString:DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID]) {
+      NSString *firmwareVersion = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
+      [self invokeUnityCallback:@"OnPeripheralFirmwareVersionDidChange" payload:@{
+        @"identifier": peripheral.identifier.UUIDString,
+        @"firmwareVersion": firmwareVersion
+      }];
+    } else if ([characteristicUUID isEqualToString:DEVICEINFORMATION_HARDWAREVERSION_CHARACTERISTIC_UUID]) {
+      NSString *hardwareVersion = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
+      [self invokeUnityCallback:@"OnPeripheralHardwareVersionDidChange" payload:@{
+        @"identifier": peripheral.identifier.UUIDString,
+        @"hardwareVersion": hardwareVersion
+      }];
+    } else if ([characteristicUUID isEqualToString:DEVICEINFORMATION_MODELNUMBER_CHARACTERISTIC_UUID]) {
+      NSString *modelNumber = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
+      [self invokeUnityCallback:@"OnPeripheralModelNumberDidChange" payload:@{
+        @"identifier": peripheral.identifier.UUIDString,
+        @"modelNumber": modelNumber
       }];
     }
   }
