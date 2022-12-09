@@ -55,5 +55,29 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="chargeState">The charge state of the Peripheral.</param>
     public delegate void OnPeripheralChargeStateDidChange (string identifier, PeripheralChargeState chargeState);
+
+    /// <summary>
+    /// Delegate should be invoked when the Peripheral's charge firmware version 
+    /// did change.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <param name="firmwareVersion">The firmware version of the Peripheral.</param>
+    public delegate void OnPeripheralFirmwareVersionDidChange (string identifier, string firmwareVersion);
+
+    /// <summary>
+    /// Delegate should be invoked when the Peripheral's hardware version did
+    /// change.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <param name="hardwareVersion">The hardware version of the Peripheral.</param>
+    public delegate void OnPeripheralHardwareVersionDidChange (string identifier, string hardwareVersion);
+
+    /// <summary>
+    /// Delegate should be invoked when the Peripheral's model number did
+    /// change.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <param name="modelNumber">The model number of the Peripheral.</param>
+    public delegate void OnPeripheralModelNumberDidChange (string identifier, string modelNumber);
   }
 }

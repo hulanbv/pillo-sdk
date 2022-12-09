@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // Unity Engine Pillo SDK Framework Tests
@@ -21,6 +22,9 @@ namespace Hulan.PilloSDK.Framework.Tests {
       PilloFramework.onPeripheralBatteryLevelDidChange += OnPeripheralBatteryLevelDidChange;
       PilloFramework.onPeripheralPressureDidChange += OnPeripheralPressureDidChange;
       PilloFramework.onPeripheralChargeStateDidChange += OnPeripheralChargeStateDidChange;
+      PilloFramework.onPeripheralFirmwareVersionDidChange += OnPeripheralFirmwareVersionDidChange;
+      PilloFramework.onPeripheralHardwareVersionDidChange += OnPeripheralHardwareVersionDidChange;
+      PilloFramework.onPeripheralModelNumberDidChange += OnPeripheralModelNumberDidChange;
     }
 
     /// <summary>
@@ -82,11 +86,39 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// <summary>
     /// Delegate will be invoked when the Peripheral's charge state did change.
     /// </summary>
-    /// <param name="payload">The payload.</param>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="chargeState">The charge state of the Peripheral.</param>
     private void OnPeripheralChargeStateDidChange (string identifier, PeripheralChargeState chargeState) {
       Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Charge State Did Change to {chargeState}");
+    }
+
+    /// <summary>
+    /// Delegate will be invoked when the Peripheral's model number did change.
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="modelNumber"></param>
+    private void OnPeripheralModelNumberDidChange (string identifier, string modelNumber) {
+      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Model Number Did Change to {modelNumber}");
+    }
+
+    /// <summary>
+    /// Delegate will be invoked when the Peripheral's hardware version did 
+    /// change.
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="hardwareVersion"></param>
+    private void OnPeripheralHardwareVersionDidChange (string identifier, string hardwareVersion) {
+      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Hardware Version Did Change to {hardwareVersion}");
+    }
+
+    /// <summary>
+    /// Delegate will be invoked when the Peripheral's firmware version did
+    /// change.
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="firmwareVersion"></param>
+    private void OnPeripheralFirmwareVersionDidChange (string identifier, string firmwareVersion) {
+      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Firmware Version Did Change to {firmwareVersion}");
     }
   }
 }

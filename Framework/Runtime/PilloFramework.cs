@@ -50,6 +50,23 @@ namespace Hulan.PilloSDK.Framework {
     public static PilloFrameworkDelegate.OnPeripheralChargeStateDidChange onPeripheralChargeStateDidChange;
 
     /// <summary>
+    /// Delegate will be invoked when the Peripheral's firmware version did 
+    /// change.
+    /// </summary>
+    public static PilloFrameworkDelegate.OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange;
+
+    /// <summary>
+    /// Delegate will be invoked when the Peripheral's hardware version did
+    /// change.
+    /// </summary>
+    public static PilloFrameworkDelegate.OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange;
+
+    /// <summary>
+    /// Delegate will be invoked when the Peripheral's model number did change.
+    /// </summary>
+    public static PilloFrameworkDelegate.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
+
+    /// <summary>
     /// Invoked when the Runtime Application initializes and is loaded. This
     /// invokes the Device Manager Native Plugin's Initialization Method.
     /// </summary>

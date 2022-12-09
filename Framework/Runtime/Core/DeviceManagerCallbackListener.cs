@@ -119,6 +119,48 @@ namespace Hulan.PilloSDK.Framework.Core {
     }
 
     /// <summary>
+    /// Method invoked by the Device Manager when the Peripheral's firware
+    /// version did change.
+    /// </summary>
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralFirmwareVersionDidChange (string payloadJson) {
+      if (PilloFramework.onPeripheralFirmwareVersionDidChange != null) {
+        var payload = JsonUtility.FromJson<PeripheralFirmwareVersionDidChangePayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralFirmwareVersionDidChange (payload.identifier, payload.firmwareVersion);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Method invoked by the Device Manager when the Peripheral's hardware
+    /// version did change.
+    /// </summary>
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralHardwareVersionDidChange (string payloadJson) {
+      if (PilloFramework.onPeripheralHardwareVersionDidChange != null) {
+        var payload = JsonUtility.FromJson<PeripheralHardwareVersionDidChangePayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralHardwareVersionDidChange (payload.identifier, payload.hardwareVersion);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Method invoked by the Device Manager when the Peripheral's model number
+    /// did change.
+    /// </summary>
+    /// <param name="payloadJson">The payload as JSON.</param>
+    internal void OnPeripheralModelNumberDidChange (string payloadJson) {
+      if (PilloFramework.onPeripheralModelNumberDidChange != null) {
+        var payload = JsonUtility.FromJson<PeripheralModelNumberDidChangePayload> (payloadJson);
+        if (payload != null) {
+          PilloFramework.onPeripheralModelNumberDidChange (payload.identifier, payload.modelNumber);
+        }
+      }
+    }
+
+    /// <summary>
     /// This instantiates a new GameObject and adds this class as its component
     /// in order to receive callbacks from the native plugin.
     /// </summary>
