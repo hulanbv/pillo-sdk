@@ -10,5 +10,7 @@
 
 - (void)initialize;
 - (void)cancelPeripheralConnection:(NSString *)identifier;
+- (void)powerOffPeripheral:(NSString *)identifier;
+- (void)calibratePeripheral:(NSString *)identifier;
 
 @end
