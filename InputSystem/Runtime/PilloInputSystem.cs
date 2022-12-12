@@ -12,6 +12,11 @@ namespace Hulan.PilloSDK.InputSystem {
   /// </summary>
   public static class PilloInputSystem {
     /// <summary>
+    /// Delegate invoked when a anything has changed.
+    /// </summary>
+    public static PilloInputSystemDelegate.OnChange onChange;
+
+    /// <summary>
     /// Delegate invoked when a Pillo Input Device has been connected.
     /// </summary>
     public static PilloInputSystemDelegate.OnPilloInputDeviceDidConnect onPilloInputDeviceDidConnect;
@@ -110,6 +115,7 @@ namespace Hulan.PilloSDK.InputSystem {
       }
       PilloInputSystem.ReassignPilloInputDevicePlayerIndexes ();
       PilloInputSystem.onPilloInputDeviceDidConnect?.Invoke (pilloInputDevice);
+      PilloInputSystem.onChange?.Invoke ();
     }
 
     private static void OnPeripheralDidDisconnect (string identifier) {
@@ -118,11 +124,13 @@ namespace Hulan.PilloSDK.InputSystem {
         PilloInputSystem.pilloInputDevices.Remove (pilloInputDevice);
         PilloInputSystem.ReassignPilloInputDevicePlayerIndexes ();
         PilloInputSystem.onPilloInputDeviceDidDisconnect?.Invoke (pilloInputDevice);
+        PilloInputSystem.onChange?.Invoke ();
       }
     }
 
     private static void OnPeripheralDidFailToConnect (string identifier) {
       PilloInputSystem.onPilloInputDeviceDidFailToConnect?.Invoke ();
+      PilloInputSystem.onChange?.Invoke ();
     }
 
     private static void OnPeripheralBatteryLevelDidChange (string identifier, int batteryLevel) {
@@ -130,6 +138,7 @@ namespace Hulan.PilloSDK.InputSystem {
       if (pilloInputDevice != null) {
         pilloInputDevice.batteryLevel = batteryLevel;
         PilloInputSystem.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
+        PilloInputSystem.onChange?.Invoke ();
       }
     }
 
@@ -138,6 +147,7 @@ namespace Hulan.PilloSDK.InputSystem {
       if (pilloInputDevice != null) {
         pilloInputDevice.pressure = pressure;
         PilloInputSystem.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
+        PilloInputSystem.onChange?.Invoke ();
       }
     }
 
@@ -146,6 +156,7 @@ namespace Hulan.PilloSDK.InputSystem {
       if (pilloInputDevice != null) {
         pilloInputDevice.chargeState = (PilloInputDeviceChargeState)chargeState;
         PilloInputSystem.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
+        PilloInputSystem.onChange?.Invoke ();
       }
     }
 
