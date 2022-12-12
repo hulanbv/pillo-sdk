@@ -22,6 +22,18 @@ Install the latest stable release using the Unity Package Manager by adding the 
 "nl.hulan.pillo-sdk.framework": "https://github.com/hulanbv/pillo-sdk-package.git?path=/Framework"
 ```
 
+# Pillo SDK Input System
+
+The Pillo SDK Input System provides the functionality for interacting with the Pillo Hardware via the Unity Input System.
+
+## Installation
+
+Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
+
+```json
+"nl.hulan.pillo-sdk.input-system": "https://github.com/hulanbv/pillo-sdk-package.git?path=/InputSystem"
+```
+
 # Generic Attribute Profile Definitions
 
 The following Bluetooth Low Energy Generic Attribute Profile Definitions are based on version `0.4` of the `VT_HULPIL_20220308_BLE_GATT_PROFILES` protocol.
