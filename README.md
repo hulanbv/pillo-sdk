@@ -2,11 +2,11 @@
 
 The Pillo SDK Mono Repository contains various packages for interacting with the Pillo Hardware via Unity on various Platforms.
 
-# Pillo SDK Framework
+## 1 Pillo SDK Framework
 
 The Pillo SDK Framework provides the core functionality for interacting with the Pillo Hardware.
 
-## Compatibility
+### 1.1 Compatibility
 
 The Pillo SDK Framework is compatible with the following platforms:
 
@@ -14,7 +14,7 @@ The Pillo SDK Framework is compatible with the following platforms:
 - Unity Engine for Apple iPhone running iOS 5.0 or later
 - Unity Engine for Apple iPad running iPadOS 5.0 or later
 
-## Installation
+### 1.2 Installation
 
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
@@ -22,11 +22,11 @@ Install the latest stable release using the Unity Package Manager by adding the 
 "nl.hulan.pillo-sdk.framework": "https://github.com/hulanbv/pillo-sdk-package.git?path=/Framework"
 ```
 
-# Pillo SDK Input System
+## 2 Pillo SDK Input System
 
 The Pillo SDK Input System provides the functionality for interacting with the Pillo Hardware via the Unity Input System.
 
-## Installation
+### 2.1 Installation
 
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
@@ -34,13 +34,173 @@ Install the latest stable release using the Unity Package Manager by adding the 
 "nl.hulan.pillo-sdk.input-system": "https://github.com/hulanbv/pillo-sdk-package.git?path=/InputSystem"
 ```
 
-# Generic Attribute Profile Definitions
+### 2.2 Documentation
+
+The Pillo SDK Input System is based around `PilloInputDevice`s. These devices are created when a Pillo is connected to the device. The `PilloInputDevice` exposes a set of controls that can be used to interact with the Pillo Hardware, and a set of properties that can be used to retrieve information about the Pillo Hardware. The `PilloInputSystem` can be used to subscribe to specific events as well as retrieve a list of all connected Pillo devices.
+
+#### 2.2.1 Pillo Input System Delegates
+
+##### Pillo Input Device Did Connect
+
+The `OnPilloInputDeviceDidConnect` delegate is called when a Pillo is connected to the device. A new `PilloInputDevice` is created and passed to the delegate.
+
+```csharp
+public delegate void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice);
+```
+
+```csharp
+PilloInputSystem.onPilloInputDeviceDidConnect += (PilloInputDevice pilloInputDevice) => {
+    Debug.Log($"Pillo {pilloInputDevice.identifier} connected.");
+};
+```
+
+##### Pillo Input Device Did Disconnect
+
+The `OnPilloInputDeviceDidDisconnect` delegate is called when a Pillo is disconnected from the device. The `PilloInputDevice` is passed to the delegate.
+
+```csharp
+public delegate void OnPilloInputDeviceDidDisconnect (PilloInputDevice pilloInputDevice);
+```
+
+```csharp
+PilloInputSystem.onPilloInputDeviceDidDisconnect += (PilloInputDevice pilloInputDevice) => {
+    Debug.Log($"Pillo {pilloInputDevice.identifier} disconnected.");
+};
+```
+
+##### Pillo Input Device Did Fail To Connect
+
+The `OnPilloInputDeviceDidFailToConnect` delegate is called when a Pillo fails to connect to the device.
+
+```csharp
+public delegate void OnPilloInputDeviceDidFailToConnect ();
+```
+
+```csharp
+PilloInputSystem.onPilloInputDeviceDidFailToConnect += () => {
+    Debug.Log("Pillo failed to connect.");
+};
+```
+
+##### Pillo Input Device State Did Change
+
+The `OnPilloInputDeviceStateDidChange` delegate is called when the state of a Pillo changes. The `PilloInputDevice` which derives from the `PilloInputDeviceState` is passed to the delegate.
+
+```csharp
+public delegate void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice);
+```
+
+```csharp
+PilloInputSystem.onPilloInputDeviceStateDidChange += (PilloInputDevice pilloInputDevice) => {
+    Debug.Log($"Pillo {pilloInputDevice.identifier} state changed.");
+};
+```
+
+#### 2.2.2 Pillo Input System Methods
+
+##### Reset Pillo Input Device Player Indexes
+
+The `ResetPilloInputDevicePlayerIndexes` method can be used to reset the player indexes of all connected Pillo devices.
+
+```csharp
+public static void ResetPilloInputDevicePlayerIndexes ()
+```
+
+#### 2.2.3 Pillo Input System Properties
+
+##### Pillo Input Devices
+
+The `pilloInputDevices` property can be used to retrieve a list of all connected Pillo devices.
+
+```csharp
+public static List<PilloInputDevice> pilloInputDevices { get; }
+```
+
+##### Pillo Input Device Count
+
+The `pilloInputDeviceCount` property can be used to retrieve the number of connected Pillo devices.
+
+```csharp
+public static int pilloInputDeviceCount { get; }
+```
+
+#### 2.2.4 Pillo Input Device State Properties
+
+##### Pillo Input Device State Identifier
+
+The Pillo Input Device's unique identifier assigned by the Pillo Bluetooth peripheral.
+
+```csharp
+public string identifier { get; }
+```
+
+##### Pillo Input Device State Player Index
+
+Internally assigned player indexes. These indexes are assigned automatically and are used to identify the player that the device belongs to. If a device disconnects, the player index is reassigned.
+
+```csharp
+public int playerIndex { get; }
+```
+
+##### Pillo Input Device State Pressure
+
+The Pillo Input Device's current pressure value.
+
+```csharp
+public int pressure { get; }
+```
+
+The pressure value is a value between `0` and `1024` where `0` is the lowest pressure and `1` is the highest pressure.
+
+##### Pillo Input Device State Battery Level
+
+The Pillo Input Device's current battery level.
+
+```csharp
+public int batteryLevel { get; }
+```
+
+The battery level is a value between `0` and `100` where `0` is the lowest battery level and `100` is the highest battery level.
+
+##### Pillo Input Device State Charge State
+
+The Pillo Input Device's current charge state.
+
+```csharp
+public PilloInputDeviceChargeState chargeState { get; }
+```
+
+- `-1` `UNKNOWN` - The charge state is unknown.
+- `0` `PRE_CHARGE` - The Pillo is preparing for charging.
+- `1` `FAST_CHARGE` - The Pillo is charging.
+- `2` `CHARGE_DONE` - The Pillo is fully charged.
+- `3` `SLEEP_MODE` - The Pillo is not charging and is in sleep mode.
+
+#### 2.2.5 Pillo Input Device Methods
+
+##### Power Off the Pillo Input Device
+
+The `PowerOff` method can be used to power off the Pillo Hardware.
+
+```csharp
+public void PowerOff ();
+```
+
+##### Start Calibrating the Pillo Input Device
+
+The `StartCalibrating` method can be used to start calibrating the Pillo Hardware.
+
+```csharp
+public void StartCalibration ();
+```
+
+## 3 Generic Attribute Profile Definitions
 
 The following Bluetooth Low Energy Generic Attribute Profile Definitions are based on version `0.4` of the `VT_HULPIL_20220308_BLE_GATT_PROFILES` protocol.
 
-## Generic Attribute Services
+### 3.1 Generic Attribute Services
 
-### Battery GATT
+#### 3.1.1 Battery GATT
 
 | Type           | UUID   | Name            | Definition            | Description                                                          |
 | -------------- | ------ | --------------- | --------------------- | -------------------------------------------------------------------- |
@@ -49,7 +209,7 @@ The following Bluetooth Low Energy Generic Attribute Profile Definitions are bas
 
 The battery level is represented as a value between `0` and `100` where `0` is the lowest battery level and `100` is the highest battery level.
 
-### Device Information GATT
+#### 3.1.2 Device Information GATT
 
 | Type           | UUID   | Name                       | Definition   | Description                                                                 |
 | -------------- | ------ | -------------------------- | ------------ | --------------------------------------------------------------------------- |
@@ -59,16 +219,16 @@ The battery level is represented as a value between `0` and `100` where `0` is t
 | Characteristic | `2a27` | Hardware Revision String   | String, Read | The Hardware Revision String characteristic exposes the hardware revision.  |
 | Characteristic | `2a26` | Firmware Revision String   | String, Read | The Firmware Revision String characteristic exposes the firmware revision.  |
 
-### Pressure GATT
+#### 3.1.3 Pressure GATT
 
 | Type           | UUID                                   | Name                    | Definition            | Description                                                      |
 | -------------- | -------------------------------------- | ----------------------- | --------------------- | ---------------------------------------------------------------- |
 | Service        | `579ba43d-a351-463d-92c7-911ec1b54e35` | Pressure Service        |                       | The Pressure Service exposes the pressure of the Pillo Hardware. |
 | Characteristic | `1470ca75-5d7e-4e16-a70d-d1476e8d0c6f` | Pressure Characteristic | 1 byte, Read & Notify | The Pressure Characteristic exposes the pressure.                |
 
-The pressure is represented a value between `0` and `255` where `0` is the lowest pressure and `255` is the highest pressure.
+The pressure is represented a value between `0` and `1024` where `0` is the lowest pressure and `1024` is the highest pressure.
 
-### Charging GATT
+#### 3.1.4 Charging GATT
 
 | Type           | UUID                                   | Name                          | Definition            | Description                                                    |
 | -------------- | -------------------------------------- | ----------------------------- | --------------------- | -------------------------------------------------------------- |
@@ -82,7 +242,7 @@ The charging state is represented by the following values:
 - `2`: The device is fully charged
 - `3`: The device is in sleep mode
 
-### Command GATT
+#### 3.1.5 Command GATT
 
 | Type           | UUID                                   | Name                   | Definition      | Description                                                    |
 | -------------- | -------------------------------------- | ---------------------- | --------------- | -------------------------------------------------------------- |
@@ -94,7 +254,7 @@ The command characteristic expects the following values:
 - `0x01`: Set Max Pressure Value
 - `0x0F`: Power Off
 
-### Calibration GATT
+#### 3.1.6 Calibration GATT
 
 | Type           | UUID                                   | Name                             | Definition           | Description                                                                   |
 | -------------- | -------------------------------------- | -------------------------------- | -------------------- | ----------------------------------------------------------------------------- |
@@ -102,13 +262,13 @@ The command characteristic expects the following values:
 | Characteristic | `60b89ebc-d1c2-45ed-8b30-aa3ebd6ded65` | Calibration Value Characteristic | 1 byte, Read & Write | The Calibration Value Characteristic exposes the calibration.                 |
 | Characteristic | `46f9ab5b-d01a-4353-9db4-176c4f3200cf` | Start Calibration Characteristic | 1 byte, Write        | When any value is written to this characteristic, the calibration will start. |
 
-# Development
+## 4 Development
 
-## Working on the Unity Packages
+### 4.1 Working on the Unity Packages
 
 To start development on the Unity packages of the Pillo SDK, clone the entirety of this repository in your Unity project's `Assets` directory as if it were a normal asset. This will allow you to make changes to the packages and test them in your Unity project without having them to be installed via the Unity Package Manager.
 
-## Working on the Native Libraries
+### 4.2 Working on the Native Libraries
 
 To start development on the native libraries of the Pillo SDK, clone the entirety of this repository in any directory on your computer. Open this XCode project which can be found in the `Plugin` directory within the Pillo SDK Framework.
 
