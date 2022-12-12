@@ -1,0 +1,11 @@
+## Xcode Output
+/Tmp
+
+## User settings
+/Plugin.xcodeproj/xcuserdata/
+/Plugin.xcodeproj/xcuserdata.meta
+/Plugin.xcodeproj/**/xcuserdata/
+/Plugin.xcodeproj/**/xcuserdata.meta
+
+## Gcc Patch
+/*.gcno
