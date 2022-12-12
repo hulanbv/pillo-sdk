@@ -2,11 +2,11 @@
 
 The Pillo SDK Mono Repository contains various packages for interacting with the Pillo Hardware via Unity on various Platforms.
 
-## 1 Pillo SDK Framework
+## Pillo SDK Framework
 
 The Pillo SDK Framework provides the core functionality for interacting with the Pillo Hardware.
 
-### 1.1 Compatibility
+### Compatibility
 
 The Pillo SDK Framework is compatible with the following platforms:
 
@@ -14,7 +14,7 @@ The Pillo SDK Framework is compatible with the following platforms:
 - Unity Engine for Apple iPhone running iOS 5.0 or later
 - Unity Engine for Apple iPad running iPadOS 5.0 or later
 
-### 1.2 Installation
+### Installation
 
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
@@ -22,11 +22,13 @@ Install the latest stable release using the Unity Package Manager by adding the 
 "nl.hulan.pillo-sdk.framework": "https://github.com/hulanbv/pillo-sdk-package.git?path=/Framework"
 ```
 
-## 2 Pillo SDK Input System
+<br/><br/><br/>
+
+## Pillo SDK Input System
 
 The Pillo SDK Input System provides the functionality for interacting with the Pillo Hardware via the Unity Input System.
 
-### 2.1 Installation
+### Installation
 
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
@@ -34,11 +36,11 @@ Install the latest stable release using the Unity Package Manager by adding the 
 "nl.hulan.pillo-sdk.input-system": "https://github.com/hulanbv/pillo-sdk-package.git?path=/InputSystem"
 ```
 
-### 2.2 Documentation
+### Documentation
 
 The Pillo SDK Input System is based around `PilloInputDevice`s. These devices are created when a Pillo is connected to the device. The `PilloInputDevice` exposes a set of controls that can be used to interact with the Pillo Hardware, and a set of properties that can be used to retrieve information about the Pillo Hardware. The `PilloInputSystem` can be used to subscribe to specific events as well as retrieve a list of all connected Pillo devices.
 
-#### 2.2.1 Pillo Input System Delegates
+#### Pillo Input System Delegates
 
 ##### Pillo Input Device Did Connect
 
@@ -96,7 +98,7 @@ PilloInputSystem.onPilloInputDeviceStateDidChange += (PilloInputDevice pilloInpu
 };
 ```
 
-#### 2.2.2 Pillo Input System Methods
+#### Pillo Input System Methods
 
 ##### Reset Pillo Input Device Player Indexes
 
@@ -106,7 +108,7 @@ The `ResetPilloInputDevicePlayerIndexes` method can be used to reset the player 
 public static void ResetPilloInputDevicePlayerIndexes ()
 ```
 
-#### 2.2.3 Pillo Input System Properties
+#### Pillo Input System Properties
 
 ##### Pillo Input Devices
 
@@ -124,7 +126,7 @@ The `pilloInputDeviceCount` property can be used to retrieve the number of conne
 public static int pilloInputDeviceCount { get; }
 ```
 
-#### 2.2.4 Pillo Input Device State Properties
+#### Pillo Input Device State Properties
 
 ##### Pillo Input Device State Identifier
 
@@ -176,7 +178,7 @@ public PilloInputDeviceChargeState chargeState { get; }
 - `2` `CHARGE_DONE` - The Pillo is fully charged.
 - `3` `SLEEP_MODE` - The Pillo is not charging and is in sleep mode.
 
-#### 2.2.5 Pillo Input Device Methods
+#### Pillo Input Device Methods
 
 ##### Power Off the Pillo Input Device
 
@@ -194,13 +196,15 @@ The `StartCalibrating` method can be used to start calibrating the Pillo Hardwar
 public void StartCalibration ();
 ```
 
-## 3 Generic Attribute Profile Definitions
+<br/><br/><br/>
+
+## Generic Attribute Profile Definitions
 
 The following Bluetooth Low Energy Generic Attribute Profile Definitions are based on version `0.4` of the `VT_HULPIL_20220308_BLE_GATT_PROFILES` protocol.
 
-### 3.1 Generic Attribute Services
+### Generic Attribute Services
 
-#### 3.1.1 Battery GATT
+#### Battery GATT
 
 | Type           | UUID   | Name            | Definition            | Description                                                          |
 | -------------- | ------ | --------------- | --------------------- | -------------------------------------------------------------------- |
@@ -209,7 +213,7 @@ The following Bluetooth Low Energy Generic Attribute Profile Definitions are bas
 
 The battery level is represented as a value between `0` and `100` where `0` is the lowest battery level and `100` is the highest battery level.
 
-#### 3.1.2 Device Information GATT
+#### Device Information GATT
 
 | Type           | UUID   | Name                       | Definition   | Description                                                                 |
 | -------------- | ------ | -------------------------- | ------------ | --------------------------------------------------------------------------- |
@@ -219,7 +223,7 @@ The battery level is represented as a value between `0` and `100` where `0` is t
 | Characteristic | `2a27` | Hardware Revision String   | String, Read | The Hardware Revision String characteristic exposes the hardware revision.  |
 | Characteristic | `2a26` | Firmware Revision String   | String, Read | The Firmware Revision String characteristic exposes the firmware revision.  |
 
-#### 3.1.3 Pressure GATT
+#### Pressure GATT
 
 | Type           | UUID                                   | Name                    | Definition            | Description                                                      |
 | -------------- | -------------------------------------- | ----------------------- | --------------------- | ---------------------------------------------------------------- |
@@ -228,7 +232,7 @@ The battery level is represented as a value between `0` and `100` where `0` is t
 
 The pressure is represented a value between `0` and `1024` where `0` is the lowest pressure and `1024` is the highest pressure.
 
-#### 3.1.4 Charging GATT
+#### Charging GATT
 
 | Type           | UUID                                   | Name                          | Definition            | Description                                                    |
 | -------------- | -------------------------------------- | ----------------------------- | --------------------- | -------------------------------------------------------------- |
@@ -242,7 +246,7 @@ The charging state is represented by the following values:
 - `2`: The device is fully charged
 - `3`: The device is in sleep mode
 
-#### 3.1.5 Command GATT
+#### Command GATT
 
 | Type           | UUID                                   | Name                   | Definition      | Description                                                    |
 | -------------- | -------------------------------------- | ---------------------- | --------------- | -------------------------------------------------------------- |
@@ -254,7 +258,7 @@ The command characteristic expects the following values:
 - `0x01`: Set Max Pressure Value
 - `0x0F`: Power Off
 
-#### 3.1.6 Calibration GATT
+#### Calibration GATT
 
 | Type           | UUID                                   | Name                             | Definition           | Description                                                                   |
 | -------------- | -------------------------------------- | -------------------------------- | -------------------- | ----------------------------------------------------------------------------- |
@@ -262,13 +266,15 @@ The command characteristic expects the following values:
 | Characteristic | `60b89ebc-d1c2-45ed-8b30-aa3ebd6ded65` | Calibration Value Characteristic | 1 byte, Read & Write | The Calibration Value Characteristic exposes the calibration.                 |
 | Characteristic | `46f9ab5b-d01a-4353-9db4-176c4f3200cf` | Start Calibration Characteristic | 1 byte, Write        | When any value is written to this characteristic, the calibration will start. |
 
-## 4 Development
+<br/><br/><br/>
 
-### 4.1 Working on the Unity Packages
+## Development
+
+### Working on the Unity Packages
 
 To start development on the Unity packages of the Pillo SDK, clone the entirety of this repository in your Unity project's `Assets` directory as if it were a normal asset. This will allow you to make changes to the packages and test them in your Unity project without having them to be installed via the Unity Package Manager.
 
-### 4.2 Working on the Native Libraries
+### Working on the Native Libraries
 
 To start development on the native libraries of the Pillo SDK, clone the entirety of this repository in any directory on your computer. Open this XCode project which can be found in the `Plugin` directory within the Pillo SDK Framework.
 
