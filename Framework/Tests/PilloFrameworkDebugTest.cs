@@ -8,7 +8,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
   /// The Pillo Framework Test MonoBehaviour will be debug log all the incoming
   /// Pillo Framework events.
   /// </summary>
-  internal class PilloFrameworkTest : MonoBehaviour {
+  [AddComponentMenu ("Hulan/Pillo SDK/Framework/Tests/Pillo Framework Debug Test")]
+  internal class PilloFrameworkDebugTest : MonoBehaviour {
     /// <summary>
     /// Binds the Pillo Framework events to the Pillo Framework Test MonoBe-
     /// haviour.
