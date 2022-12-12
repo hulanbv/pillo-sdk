@@ -6,9 +6,9 @@ using System.IO;
 using UnityEditor.iOS.Xcode;
 #endif
 
-// Unity Engine Pillo SDK Framework
+// Unity Engine Pillo SDK Framework Editor
 // Author: Jeffrey Lanters at Hulan
-namespace Hulan.PilloSDK.Framework {
+namespace Hulan.PilloSDK.Framework.Editor {
   /// <summary>
   /// Contains the methods to hook into the Unity Editor.
   /// </summary>
