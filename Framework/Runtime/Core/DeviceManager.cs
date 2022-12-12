@@ -10,31 +10,47 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// <summary>
     /// Exposed Device Manager Native Plugin method to instantiate itself.
     /// </summary>
+#if !UNITY_EDITOR && (UNITY_IOS || UNITY_TVOS)
     [DllImport ("__Internal")]
     private static extern void _DeviceManagerInstantiate ();
+#else
+    private static void _DeviceManagerInstantiate () { }
+#endif
 
     /// <summary>
     /// Exposed Device Manager Native Plugin method to cancel a Peripheral 
     /// connection.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
+#if !UNITY_EDITOR && (UNITY_IOS || UNITY_TVOS)
     [DllImport ("__Internal")]
     private static extern void _DeviceManagerCancelPeripheralConnection (string identifier);
+#else
+    private static void _DeviceManagerCancelPeripheralConnection (string identifier) { }
+#endif
 
     /// <summary>
     /// Exposed Device Manager Native Plugin method to power off a Peripheral.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
+#if !UNITY_EDITOR && (UNITY_IOS || UNITY_TVOS)
     [DllImport ("__Internal")]
     private static extern void _DeviceManagerPowerOffPeripheral (string identifier);
+#else
+    private static void _DeviceManagerPowerOffPeripheral (string identifier) { }
+#endif
 
     /// <summary>
     /// Exposed Device Manager Native Plugin method to start a Peripheral
     /// calibration.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
+#if !UNITY_EDITOR && (UNITY_IOS || UNITY_TVOS)
     [DllImport ("__Internal")]
     private static extern void _DeviceManagerStartPeripheralCalibration (string identifier);
+#else
+    private static void _DeviceManagerStartPeripheralCalibration (string identifier) { }
+#endif
 
     /// <summary>
     /// Initializes the Device Manager.

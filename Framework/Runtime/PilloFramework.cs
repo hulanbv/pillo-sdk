@@ -82,10 +82,8 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     [RuntimeInitializeOnLoadMethod]
     private static void RuntimeInitializeOnLoad () {
-#if UNITY_EDITOR == false
       DeviceManager.Instantiate ();
       DeviceManagerCallbackListener.Instantiate ();
-#endif
     }
 
     /// <summary>
@@ -93,9 +91,7 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     public static void CancelPeripheralConnection (string identifier) {
-#if UNITY_EDITOR == false
       DeviceManager.CancelPeripheralConnection (identifier);
-#endif
     }
 
     /// <summary>
@@ -103,9 +99,7 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     public static void PowerOffPeripheral (string identifier) {
-#if UNITY_EDITOR == false
       DeviceManager.PowerOffPeripheral (identifier);
-#endif
     }
 
     /// <summary>
@@ -113,9 +107,7 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     public static void StartPeripheralCalibration (string identifier) {
-#if UNITY_EDITOR == false
       DeviceManager.StartPeripheralCalibration (identifier);
-#endif
     }
   }
 }
