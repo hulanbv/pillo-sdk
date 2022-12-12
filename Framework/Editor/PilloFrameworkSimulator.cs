@@ -184,6 +184,17 @@ namespace Hulan.PilloSDK.Framework.Editor {
     }
 
     /// <summary>
+    /// Method invoked when the Pillo Framework Simulator window is disabled.
+    /// </summary>
+    private void OnDisable () {
+      instance = null;
+      // Disconnect all peripherals before closing the window.
+      foreach (var peripheral in peripherals) {
+        peripheral.isConnected = false;
+      }
+    }
+
+    /// <summary>
     /// Adds a simulated peripheral.
     /// </summary>
     private void AddSimulatedPeripheral () {
