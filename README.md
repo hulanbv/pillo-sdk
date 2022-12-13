@@ -21,7 +21,7 @@ The Pillo SDK Framework is compatible with the following platforms:
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
 ```json
-"nl.hulan.pillo-sdk.framework": "https://github.com/hulanbv/pillo-sdk-package.git?path=/Framework"
+"nl.hulan.pillo-sdk.framework": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/Framework"
 ```
 
 <br/><br/><br/>
@@ -35,7 +35,7 @@ The Pillo SDK Input System provides the functionality for interacting with the P
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
 ```json
-"nl.hulan.pillo-sdk.input-system": "https://github.com/hulanbv/pillo-sdk-package.git?path=/InputSystem"
+"nl.hulan.pillo-sdk.input-system": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/InputSystem"
 ```
 
 ### Documentation
