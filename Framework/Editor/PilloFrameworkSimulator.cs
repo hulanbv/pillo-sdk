@@ -23,100 +23,144 @@ namespace Hulan.PilloSDK.Framework.Editor {
     /// </summary>
     private class SimulatedPeripheral {
       /// <summary>
-      /// The simulated peripheral identifier.
+      /// A field with a change callback.
       /// </summary>
-      internal string identifier;
+      /// <typeparam name="FieldType">The field's type</typeparam>
+      internal class FieldWithChangeCallback<FieldType> {
+        /// <summary>
+        /// The field's protected value field. This field is used to store the
+        /// field's value privately.
+        /// </summary>
+        private FieldType value;
+
+        /// <summary>
+        /// The field's change callback. This callback is invoked when the
+        /// field's value changes to a new value. The new value is passed as
+        /// an argument to the callback.
+        /// </summary>
+        private System.Action<FieldType> callback;
+
+        /// <summary>
+        /// Creates a new field with a change callback.
+        /// </summary>
+        /// <param name="value">The initial value.</param>
+        /// <param name="callback">The callback method.</param>
+        public FieldWithChangeCallback (FieldType value, System.Action<FieldType> callback) {
+          this.value = value;
+          this.callback = callback;
+        }
+
+        /// <summary>
+        /// Gets or sets the field's value. When the value changes, the callback
+        /// is invoked.
+        /// </summary>
+        public FieldType Value {
+          get => value;
+          set {
+            if (!this.value.Equals (value)) {
+              this.value = value;
+              callback (value);
+            }
+          }
+        }
+      }
+
 
       /// <summary>
-      /// The local simulated peripheral connection state.
+      /// Instanciates a new simulated peripheral.
       /// </summary>
-      private bool localIsConnected;
-
-      /// <summary>
-      /// The simulated peripheral connection state.
-      /// </summary>
-      internal bool isConnected {
-        get => localIsConnected;
-        set {
-          // Only invoke the callback if the connection state has changed.
-          if (localIsConnected != value && value == true) {
+      /// <param name="identifier">The peripheral's identifier.</param>
+      internal SimulatedPeripheral (string identifier) {
+        // Set all of the peripheral's fields.
+        this.identifier = identifier;
+        this.firmwareVersion = new FieldWithChangeCallback<string> (string.Empty, (value) => {
+          SimulateInvokeUnityCallback ("OnPeripheralFirmwareVersionDidChange", new PeripheralFirmwareVersionDidChangePayload () {
+            identifier = identifier,
+            firmwareVersion = value
+          });
+        });
+        this.hardwareVersion = new FieldWithChangeCallback<string> (string.Empty, (value) => {
+          SimulateInvokeUnityCallback ("OnPeripheralHardwareVersionDidChange", new PeripheralHardwareVersionDidChangePayload () {
+            identifier = identifier,
+            hardwareVersion = value
+          });
+        });
+        this.modelNumber = new FieldWithChangeCallback<string> (string.Empty, (value) => {
+          SimulateInvokeUnityCallback ("OnPeripheralModelNumberDidChange", new PeripheralModelNumberDidChangePayload () {
+            identifier = identifier,
+            modelNumber = value
+          });
+        });
+        this.isConnected = new FieldWithChangeCallback<bool> (false, (value) => {
+          if (value == true) {
             SimulateInvokeUnityCallback ("OnPeripheralDidConnect", new PeripheralDidConnectPayload () {
               identifier = identifier
             });
-          } else if (localIsConnected != value && value == false) {
+          } else {
             SimulateInvokeUnityCallback ("OnPeripheralDidDisconnect", new PeripheralDidDisconnectPayload () {
               identifier = identifier
             });
           }
-          localIsConnected = value;
-        }
+        });
+        this.chargeState = new FieldWithChangeCallback<PeripheralChargeState> (PeripheralChargeState.UNKNOWN, (value) => {
+          SimulateInvokeUnityCallback ("OnPeripheralChargeStateDidChange", new PeripheralChargeStateDidChangePayload () {
+            identifier = identifier,
+            chargeState = value
+          });
+        });
+        this.batteryLevel = new FieldWithChangeCallback<int> (0, (value) => {
+          SimulateInvokeUnityCallback ("OnPeripheralBatteryLevelDidChange", new PeripheralBatteryLevelDidChangePayload () {
+            identifier = identifier,
+            batteryLevel = value
+          });
+        });
+        this.pressure = new FieldWithChangeCallback<int> (0, (value) => {
+          SimulateInvokeUnityCallback ("OnPeripheralPressureDidChange", new PeripheralPressureDidChangePayload () {
+            identifier = identifier,
+            pressure = value
+          });
+        });
       }
 
       /// <summary>
-      /// The local simulated peripheral charge state.
+      /// The simulated peripheral identifier.
       /// </summary>
-      private PeripheralChargeState localChargeState;
+      internal readonly string identifier;
+
+      ///  <summary> 
+      /// The simulated peripheral connection state.
+      /// </summary> 
+      internal readonly FieldWithChangeCallback<bool> isConnected;
+
+      /// <summary>
+      /// The simulated peripheral firmware version.
+      /// </summary>
+      internal readonly FieldWithChangeCallback<string> firmwareVersion;
+
+      /// <summary>
+      /// The simulated peripheral hardware version.
+      /// </summary>
+      internal readonly FieldWithChangeCallback<string> hardwareVersion;
+
+      /// <summary>
+      /// The simulated peripheral model number.
+      /// </summary>
+      internal readonly FieldWithChangeCallback<string> modelNumber;
 
       /// <summary>
       /// The simulated peripheral charge state.
       /// </summary>
-      internal PeripheralChargeState chargeState {
-        get => localChargeState;
-        set {
-          // Only invoke the callback if the charge state has changed.
-          if (localChargeState != value) {
-            SimulateInvokeUnityCallback ("OnPeripheralChargeStateDidChange", new PeripheralChargeStateDidChangePayload () {
-              identifier = identifier,
-              chargeState = value
-            });
-          }
-          localChargeState = value;
-        }
-      }
-
-      /// <summary>
-      /// The local simulated peripheral battery level.
-      /// </summary>
-      private int localBatteryLevel;
+      internal readonly FieldWithChangeCallback<PeripheralChargeState> chargeState;
 
       /// <summary>
       /// The simulated peripheral battery level.
       /// </summary>
-      internal int batteryLevel {
-        get => localBatteryLevel;
-        set {
-          // Only invoke the callback if the battery level has changed.
-          if (localBatteryLevel != value) {
-            SimulateInvokeUnityCallback ("OnPeripheralBatteryLevelDidChange", new PeripheralBatteryLevelDidChangePayload () {
-              identifier = identifier,
-              batteryLevel = value
-            });
-          }
-          localBatteryLevel = value;
-        }
-      }
-
-      /// <summary>
-      /// The local simulated peripheral pressure.
-      /// </summary>
-      private int localPressure;
+      internal readonly FieldWithChangeCallback<int> batteryLevel;
 
       /// <summary>
       /// The simulated peripheral pressure.
       /// </summary>
-      internal int pressure {
-        get => localPressure;
-        set {
-          // Only invoke the callback if the pressure has changed.
-          if (localPressure != value) {
-            SimulateInvokeUnityCallback ("OnPeripheralPressureDidChange", new PeripheralPressureDidChangePayload () {
-              identifier = identifier,
-              pressure = value
-            });
-          }
-          localPressure = value;
-        }
-      }
+      internal readonly FieldWithChangeCallback<int> pressure;
     }
 
     /// <summary>
@@ -163,7 +207,7 @@ namespace Hulan.PilloSDK.Framework.Editor {
       }
       foreach (var peripheral in instance.peripherals) {
         if (peripheral.identifier == identifier) {
-          peripheral.isConnected = false;
+          peripheral.isConnected.Value = false;
           instance.peripherals.Remove (peripheral);
           instance.Repaint ();
           return;
@@ -190,7 +234,7 @@ namespace Hulan.PilloSDK.Framework.Editor {
       instance = null;
       // Disconnect all peripherals before closing the window.
       foreach (var peripheral in peripherals) {
-        peripheral.isConnected = false;
+        peripheral.isConnected.Value = false;
       }
     }
 
@@ -198,12 +242,14 @@ namespace Hulan.PilloSDK.Framework.Editor {
     /// Adds a simulated peripheral.
     /// </summary>
     private void AddSimulatedPeripheral () {
-      peripherals.Add (new SimulatedPeripheral () {
-        identifier = $"sp-{++peripheralIdentifier}",
-        isConnected = true,
-        chargeState = PeripheralChargeState.SLEEP_MODE,
-        batteryLevel = 100,
-      });
+      var peripheral = new SimulatedPeripheral ($"simulated-peripheral-{++peripheralIdentifier}");
+      peripheral.isConnected.Value = true;
+      peripheral.chargeState.Value = PeripheralChargeState.SLEEP_MODE;
+      peripheral.batteryLevel.Value = 100;
+      peripheral.modelNumber.Value = "simulated-peripheral 0.1f";
+      peripheral.firmwareVersion.Value = "0.0.1f";
+      peripheral.hardwareVersion.Value = "0.0.1f";
+      peripherals.Add (peripheral);
     }
 
     /// <summary>
@@ -211,7 +257,7 @@ namespace Hulan.PilloSDK.Framework.Editor {
     /// </summary>
     /// <param name="peripheral">The peripheral to remove.</param>
     private void RemoveSimulatedPeripheral (SimulatedPeripheral peripheral) {
-      peripheral.isConnected = false;
+      peripheral.isConnected.Value = false;
       peripherals.Remove (peripheral);
     }
 
@@ -240,22 +286,28 @@ namespace Hulan.PilloSDK.Framework.Editor {
         GUILayout.Label ("Simulated Peripheral", EditorStyles.largeLabel);
         GUILayout.Space (10);
         // Draw the simulated peripheral identifier in a read-only text field.
-        GUILayout.Label ("Identifier", EditorStyles.boldLabel);
         GUI.enabled = false;
+        GUILayout.Label ("Identifier", EditorStyles.boldLabel);
         EditorGUILayout.TextField (peripheral.identifier);
+        GUILayout.Label ("Hardware Version", EditorStyles.boldLabel);
+        EditorGUILayout.TextField (peripheral.hardwareVersion.Value);
+        GUILayout.Label ("Firmware Version", EditorStyles.boldLabel);
+        EditorGUILayout.TextField (peripheral.firmwareVersion.Value);
+        GUILayout.Label ("Model Number", EditorStyles.boldLabel);
+        EditorGUILayout.TextField (peripheral.modelNumber.Value);
         GUI.enabled = true;
         GUILayout.Space (10);
         // Draw the simulated peripheral battery services.
         GUILayout.Label ("Battery State", EditorStyles.largeLabel);
         GUILayout.Label ("Battery Level", EditorStyles.boldLabel);
-        peripheral.batteryLevel = EditorGUILayout.IntSlider (peripheral.batteryLevel, 0, 100);
+        peripheral.batteryLevel.Value = EditorGUILayout.IntSlider (peripheral.batteryLevel.Value, 0, 100);
         GUILayout.Label ("Charge State", EditorStyles.boldLabel);
-        peripheral.chargeState = (PeripheralChargeState)EditorGUILayout.EnumPopup (peripheral.chargeState);
+        peripheral.chargeState.Value = (PeripheralChargeState)EditorGUILayout.EnumPopup (peripheral.chargeState.Value);
         GUILayout.Space (10);
         // Draw the simulated peripheral pressure.
         GUILayout.Label ("Pressure", EditorStyles.largeLabel);
         GUILayout.Label ("Pressure Level", EditorStyles.boldLabel);
-        peripheral.pressure = EditorGUILayout.IntSlider (peripheral.pressure, 0, 1024);
+        peripheral.pressure.Value = EditorGUILayout.IntSlider (peripheral.pressure.Value, 0, 1024);
         // Draw the simulated peripheral actions.
         GUILayout.FlexibleSpace ();
         GUILayout.Label ("Actions", EditorStyles.largeLabel);
