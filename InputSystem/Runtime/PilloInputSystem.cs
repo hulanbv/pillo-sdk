@@ -105,6 +105,9 @@ namespace Hulan.PilloSDK.InputSystem {
       PilloFramework.onPeripheralBatteryLevelDidChange += PilloInputSystem.OnPeripheralBatteryLevelDidChange;
       PilloFramework.onPeripheralPressureDidChange += PilloInputSystem.OnPeripheralPressureDidChange;
       PilloFramework.onPeripheralChargeStateDidChange += PilloInputSystem.OnPeripheralChargeStateDidChange;
+      PilloFramework.onPeripheralFirmwareVersionDidChange += PilloInputSystem.OnPeripheralFirmwareVersionDidChange;
+      PilloFramework.onPeripheralHardwareVersionDidChange += PilloInputSystem.OnPeripheralHardwareVersionDidChange;
+      PilloFramework.onPeripheralModelNumberDidChange += PilloInputSystem.OnPeripheralModelNumberDidChange;
     }
 
     private static void OnPeripheralDidConnect (string identifier) {
@@ -155,6 +158,33 @@ namespace Hulan.PilloSDK.InputSystem {
       var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.chargeState = (PilloInputDeviceChargeState)chargeState;
+        PilloInputSystem.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
+        PilloInputSystem.onChange?.Invoke ();
+      }
+    }
+
+    private static void OnPeripheralFirmwareVersionDidChange (string identifier, string firmwareVersion) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+      if (pilloInputDevice != null) {
+        pilloInputDevice.firmwareVersion = firmwareVersion;
+        PilloInputSystem.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
+        PilloInputSystem.onChange?.Invoke ();
+      }
+    }
+
+    private static void OnPeripheralHardwareVersionDidChange (string identifier, string hardwareVersion) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+      if (pilloInputDevice != null) {
+        pilloInputDevice.hardwareVersion = hardwareVersion;
+        PilloInputSystem.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
+        PilloInputSystem.onChange?.Invoke ();
+      }
+    }
+
+    private static void OnPeripheralModelNumberDidChange (string identifier, string modelNumber) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+      if (pilloInputDevice != null) {
+        pilloInputDevice.modelNumber = modelNumber;
         PilloInputSystem.onPilloInputDeviceStateDidChange?.Invoke (pilloInputDevice);
         PilloInputSystem.onChange?.Invoke ();
       }

@@ -26,6 +26,9 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
         var pilloInputDevice = PilloInputSystem.pilloInputDevices[i];
         GUILayout.Label ($"Pillo Input Device {i}");
         GUILayout.Label ($" - Identifier: {pilloInputDevice.identifier}");
+        GUILayout.Label ($" - Firmware Version: {pilloInputDevice.firmwareVersion}");
+        GUILayout.Label ($" - Hardware Version: {pilloInputDevice.hardwareVersion}");
+        GUILayout.Label ($" - Model Number: {pilloInputDevice.modelNumber}");
         GUILayout.Label ($" - Player Index: {pilloInputDevice.playerIndex}");
         GUILayout.Label ($" - Pressure: {pilloInputDevice.pressure}");
         GUILayout.Label ($" - Battery Level: {pilloInputDevice.batteryLevel}");
