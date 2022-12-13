@@ -73,25 +73,25 @@ namespace Hulan.PilloSDK.Framework.Editor {
       internal SimulatedPeripheral (string identifier) {
         // Set all of the peripheral's fields.
         this.identifier = identifier;
-        this.firmwareVersion = new FieldWithChangeCallback<string> (string.Empty, (value) => {
+        firmwareVersion = new FieldWithChangeCallback<string> (string.Empty, (value) => {
           SimulateInvokeUnityCallback ("OnPeripheralFirmwareVersionDidChange", new PeripheralFirmwareVersionDidChangePayload () {
             identifier = identifier,
             firmwareVersion = value
           });
         });
-        this.hardwareVersion = new FieldWithChangeCallback<string> (string.Empty, (value) => {
+        hardwareVersion = new FieldWithChangeCallback<string> (string.Empty, (value) => {
           SimulateInvokeUnityCallback ("OnPeripheralHardwareVersionDidChange", new PeripheralHardwareVersionDidChangePayload () {
             identifier = identifier,
             hardwareVersion = value
           });
         });
-        this.modelNumber = new FieldWithChangeCallback<string> (string.Empty, (value) => {
+        modelNumber = new FieldWithChangeCallback<string> (string.Empty, (value) => {
           SimulateInvokeUnityCallback ("OnPeripheralModelNumberDidChange", new PeripheralModelNumberDidChangePayload () {
             identifier = identifier,
             modelNumber = value
           });
         });
-        this.isConnected = new FieldWithChangeCallback<bool> (false, (value) => {
+        isConnected = new FieldWithChangeCallback<bool> (false, (value) => {
           if (value == true) {
             SimulateInvokeUnityCallback ("OnPeripheralDidConnect", new PeripheralDidConnectPayload () {
               identifier = identifier
@@ -102,19 +102,19 @@ namespace Hulan.PilloSDK.Framework.Editor {
             });
           }
         });
-        this.chargeState = new FieldWithChangeCallback<PeripheralChargeState> (PeripheralChargeState.UNKNOWN, (value) => {
+        chargeState = new FieldWithChangeCallback<PeripheralChargeState> (PeripheralChargeState.UNKNOWN, (value) => {
           SimulateInvokeUnityCallback ("OnPeripheralChargeStateDidChange", new PeripheralChargeStateDidChangePayload () {
             identifier = identifier,
             chargeState = value
           });
         });
-        this.batteryLevel = new FieldWithChangeCallback<int> (0, (value) => {
+        batteryLevel = new FieldWithChangeCallback<int> (0, (value) => {
           SimulateInvokeUnityCallback ("OnPeripheralBatteryLevelDidChange", new PeripheralBatteryLevelDidChangePayload () {
             identifier = identifier,
             batteryLevel = value
           });
         });
-        this.pressure = new FieldWithChangeCallback<int> (0, (value) => {
+        pressure = new FieldWithChangeCallback<int> (0, (value) => {
           SimulateInvokeUnityCallback ("OnPeripheralPressureDidChange", new PeripheralPressureDidChangePayload () {
             identifier = identifier,
             pressure = value
