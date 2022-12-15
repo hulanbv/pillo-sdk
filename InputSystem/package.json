@@ -6,9 +6,9 @@
   "description": "The Pillo SDK Input System provides a set of input actions that can be used to interact with the Pillo SDK.",
   "type": "library",
   "hideInEditor": false,
-  "documentationUrl": "https://github.com/hulanbv/pillo-sdk-package",
-  "changelogUrl": "https://github.com/hulanbv/pillo-sdk-package/releases",
-  "licensesUrl": "https://github.com/hulanbv/pillo-sdk-package/blob/master/LICENSE.md",
+  "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono",
+  "changelogUrl": "https://github.com/hulanbv/pillo-sdk-mono/releases",
+  "licensesUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/LICENSE.md",
   "dependencies": {},
   "samples": []
 }

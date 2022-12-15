@@ -11,6 +11,11 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
   [AddComponentMenu ("Hulan/Pillo SDK/Input System/Tests/Pillo Input System Gui Test")]
   internal class PilloInputSystemGuiTest : MonoBehaviour {
     /// <summary>
+    /// The scroll position of the GUI.
+    /// </summary>
+    private Vector2 scrollPosition = Vector2.zero;
+
+    /// <summary>
     /// Draws the Pillo Input System Gui Test.
     /// </summary>
     private void OnGUI () {
@@ -21,6 +26,7 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
       GUI.skin.button.fixedHeight = (int)(Screen.height * 0.05f);
       // Displaying the Pillo Input System Gui Test.
       GUILayout.Label ("Pillo Input System Gui Test");
+      scrollPosition = GUILayout.BeginScrollView (scrollPosition);
       for (var i = 0; i < PilloInputSystem.pilloInputDeviceCount; i++) {
         // Displaying each of the Pillo Input Devices.
         var pilloInputDevice = PilloInputSystem.pilloInputDevices[i];
@@ -41,6 +47,7 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
           pilloInputDevice.StartCalibration ();
         }
       }
+      GUILayout.EndScrollView ();
     }
   }
 }

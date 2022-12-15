@@ -6,11 +6,6 @@ namespace Hulan.PilloSDK.InputSystem.Core {
   /// </summary>
   public static class PilloInputSystemDelegate {
     /// <summary>
-    /// Delegate invoked when a anything has changed.
-    /// </summary>
-    public delegate void OnChange ();
-
-    /// <summary>
     /// Delegate invoked when a Pillo Input Device has been connected.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>

@@ -20,14 +20,14 @@ namespace Hulan.PilloSDK.InputSystem {
     /// Powers of the Pillo Input Device.
     /// </summary>
     public void PowerOff () {
-      PilloFramework.PowerOffPeripheral (this.identifier);
+      PilloFramework.PowerOffPeripheral (identifier);
     }
 
     /// <summary>
     /// Starts the calibration of the Pillo Input Device.
     /// </summary>
     public void StartCalibration () {
-      PilloFramework.StartPeripheralCalibration (this.identifier);
+      PilloFramework.StartPeripheralCalibration (identifier);
     }
   }
 }
