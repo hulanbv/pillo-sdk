@@ -1,5 +1,7 @@
 ![readme banner](https://github.com/hulanbv/pillo-sdk-mono/blob/master/.github/wiki/readme-banner.png?raw=true)
 
+The Pillo SDK Mono Repository contains various packages for interacting with the Pillo Hardware via Unity on various Platforms.
+
 <br/><br/><br/>
 
 ## Pillo SDK Framework
