@@ -1,6 +1,4 @@
-# Pillo Software Development Kit Mono Repository
-
-The Pillo SDK Mono Repository contains various packages for interacting with the Pillo Hardware via Unity on various Platforms.
+![readme banner](https://github.com/hulanbv/pillo-sdk-mono/blob/master/.github/wiki/readme-banner.png?raw=true)
 
 <br/><br/><br/>
 
