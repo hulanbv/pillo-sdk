@@ -1,10 +1,10 @@
 ![readme banner](https://github.com/hulanbv/pillo-sdk-mono/blob/master/.github/wiki/readme-banner.png?raw=true)
 
-The Pillo SDK Mono Repository contains various packages for interacting with the Pillo Hardware via Unity on various Platforms.
+The Pillo SDK Mono Repository contains various packages for interacting with the Pillo Hardware on various Platforms.
 
 <br/><br/><br/>
 
-## Pillo SDK Framework
+## Unity Pillo SDK Framework
 
 The Pillo SDK Framework provides the core functionality for interacting with the Pillo Hardware.
 
@@ -21,12 +21,12 @@ The Pillo SDK Framework is compatible with the following platforms:
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
 ```json
-"nl.hulan.pillo-sdk.framework": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/Framework"
+"nl.hulan.pillo-sdk.framework": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/UnityFramework"
 ```
 
 <br/><br/><br/>
 
-## Pillo SDK Input System
+## Unity Pillo SDK Input System
 
 The Pillo SDK Input System provides the functionality for interacting with the Pillo Hardware via the Unity Input System.
 
@@ -35,7 +35,7 @@ The Pillo SDK Input System provides the functionality for interacting with the P
 Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
 
 ```json
-"nl.hulan.pillo-sdk.input-system": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/InputSystem"
+"nl.hulan.pillo-sdk.input-system": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/UnityInputSystem"
 ```
 
 ### Documentation
