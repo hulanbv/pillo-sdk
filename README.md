@@ -1,6 +1,13 @@
 ![readme banner](https://github.com/hulanbv/pillo-sdk-mono/blob/master/.github/wiki/readme-banner.png?raw=true)
 
-The Pillo SDK Mono Repository contains various packages for interacting with the Pillo Hardware on various Platforms.
+The Pillo SDK Mono Repository contains the source for various Pillo SDK packages and libraries. Everything you'll need to get working on and working with the Pillo SDK is included in this repository. Visit the —
+
+- [Unity Pillo SDK Framework](#unity-pillo-sdk-framework) documention for more information on the core functionality for interacting with the Pillo Hardware.
+- [Unity Pillo SDK Input System](#unity-pillo-sdk-input-system) documention for more information on the functionality for interacting with the Pillo Hardware via the Unity Input System.
+- [Bluetooth Attribute Profile](#bluetooth-attribute-profile) documention for more information on the Bluetooth Attribute Profile used by the Pillo Hardware.
+- [Development and Contribution](#development-and-contribution) documention for more information on how to contribute to the Pillo SDK Mono Repository.
+
+The Pillo SDK Mono Repository is licensed by Hulan BV where all rights are reserved.
 
 <br/><br/><br/>
 
@@ -28,11 +35,11 @@ Install the latest stable release using the Unity Package Manager by adding the 
 
 ## Unity Pillo SDK Input System
 
-The Pillo SDK Input System provides the functionality for interacting with the Pillo Hardware via the Unity Input System.
+The Pillo SDK Input System provides the functionality for interacting with the Pillo Hardware via the Unity Input System. This package requires the Pillo SDK Framework to be installed.
 
 ### Installation
 
-Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory.
+Install the latest stable release using the Unity Package Manager by adding the following line to your `manifest.json` file located within your project's Packages directory. _Note that the Pillo SDK Input System requires the [Pillo SDK Framework](#unity-pillo-sdk-framework) to be installed as well._
 
 ```json
 "nl.hulan.pillo-sdk.input-system": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/UnityInputSystem"
@@ -200,7 +207,7 @@ public void StartCalibration ();
 
 <br/><br/><br/>
 
-## Generic Attribute Profile Definitions
+## Bluetooth Attribute Profile
 
 The following Bluetooth Low Energy Generic Attribute Profile Definitions are based on version `0.4` of the `VT_HULPIL_20220308_BLE_GATT_PROFILES` protocol.
 
@@ -270,7 +277,7 @@ The command characteristic expects the following values:
 
 <br/><br/><br/>
 
-## Development
+## Development and Contribution
 
 ### Working on the Unity Packages
 
