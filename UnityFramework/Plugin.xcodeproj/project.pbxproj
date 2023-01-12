@@ -57,19 +57,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		820FB7BD273445D2004F02C5 /* iOS */ = {
+		820FB7C7273445FC004F02C5 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
 				820FB7BE273445D2004F02C5 /* DeviceManager.h */,
 				820FB7BF273445D2004F02C5 /* DeviceManager.mm */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		820FB7C7273445FC004F02C5 /* Plugin */ = {
-			isa = PBXGroup;
-			children = (
-				820FB7BD273445D2004F02C5 /* iOS */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
