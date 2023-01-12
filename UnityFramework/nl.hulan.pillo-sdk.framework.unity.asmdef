@@ -1,9 +1,7 @@
 {
-    "name": "nl.hulan.pillo-sdk.input-system",
-    "rootNamespace": "Hulan.PilloSDK.InputSystem",
-    "references": [
-        "GUID:b8fa99cf5ad25420c82bcbdad417fc32"
-    ],
+    "name": "nl.hulan.pillo-sdk.framework.unity",
+    "rootNamespace": "Hulan.PilloSDK.Framework",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
