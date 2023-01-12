@@ -265,17 +265,23 @@ namespace Hulan.PilloSDK.Framework.Editor {
     /// Draws the Pillo Framework Simulator window.
     /// </summary>
     private void OnGUI () {
+      // Draw the Pillo Framework Simulator toolbar.
+      GUILayout.BeginHorizontal (EditorStyles.toolbar);
+      EditorGUI.BeginDisabledGroup (Application.isPlaying == false);
+      if (GUILayout.Button (EditorGUIUtility.IconContent ("d_Toolbar Plus"), EditorStyles.toolbarDropDown)) {
+        var genericMenu = new GenericMenu ();
+        genericMenu.AddItem (new GUIContent ("Add Simulated Peripheral"), false, AddSimulatedPeripheral);
+        genericMenu.ShowAsContext ();
+      }
+      EditorGUI.EndDisabledGroup ();
+      GUILayout.FlexibleSpace ();
+      GUILayout.EndHorizontal ();
+      // Don't draw the Pillo Framework Simulator content if the application
+      // is not playing.
       if (Application.isPlaying == false) {
         EditorGUILayout.HelpBox ("The Pillo Framework Simulator can only be used in Play Mode.", MessageType.Warning);
         return;
       }
-      // Draw the Pillo Framework Simulator toolbar.
-      GUILayout.BeginHorizontal (EditorStyles.toolbar);
-      if (GUILayout.Button ("Connect New", EditorStyles.toolbarButton)) {
-        AddSimulatedPeripheral ();
-      }
-      GUILayout.FlexibleSpace ();
-      GUILayout.EndHorizontal ();
       // Draw the Pillo Framework Simulator content.
       scrollViewPosition = GUILayout.BeginScrollView (scrollViewPosition);
       GUILayout.BeginHorizontal ();
