@@ -275,6 +275,15 @@ The command characteristic expects the following values:
 | Characteristic | `60b89ebc-d1c2-45ed-8b30-aa3ebd6ded65` | Calibration Value Characteristic | 1 byte, Read & Write | The Calibration Value Characteristic exposes the calibration.                 |
 | Characteristic | `46f9ab5b-d01a-4353-9db4-176c4f3200cf` | Start Calibration Characteristic | 1 byte, Write        | When any value is written to this characteristic, the calibration will start. |
 
+#### Handshake Service
+
+> Available on Pillo firmware version 0.1.2 or later.
+
+| Type           | UUID                                   | Name                     | Definition                       | Description                                                                                                           |
+| -------------- | -------------------------------------- | ------------------------ | -------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Serice         | `35865c86-7b91-4834-b44a-8a66985d1375` | Handshake Service        |                                  | The Handshake Service exposes the handshake of the Pillo Hardware.                                                    |
+| Characteristic | `45c30c15-4815-4cdf-9ed3-9cc488492f4f` | Handshake Characteristic | 8 bytes, Read & Write (uint64_t) | Read this value to get a number used for calculating the handshake value, write calculated value to perform handshake |
+
 <br/><br/><br/>
 
 ## Development and Contribution
