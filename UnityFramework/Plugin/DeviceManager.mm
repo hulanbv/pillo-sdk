@@ -231,7 +231,12 @@
     if ([characteristicUUID isEqualToString:HANDSHAKE_HANDSHAKE_CHARACTERISTIC_UUID]) {
       uint64_t handshake = 0;
       [rawData getBytes:&handshake length:sizeof(handshake)];
-      NSLog(@"~Handshake: %llu", handshake);
+      double value1 = (double)handshake * 0.8129863214;
+      double value2 = value1 / ((handshake % 10) + 1);
+      double value3 = value2 + (handshake * 0.1870136786);
+      uint64_t result = round(value3);
+      NSData *value = [NSData dataWithBytes:&result length:sizeof(result)];
+      [self writeValueToPeripheral:peripheral.identifier.UUIDString serviceUUID:HANDSHAKE_SERVICE_UUID characteristicUUID:HANDSHAKE_HANDSHAKE_CHARACTERISTIC_UUID value:value];
     }
   }
 }
@@ -260,12 +265,16 @@
 }
 
 - (void)writeValueToPeripheral:(NSString *)identifier serviceUUID:(NSString *)serviceUUID characteristicUUID:(NSString *)characteristicUUID value:(NSData *)value {
+  NSLog(@"~Writing value to peripheral: %@, service: %@, characteristic: %@, data: %@", identifier, serviceUUID, characteristicUUID, value);
   for (CBPeripheral *peripheral in self.peripherals) {
     if ([peripheral.identifier.UUIDString isEqualToString:identifier]) {
+      NSLog(@"~Found peripheral with UUID %@", identifier);
       for (CBService *service in peripheral.services) {
         if ([service.UUID.UUIDString isEqualToString:serviceUUID]) {
+          NSLog(@"~Found service with UUID %@", serviceUUID);
           for (CBCharacteristic *characteristic in service.characteristics) {
             if ([characteristic.UUID.UUIDString isEqualToString:characteristicUUID]) {
+              NSLog(@"~Found characteristic with UUID %@", characteristicUUID);
               [peripheral writeValue:value forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
             }
           }
