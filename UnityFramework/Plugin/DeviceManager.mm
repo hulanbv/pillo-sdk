@@ -220,7 +220,7 @@
 }
 
 - (void)peripheralManagerDidUpdateState:(nonnull CBPeripheralManager *)peripheral {
-  // TODO -- Is this something we need to send to Unity?
+  // TODO: Is this something we need to send to Unity?
 }
 
 - (void)cancelPeripheralConnection:(NSString *)identifier {
