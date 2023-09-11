@@ -81,33 +81,33 @@ namespace Hulan.PilloSDK.Framework {
     /// invokes the Device Manager Native Plugin's Initialization Method.
     /// </summary>
     [RuntimeInitializeOnLoadMethod]
-    private static void RuntimeInitializeOnLoad () {
-      DeviceManager.Instantiate ();
-      DeviceManagerCallbackListener.Instantiate ();
+    private static void RuntimeInitializeOnLoad() {
+      DeviceManager.Instantiate();
+      DeviceManagerCallbackListener.Instantiate();
     }
 
     /// <summary>
     /// Cancels a Peripheral connection.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void CancelPeripheralConnection (string identifier) {
-      DeviceManager.CancelPeripheralConnection (identifier);
+    public static void CancelPeripheralConnection(string identifier) {
+      DeviceManager.CancelPeripheralConnection(identifier);
     }
 
     /// <summary>
     /// Powers off a Peripheral.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void PowerOffPeripheral (string identifier) {
-      DeviceManager.PowerOffPeripheral (identifier);
+    public static void PowerOffPeripheral(string identifier) {
+      DeviceManager.PowerOffPeripheral(identifier);
     }
 
     /// <summary>
     /// Starts a Peripheral calibration.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void StartPeripheralCalibration (string identifier) {
-      DeviceManager.StartPeripheralCalibration (identifier);
+    public static void StartPeripheralCalibration(string identifier) {
+      DeviceManager.StartPeripheralCalibration(identifier);
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "nl.hulan.pillo-sdk.framework.unity",
   "displayName": "Pillo SDK Framework",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "unity": "2021.1",
   "description": "The Pillo SDK Framework provides a High-Level API for interacting with the Pillo Hardware.",
   "type": "library",

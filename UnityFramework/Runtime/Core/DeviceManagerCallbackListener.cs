@@ -10,15 +10,15 @@ namespace Hulan.PilloSDK.Framework.Core {
   /// ally and is used receive callbacks sent by the Device Manager Native Plug-
   /// in.
   /// </summary>
-  [AddComponentMenu ("")]
+  [AddComponentMenu("")]
   internal class DeviceManagerCallbackListener : MonoBehaviour {
     /// <summary>
     /// Method invoked by the Device Manager when the Central has been init-
     /// ialized.
     /// </summary>
-    internal void OnCentralDidInitialize () {
+    internal void OnCentralDidInitialize() {
       if (PilloFramework.onCentralDidInitialize != null) {
-        PilloFramework.onCentralDidInitialize ();
+        PilloFramework.onCentralDidInitialize();
       }
     }
 
@@ -27,11 +27,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// tialize.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnCentralDidFailToInitialize (string payloadJson) {
+    internal void OnCentralDidFailToInitialize(string payloadJson) {
       if (PilloFramework.onCentralDidFailToInitialize != null) {
-        var payload = JsonUtility.FromJson<CentralDidFailToInitializePayload> (payloadJson);
+        var payload = JsonUtility.FromJson<CentralDidFailToInitializePayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onCentralDidFailToInitialize (payload.message);
+          PilloFramework.onCentralDidFailToInitialize(payload.message);
         }
       }
     }
@@ -40,9 +40,9 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// Method invoked by the Device Manager when the Central has been started
     /// scanning.
     /// </summary>
-    internal void OnCentralDidStartScanning () {
+    internal void OnCentralDidStartScanning() {
       if (PilloFramework.onCentralDidStartScanning != null) {
-        PilloFramework.onCentralDidStartScanning ();
+        PilloFramework.onCentralDidStartScanning();
       }
     }
 
@@ -50,9 +50,9 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// Method invoked by the Device Manager when the Central has been stopped
     /// scanning.
     /// </summary>
-    internal void OnCentralDidStopScanning () {
+    internal void OnCentralDidStopScanning() {
       if (PilloFramework.onCentralDidStopScanning != null) {
-        PilloFramework.onCentralDidStopScanning ();
+        PilloFramework.onCentralDidStopScanning();
       }
     }
 
@@ -60,11 +60,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// Method invoked by the Device Manager when a Peripheral did connect.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralDidConnect (string payloadJson) {
+    internal void OnPeripheralDidConnect(string payloadJson) {
       if (PilloFramework.onPeripheralDidConnect != null) {
-        var payload = JsonUtility.FromJson<PeripheralDidConnectPayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralDidConnectPayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralDidConnect (payload.identifier);
+          PilloFramework.onPeripheralDidConnect(payload.identifier);
         }
       }
     }
@@ -73,11 +73,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// Method invoked by the Device Manager when a Peripheral did disconnect.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralDidDisconnect (string payloadJson) {
+    internal void OnPeripheralDidDisconnect(string payloadJson) {
       if (PilloFramework.onPeripheralDidDisconnect != null) {
-        var payload = JsonUtility.FromJson<PeripheralDidDisconnectPayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralDidDisconnectPayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralDidDisconnect (payload.identifier);
+          PilloFramework.onPeripheralDidDisconnect(payload.identifier);
         }
       }
     }
@@ -87,11 +87,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// nect.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralDidFailToConnect (string payloadJson) {
+    internal void OnPeripheralDidFailToConnect(string payloadJson) {
       if (PilloFramework.onPeripheralDidFailToConnect != null) {
-        var payload = JsonUtility.FromJson<PeripheralDidFailToConnectPayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralDidFailToConnectPayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralDidFailToConnect (payload.identifier);
+          PilloFramework.onPeripheralDidFailToConnect(payload.identifier);
         }
       }
     }
@@ -101,11 +101,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// did change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralBatteryLevelDidChange (string payloadJson) {
+    internal void OnPeripheralBatteryLevelDidChange(string payloadJson) {
       if (PilloFramework.onPeripheralBatteryLevelDidChange != null) {
-        var payload = JsonUtility.FromJson<PeripheralBatteryLevelDidChangePayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralBatteryLevelDidChangePayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralBatteryLevelDidChange (payload.identifier, payload.batteryLevel);
+          PilloFramework.onPeripheralBatteryLevelDidChange(payload.identifier, payload.batteryLevel);
         }
       }
     }
@@ -115,11 +115,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralPressureDidChange (string payloadJson) {
+    internal void OnPeripheralPressureDidChange(string payloadJson) {
       if (PilloFramework.onPeripheralPressureDidChange != null) {
-        var payload = JsonUtility.FromJson<PeripheralPressureDidChangePayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralPressureDidChangePayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralPressureDidChange (payload.identifier, payload.pressure);
+          PilloFramework.onPeripheralPressureDidChange(payload.identifier, payload.pressure);
         }
       }
     }
@@ -129,11 +129,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// did change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralChargeStateDidChange (string payloadJson) {
+    internal void OnPeripheralChargeStateDidChange(string payloadJson) {
       if (PilloFramework.onPeripheralChargeStateDidChange != null) {
-        var payload = JsonUtility.FromJson<PeripheralChargeStateDidChangePayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralChargeStateDidChangePayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralChargeStateDidChange (payload.identifier, payload.chargeState);
+          PilloFramework.onPeripheralChargeStateDidChange(payload.identifier, payload.chargeState);
         }
       }
     }
@@ -143,11 +143,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// version did change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralFirmwareVersionDidChange (string payloadJson) {
+    internal void OnPeripheralFirmwareVersionDidChange(string payloadJson) {
       if (PilloFramework.onPeripheralFirmwareVersionDidChange != null) {
-        var payload = JsonUtility.FromJson<PeripheralFirmwareVersionDidChangePayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralFirmwareVersionDidChangePayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralFirmwareVersionDidChange (payload.identifier, payload.firmwareVersion);
+          PilloFramework.onPeripheralFirmwareVersionDidChange(payload.identifier, payload.firmwareVersion);
         }
       }
     }
@@ -157,11 +157,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// version did change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralHardwareVersionDidChange (string payloadJson) {
+    internal void OnPeripheralHardwareVersionDidChange(string payloadJson) {
       if (PilloFramework.onPeripheralHardwareVersionDidChange != null) {
-        var payload = JsonUtility.FromJson<PeripheralHardwareVersionDidChangePayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralHardwareVersionDidChangePayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralHardwareVersionDidChange (payload.identifier, payload.hardwareVersion);
+          PilloFramework.onPeripheralHardwareVersionDidChange(payload.identifier, payload.hardwareVersion);
         }
       }
     }
@@ -171,11 +171,11 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// did change.
     /// </summary>
     /// <param name="payloadJson">The payload as JSON.</param>
-    internal void OnPeripheralModelNumberDidChange (string payloadJson) {
+    internal void OnPeripheralModelNumberDidChange(string payloadJson) {
       if (PilloFramework.onPeripheralModelNumberDidChange != null) {
-        var payload = JsonUtility.FromJson<PeripheralModelNumberDidChangePayload> (payloadJson);
+        var payload = JsonUtility.FromJson<PeripheralModelNumberDidChangePayload>(payloadJson);
         if (payload != null) {
-          PilloFramework.onPeripheralModelNumberDidChange (payload.identifier, payload.modelNumber);
+          PilloFramework.onPeripheralModelNumberDidChange(payload.identifier, payload.modelNumber);
         }
       }
     }
@@ -184,12 +184,12 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// This instantiates a new GameObject and adds this class as its component
     /// in order to receive callbacks from the native plugin.
     /// </summary>
-    internal static void Instantiate () {
+    internal static void Instantiate() {
       // TODO -- Replace the need of this class with actual callbacks.
-      var gameObject = new GameObject ("~DeviceManagerCallbackListener");
-      gameObject.AddComponent<DeviceManagerCallbackListener> ();
+      var gameObject = new GameObject("~DeviceManagerCallbackListener");
+      gameObject.AddComponent<DeviceManagerCallbackListener>();
       gameObject.hideFlags = HideFlags.HideInHierarchy;
-      GameObject.DontDestroyOnLoad (gameObject);
+      GameObject.DontDestroyOnLoad(gameObject);
     }
   }
 }

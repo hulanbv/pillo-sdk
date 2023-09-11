@@ -35,7 +35,7 @@ namespace Hulan.PilloSDK.InputSystem {
     /// <summary>
     /// A list of connected Pillo Input Devices.
     /// </summary>
-    public static readonly List<PilloInputDevice> pilloInputDevices = new List<PilloInputDevice> ();
+    public static readonly List<PilloInputDevice> pilloInputDevices = new List<PilloInputDevice>();
 
     /// <summary>
     /// The number of connected Pillo Input Devices.
@@ -53,7 +53,7 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     /// <param name="identifier">The identifier of the Pillo Input Device.</param>
     /// <returns>The Pillo Input Device with the specified identifier.</returns>
-    private static PilloInputDevice FindPilloInputDevice (string identifier) {
+    private static PilloInputDevice FindPilloInputDevice(string identifier) {
       foreach (var pilloInputDevice in PilloInputSystem.pilloInputDevices) {
         if (pilloInputDevice.identifier == identifier) {
           return pilloInputDevice;
@@ -65,12 +65,12 @@ namespace Hulan.PilloSDK.InputSystem {
     /// <summary>
     /// Assigns a player index to all unassigned Pillo Input Devices.
     /// </summary>
-    private static void AssignPilloInputDevicePlayerIndexes () {
-      var unassignedPilloInputDevice = PilloInputSystem.pilloInputDevices.FindAll (pilloInputDevice => {
+    private static void AssignPilloInputDevicePlayerIndexes() {
+      var unassignedPilloInputDevice = PilloInputSystem.pilloInputDevices.FindAll(pilloInputDevice => {
         return pilloInputDevice.playerIndex == -1;
       });
       foreach (var pilloInputDevice in unassignedPilloInputDevice) {
-        pilloInputDevice.playerIndex = PilloInputSystem.GetNextPilloInputDevicePlayerIndexes ();
+        pilloInputDevice.playerIndex = PilloInputSystem.GetNextPilloInputDevicePlayerIndexes();
       }
     }
 
@@ -78,9 +78,9 @@ namespace Hulan.PilloSDK.InputSystem {
     /// Gets the next available Pillo Input Device Player Index.
     /// </summary>
     /// <returns>The next available Pillo Input Device Player Index</returns>
-    private static int GetNextPilloInputDevicePlayerIndexes () {
+    private static int GetNextPilloInputDevicePlayerIndexes() {
       var playerIndex = 0;
-      while (PilloInputSystem.pilloInputDevices.Any (pilloInputDevice => {
+      while (PilloInputSystem.pilloInputDevices.Any(pilloInputDevice => {
         return pilloInputDevice.playerIndex == playerIndex;
       })) {
         playerIndex++;
@@ -94,7 +94,7 @@ namespace Hulan.PilloSDK.InputSystem {
     /// methods.
     /// </summary>
     [RuntimeInitializeOnLoadMethod]
-    private static void RuntimeInitializeOnLoad () {
+    private static void RuntimeInitializeOnLoad() {
       PilloFramework.onPeripheralDidConnect += PilloInputSystem.OnPeripheralDidConnect;
       PilloFramework.onPeripheralDidDisconnect += PilloInputSystem.OnPeripheralDidDisconnect;
       PilloFramework.onPeripheralDidFailToConnect += PilloInputSystem.OnPeripheralDidFailToConnect;
@@ -111,15 +111,15 @@ namespace Hulan.PilloSDK.InputSystem {
     /// connected.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    private static void OnPeripheralDidConnect (string identifier) {
-      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+    private static void OnPeripheralDidConnect(string identifier) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice(identifier);
       if (pilloInputDevice == null) {
-        pilloInputDevice = new PilloInputDevice (identifier);
-        PilloInputSystem.pilloInputDevices.Add (pilloInputDevice);
+        pilloInputDevice = new PilloInputDevice(identifier);
+        PilloInputSystem.pilloInputDevices.Add(pilloInputDevice);
       }
-      PilloInputSystem.AssignPilloInputDevicePlayerIndexes ();
+      PilloInputSystem.AssignPilloInputDevicePlayerIndexes();
       if (PilloInputSystem.onPilloInputDeviceDidConnect != null) {
-        PilloInputSystem.onPilloInputDeviceDidConnect (pilloInputDevice);
+        PilloInputSystem.onPilloInputDeviceDidConnect(pilloInputDevice);
       }
     }
 
@@ -128,13 +128,13 @@ namespace Hulan.PilloSDK.InputSystem {
     /// disconnected.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    private static void OnPeripheralDidDisconnect (string identifier) {
-      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+    private static void OnPeripheralDidDisconnect(string identifier) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice(identifier);
       if (pilloInputDevice != null) {
-        PilloInputSystem.pilloInputDevices.Remove (pilloInputDevice);
-        PilloInputSystem.AssignPilloInputDevicePlayerIndexes ();
+        PilloInputSystem.pilloInputDevices.Remove(pilloInputDevice);
+        PilloInputSystem.AssignPilloInputDevicePlayerIndexes();
         if (PilloInputSystem.onPilloInputDeviceDidDisconnect != null) {
-          PilloInputSystem.onPilloInputDeviceDidDisconnect (pilloInputDevice);
+          PilloInputSystem.onPilloInputDeviceDidDisconnect(pilloInputDevice);
         }
       }
     }
@@ -144,8 +144,8 @@ namespace Hulan.PilloSDK.InputSystem {
     /// connect.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    private static void OnPeripheralDidFailToConnect (string identifier) {
-      PilloInputSystem.onPilloInputDeviceDidFailToConnect?.Invoke ();
+    private static void OnPeripheralDidFailToConnect(string identifier) {
+      PilloInputSystem.onPilloInputDeviceDidFailToConnect?.Invoke();
     }
 
     /// <summary>
@@ -154,12 +154,12 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="batteryLevel">The new battery level of the Peripheral.</param>
-    private static void OnPeripheralBatteryLevelDidChange (string identifier, int batteryLevel) {
-      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+    private static void OnPeripheralBatteryLevelDidChange(string identifier, int batteryLevel) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice(identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.batteryLevel = batteryLevel;
         if (PilloInputSystem.onPilloInputDeviceStateDidChange != null) {
-          PilloInputSystem.onPilloInputDeviceStateDidChange (pilloInputDevice);
+          PilloInputSystem.onPilloInputDeviceStateDidChange(pilloInputDevice);
         }
       }
     }
@@ -170,12 +170,12 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="pressure">The new pressure of the Peripheral.</param>
-    private static void OnPeripheralPressureDidChange (string identifier, int pressure) {
-      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+    private static void OnPeripheralPressureDidChange(string identifier, int pressure) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice(identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.pressure = pressure;
         if (PilloInputSystem.onPilloInputDeviceStateDidChange != null) {
-          PilloInputSystem.onPilloInputDeviceStateDidChange (pilloInputDevice);
+          PilloInputSystem.onPilloInputDeviceStateDidChange(pilloInputDevice);
         }
       }
     }
@@ -186,12 +186,12 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="chargeState">The new charge state of the Peripheral.</param>
-    private static void OnPeripheralChargeStateDidChange (string identifier, PeripheralChargeState chargeState) {
-      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+    private static void OnPeripheralChargeStateDidChange(string identifier, PeripheralChargeState chargeState) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice(identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.chargeState = (PilloInputDeviceChargeState)chargeState;
         if (PilloInputSystem.onPilloInputDeviceStateDidChange != null) {
-          PilloInputSystem.onPilloInputDeviceStateDidChange (pilloInputDevice);
+          PilloInputSystem.onPilloInputDeviceStateDidChange(pilloInputDevice);
         }
       }
     }
@@ -202,12 +202,12 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="firmwareVersion">The new firmware version of the Peripheral.</param>
-    private static void OnPeripheralFirmwareVersionDidChange (string identifier, string firmwareVersion) {
-      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+    private static void OnPeripheralFirmwareVersionDidChange(string identifier, string firmwareVersion) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice(identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.firmwareVersion = firmwareVersion;
         if (PilloInputSystem.onPilloInputDeviceStateDidChange != null) {
-          PilloInputSystem.onPilloInputDeviceStateDidChange (pilloInputDevice);
+          PilloInputSystem.onPilloInputDeviceStateDidChange(pilloInputDevice);
         }
       }
     }
@@ -218,12 +218,12 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="hardwareVersion">The new hardware version of the Peripheral.</param>
-    private static void OnPeripheralHardwareVersionDidChange (string identifier, string hardwareVersion) {
-      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+    private static void OnPeripheralHardwareVersionDidChange(string identifier, string hardwareVersion) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice(identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.hardwareVersion = hardwareVersion;
         if (PilloInputSystem.onPilloInputDeviceStateDidChange != null) {
-          PilloInputSystem.onPilloInputDeviceStateDidChange (pilloInputDevice);
+          PilloInputSystem.onPilloInputDeviceStateDidChange(pilloInputDevice);
         }
       }
     }
@@ -234,12 +234,12 @@ namespace Hulan.PilloSDK.InputSystem {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="modelNumber">The new model number of the Peripheral.</param>
-    private static void OnPeripheralModelNumberDidChange (string identifier, string modelNumber) {
-      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice (identifier);
+    private static void OnPeripheralModelNumberDidChange(string identifier, string modelNumber) {
+      var pilloInputDevice = PilloInputSystem.FindPilloInputDevice(identifier);
       if (pilloInputDevice != null) {
         pilloInputDevice.modelNumber = modelNumber;
         if (PilloInputSystem.onPilloInputDeviceStateDidChange != null) {
-          PilloInputSystem.onPilloInputDeviceStateDidChange (pilloInputDevice);
+          PilloInputSystem.onPilloInputDeviceStateDidChange(pilloInputDevice);
         }
       }
     }
@@ -248,7 +248,7 @@ namespace Hulan.PilloSDK.InputSystem {
     /// Resets all of the Pillo Input Device's player indexes to their default
     /// values.
     /// </summary>
-    public static void ResetPilloInputDevicePlayerIndexes () {
+    public static void ResetPilloInputDevicePlayerIndexes() {
       for (var i = 0; i < PilloInputSystem.pilloInputDevices.Count; i++) {
         PilloInputSystem.pilloInputDevices[i].playerIndex = i;
       }

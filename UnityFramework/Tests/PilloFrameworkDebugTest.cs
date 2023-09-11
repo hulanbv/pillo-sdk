@@ -8,13 +8,13 @@ namespace Hulan.PilloSDK.Framework.Tests {
   /// The Pillo Framework Test MonoBehaviour will be debug log all the incoming
   /// Pillo Framework events.
   /// </summary>
-  [AddComponentMenu ("Hulan/Pillo SDK/Framework/Tests/Pillo Framework Debug Test")]
+  [AddComponentMenu("Hulan/Pillo SDK/Framework/Tests/Pillo Framework Debug Test")]
   internal class PilloFrameworkDebugTest : MonoBehaviour {
     /// <summary>
     /// Binds the Pillo Framework events to the Pillo Framework Test MonoBe-
     /// haviour.
     /// </summary>
-    private void Start () {
+    private void Start() {
       PilloFramework.onCentralDidInitialize += OnCentralDidInitialize;
       PilloFramework.onCentralDidFailToInitialize += OnCentralDidFailToInitialize;
       PilloFramework.onPeripheralDidConnect += OnPeripheralDidConnect;
@@ -33,53 +33,53 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// <summary>
     /// Delegate will be invoked when the Central has been initialized.
     /// </summary>
-    private void OnCentralDidInitialize () {
-      Debug.Log ("Pillo Framework Central Did Initialize");
+    private void OnCentralDidInitialize() {
+      Debug.Log("Pillo Framework Central Did Initialize");
     }
 
     /// <summary>
     /// Delegate will be invoked when the Central has failed to initialize.
     /// </summary>
     /// <param name="message">The error message.</param>
-    private void OnCentralDidFailToInitialize (string message) {
-      Debug.Log ($"Pillo Framework Central Did Fail To Initialize with message {message}");
+    private void OnCentralDidFailToInitialize(string message) {
+      Debug.Log($"Pillo Framework Central Did Fail To Initialize with message {message}");
     }
 
     /// <summary>
     /// Delegate will be invoked when the Central has started scanning.
     /// </summary>
-    private void OnCentralDidStartScanning () {
-      Debug.Log ("Pillo Framework Central Did Start Scanning");
+    private void OnCentralDidStartScanning() {
+      Debug.Log("Pillo Framework Central Did Start Scanning");
     }
 
     /// <summary>
     /// Delegate will be invoked when the Central has stopped scanning.
     /// </summary>
-    private void OnCentralDidStopScanning () {
-      Debug.Log ("Pillo Framework Central Did Stop Scanning");
+    private void OnCentralDidStopScanning() {
+      Debug.Log("Pillo Framework Central Did Stop Scanning");
     }
 
     /// <summary>
     /// Delegate will be invoked when a Peripheral did connect.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    private void OnPeripheralDidConnect (string identifier) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Did Connect");
+    private void OnPeripheralDidConnect(string identifier) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Did Connect");
     }
 
     /// <summary>
     /// Delegate should be invoked when a Peripheral did disconnect.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    private void OnPeripheralDidDisconnect (string identifier) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Did Disconnect");
+    private void OnPeripheralDidDisconnect(string identifier) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Did Disconnect");
     }
 
     /// <summary>
     /// Delegate will be invoked when a Peripheral did fail to connect.
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    private void OnPeripheralDidFailToConnect (string identifier) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Did Fail To Connect");
+    private void OnPeripheralDidFailToConnect(string identifier) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Did Fail To Connect");
     }
 
     /// <summary>
@@ -87,8 +87,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="batteryLevel">The battery level of the Peripheral.</param>
-    private void OnPeripheralBatteryLevelDidChange (string identifier, int batteryLevel) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Battery Level Did Change to {batteryLevel}");
+    private void OnPeripheralBatteryLevelDidChange(string identifier, int batteryLevel) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Battery Level Did Change to {batteryLevel}");
     }
 
     /// <summary>
@@ -96,8 +96,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="batteryLevel"> The pressure of the Peripheral.</param>
-    private void OnPeripheralPressureDidChange (string identifier, int pressure) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Pressure Did Change to {pressure}");
+    private void OnPeripheralPressureDidChange(string identifier, int pressure) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Pressure Did Change to {pressure}");
     }
 
     /// <summary>
@@ -105,8 +105,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="chargeState">The charge state of the Peripheral.</param>
-    private void OnPeripheralChargeStateDidChange (string identifier, PeripheralChargeState chargeState) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Charge State Did Change to {chargeState}");
+    private void OnPeripheralChargeStateDidChange(string identifier, PeripheralChargeState chargeState) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Charge State Did Change to {chargeState}");
     }
 
     /// <summary>
@@ -114,8 +114,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="modelNumber"></param>
-    private void OnPeripheralModelNumberDidChange (string identifier, string modelNumber) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Model Number Did Change to {modelNumber}");
+    private void OnPeripheralModelNumberDidChange(string identifier, string modelNumber) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Model Number Did Change to {modelNumber}");
     }
 
     /// <summary>
@@ -124,8 +124,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="hardwareVersion"></param>
-    private void OnPeripheralHardwareVersionDidChange (string identifier, string hardwareVersion) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Hardware Version Did Change to {hardwareVersion}");
+    private void OnPeripheralHardwareVersionDidChange(string identifier, string hardwareVersion) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Hardware Version Did Change to {hardwareVersion}");
     }
 
     /// <summary>
@@ -134,8 +134,8 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="firmwareVersion"></param>
-    private void OnPeripheralFirmwareVersionDidChange (string identifier, string firmwareVersion) {
-      Debug.Log ($"Pillo Framework Peripheral with identifier {identifier} Firmware Version Did Change to {firmwareVersion}");
+    private void OnPeripheralFirmwareVersionDidChange(string identifier, string firmwareVersion) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Firmware Version Did Change to {firmwareVersion}");
     }
   }
 }

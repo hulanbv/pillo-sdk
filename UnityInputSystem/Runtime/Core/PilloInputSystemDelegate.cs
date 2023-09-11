@@ -9,23 +9,23 @@ namespace Hulan.PilloSDK.InputSystem.Core {
     /// Delegate invoked when a Pillo Input Device has been connected.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    public delegate void OnPilloInputDeviceDidConnect (PilloInputDevice pilloInputDevice);
+    public delegate void OnPilloInputDeviceDidConnect(PilloInputDevice pilloInputDevice);
 
     /// <summary>
     /// Delegate invoked when a Pillo Input Device has been disconnected.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    public delegate void OnPilloInputDeviceDidDisconnect (PilloInputDevice pilloInputDevice);
+    public delegate void OnPilloInputDeviceDidDisconnect(PilloInputDevice pilloInputDevice);
 
     /// <summary>
     /// Delegate invoked when a Pillo Input Device has failed to connect.
     /// </summary>
-    public delegate void OnPilloInputDeviceDidFailToConnect ();
+    public delegate void OnPilloInputDeviceDidFailToConnect();
 
     /// <summary>
     /// Delegate invoked when the Pillo Input Device's state did change.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    public delegate void OnPilloInputDeviceStateDidChange (PilloInputDevice pilloInputDevice);
+    public delegate void OnPilloInputDeviceStateDidChange(PilloInputDevice pilloInputDevice);
   }
 }
