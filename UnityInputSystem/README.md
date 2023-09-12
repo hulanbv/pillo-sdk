@@ -170,4 +170,10 @@ The `StartCalibrating` method can be used to start calibrating the Pillo Hardwar
 public void StartCalibration ();
 ```
 
-<br/><br/><br/>
+#### Force LED to be turned off on the Pillo Input Device
+
+The `ForceLedOff` method can be used to force the LED to be turned off on the Pillo Hardware.
+
+```csharp
+public void ForceLedOff (bool enabled);
+```
