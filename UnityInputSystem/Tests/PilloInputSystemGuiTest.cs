@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 // Unity Engine Pillo SDK Input System
@@ -9,16 +8,48 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
   /// Pillo Input System events in the Unity Engine GUI.
   /// </summary>
   [AddComponentMenu("Hulan/Pillo SDK/Input System/Tests/Pillo Input System Gui Test")]
-  internal class PilloInputSystemGuiTest : MonoBehaviour {
+  class PilloInputSystemGuiTest : MonoBehaviour {
     /// <summary>
     /// The scroll position of the GUI.
     /// </summary>
-    private Vector2 scrollPosition = Vector2.zero;
+    Vector2 scrollPosition;
+
+    /// <summary>
+    /// Defines if the cursor click is requested.
+    /// </summary>
+    bool requestCursorClick;
+
+    /// <summary>
+    /// The cursor selection position.
+    /// </summary>
+    int cursorSelectionPosition;
+
+    /// <summary>
+    /// The cursor drawing position.
+    /// </summary>
+    int cursorDrawingPosition;
+
+    /// <summary>
+    /// Updates the Pillo Input System Gui Test.
+    /// </summary>
+    void Update() {
+      if (Input.GetKeyDown(KeyCode.Joystick1Button14) || Input.GetKeyDown(KeyCode.Return)) {
+        // Requesting the cursor click when either the return key or the AppleTV
+        // remote touchpad is pressed.
+        requestCursorClick = true;
+      }
+      if (Input.GetKeyDown(KeyCode.Joystick1Button15) || Input.GetKeyDown(KeyCode.Space)) {
+        // Moving the cursor selection position up when either the spacebar
+        // or the AppleTV remote play/pause button is pressed.
+        cursorSelectionPosition++;
+      }
+    }
 
     /// <summary>
     /// Draws the Pillo Input System Gui Test.
     /// </summary>
-    private void OnGUI() {
+    void OnGUI() {
+      cursorDrawingPosition = 0;
       // Setting the GUI skin to a screen relative font size.
       GUI.skin.label.fontSize = (int)(Screen.height * 0.02f);
       GUI.skin.button.fontSize = (int)(Screen.height * 0.02f);
@@ -40,14 +71,26 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
         GUILayout.Label($" - Battery Level: {pilloInputDevice.batteryLevel}");
         GUILayout.Label($" - Charge State: {pilloInputDevice.chargeState}");
         // Displaying the Pillo Input Device buttons.
-        if (GUILayout.Button("Power Off")) {
+        if (DrawButton("Power Off")) {
           pilloInputDevice.PowerOff();
         }
-        if (GUILayout.Button("Start Calibration")) {
+        if (DrawButton("Start Calibration")) {
           pilloInputDevice.StartCalibration();
         }
       }
       GUILayout.EndScrollView();
+      // Resetting the cursor selection position when overflow.
+      if (cursorSelectionPosition >= cursorDrawingPosition) {
+        cursorSelectionPosition = 0;
+      }
+      requestCursorClick = false;
+    }
+
+    bool DrawButton(string label) {
+      var isSelected = cursorSelectionPosition == cursorDrawingPosition++;
+      GUI.skin.button.fontStyle = isSelected ? FontStyle.BoldAndItalic : FontStyle.Normal;
+      var didClickButton = GUILayout.Button(label);
+      return didClickButton || (isSelected && requestCursorClick);
     }
   }
 }

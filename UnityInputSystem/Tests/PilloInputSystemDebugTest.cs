@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 // Unity Engine Pillo SDK Input System
@@ -9,12 +8,12 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
   /// incoming Pillo Input System events.
   /// </summary>
   [AddComponentMenu("Hulan/Pillo SDK/Input System/Tests/Pillo Input System Debug Test")]
-  internal class PilloInputSystemDebugTest : MonoBehaviour {
+  class PilloInputSystemDebugTest : MonoBehaviour {
     /// <summary>
     /// Binds the Pillo Framework events to the Pillo Framework Test MonoBe-
     /// haviour.
     /// </summary>
-    private void Start() {
+    void Start() {
       PilloInputSystem.onPilloInputDeviceDidConnect += OnPilloInputDeviceDidConnect;
       PilloInputSystem.onPilloInputDeviceDidDisconnect += OnPilloInputDeviceDidDisconnect;
       PilloInputSystem.onPilloInputDeviceDidFailToConnect += OnPilloInputDeviceDidFailToConnect;
@@ -25,7 +24,7 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
     /// Delegate will be invoked when a Pillo Input Device has been connected.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    private void OnPilloInputDeviceDidConnect(PilloInputDevice pilloInputDevice) {
+    void OnPilloInputDeviceDidConnect(PilloInputDevice pilloInputDevice) {
       Debug.Log($"Pillo Input Device did connect with identifier {pilloInputDevice.identifier}");
     }
 
@@ -34,7 +33,7 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
     /// nected.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    private void OnPilloInputDeviceDidDisconnect(PilloInputDevice pilloInputDevice) {
+    void OnPilloInputDeviceDidDisconnect(PilloInputDevice pilloInputDevice) {
       Debug.Log($"Pillo Input Device did disconnect with identifier {pilloInputDevice.identifier}");
     }
 
@@ -43,7 +42,7 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
     /// nect.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    private void OnPilloInputDeviceDidFailToConnect() {
+    void OnPilloInputDeviceDidFailToConnect() {
       Debug.Log("Pillo Input Device did fail to connect");
     }
 
@@ -51,7 +50,7 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
     /// Delegate will be invoked when a Pillo Input Device has changed state.
     /// </summary>
     /// <param name="pilloInputDevice">The Pillo Input Device.</param>
-    private void OnPilloInputDeviceStateDidChange(PilloInputDevice pilloInputDevice) {
+    void OnPilloInputDeviceStateDidChange(PilloInputDevice pilloInputDevice) {
       Debug.Log($"Pillo Input Device state did change with identifier {pilloInputDevice.identifier}, Pressure: {pilloInputDevice.pressure} Battery Level: {pilloInputDevice.batteryLevel} Charge State: {pilloInputDevice.chargeState}");
     }
   }
