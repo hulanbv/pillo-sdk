@@ -17,20 +17,20 @@ namespace Hulan.PilloSDK.Framework.Editor {
     /// When the Unity build is succesfull, this hook will be invoked.
     /// </summary>
     [PostProcessBuild]
-    private static void OnPostProcessBuild (BuildTarget buildTarget, string pathToBuiltProject) {
+    private static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuiltProject) {
 #if UNITY_IOS || UNITY_TVOS
       // This adds the required usage descriptions to the Info Property List to 
       // the  Xcode project. This is required in order to run the Application on 
       // the target hardware.
       var plistPath = pathToBuiltProject + "/Info.plist";
-      var plist = new PlistDocument ();
-      plist.ReadFromString (File.ReadAllText (plistPath));
+      var plist = new PlistDocument();
+      plist.ReadFromString(File.ReadAllText(plistPath));
       var rootDict = plist.root;
       // Adds the required usage descriptions to the Info Property List.
-      rootDict.SetString ("NSBluetoothPeripheralUsageDescription", "Uses BLE to communicate with devices.");
-      rootDict.SetString ("NSBluetoothAlwaysUsageDescription", "Uses BLE to communicate with devices.");
+      rootDict.SetString("NSBluetoothPeripheralUsageDescription", "Allow Pillo Play to connect to the Pillos.");
+      rootDict.SetString("NSBluetoothAlwaysUsageDescription", "Allow Pillo Play to connect to the Pillos.");
       // Writes the Info Property List back to the Xcode project.
-      File.WriteAllText (plistPath, plist.WriteToString ());
+      File.WriteAllText(plistPath, plist.WriteToString());
 #endif
     }
   }

@@ -81,33 +81,42 @@ namespace Hulan.PilloSDK.Framework {
     /// invokes the Device Manager Native Plugin's Initialization Method.
     /// </summary>
     [RuntimeInitializeOnLoadMethod]
-    private static void RuntimeInitializeOnLoad () {
-      DeviceManager.Instantiate ();
-      DeviceManagerCallbackListener.Instantiate ();
+    private static void RuntimeInitializeOnLoad() {
+      DeviceManager.Instantiate();
+      DeviceManagerCallbackListener.Instantiate();
     }
 
     /// <summary>
     /// Cancels a Peripheral connection.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void CancelPeripheralConnection (string identifier) {
-      DeviceManager.CancelPeripheralConnection (identifier);
+    public static void CancelPeripheralConnection(string identifier) {
+      DeviceManager.CancelPeripheralConnection(identifier);
     }
 
     /// <summary>
     /// Powers off a Peripheral.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void PowerOffPeripheral (string identifier) {
-      DeviceManager.PowerOffPeripheral (identifier);
+    public static void PowerOffPeripheral(string identifier) {
+      DeviceManager.PowerOffPeripheral(identifier);
+    }
+
+    /// <summary>
+    /// Forces the LED of a Peripheral to be turned off.
+    /// </summary>
+    /// <param name="identifier">The identifier of the peripheral.</param>
+    /// <param name="enabled">Defines whether the LED should be forced off.</param>
+    public static void ForceLedOff(string identifier, bool enabled) {
+      DeviceManager.ForceLedOff(identifier, enabled);
     }
 
     /// <summary>
     /// Starts a Peripheral calibration.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void StartPeripheralCalibration (string identifier) {
-      DeviceManager.StartPeripheralCalibration (identifier);
+    public static void StartPeripheralCalibration(string identifier) {
+      DeviceManager.StartPeripheralCalibration(identifier);
     }
   }
 }

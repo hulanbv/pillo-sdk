@@ -16,8 +16,11 @@
 #define CHARGE_STATE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
 #define COMMAND_SERVICE_UUID @"6ACCCABD-1728-4697-9B4A-BF25ECCA14AA"
 #define COMMAND_COMMAND_CHARACTERISTIC_UUID @"A9147E1F-E91F-4A02-B6E4-2869E0FE69BB"
+#define COMMAND_LED_CHARACTERISTIC_UUID @"7B3B969D-316A-450E-BDB9-6F1792270FA1"
 #define CALIBRATION_SERVICE_UUID @"7E238267-146F-461C-8615-39B358A428A5"
 #define CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID @"46F9AB5B-D01A-4353-9DB4-176C4F3200CF"
+#define HANDSHAKE_SERVICE_UUID @"35865C86-7B91-4834-B44A-8A66985D1375"
+#define HANDSHAKE_HANDSHAKE_CHARACTERISTIC_UUID @"45C30C15-4815-4CDF-9ED3-9CC488492F4F"
 #define SCAN_DURATION_SECONDS 2
 #define SCAN_INTERVAL_SECONDS 10
 #define MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION 2
@@ -90,7 +93,8 @@
     [CBUUID UUIDWithString:PRESSURE_SERVICE_UUID],
     [CBUUID UUIDWithString:CHARGE_SERVICE_UUID],
     [CBUUID UUIDWithString:COMMAND_SERVICE_UUID],
-    [CBUUID UUIDWithString:CALIBRATION_SERVICE_UUID]
+    [CBUUID UUIDWithString:CALIBRATION_SERVICE_UUID],
+    [CBUUID UUIDWithString:HANDSHAKE_SERVICE_UUID]
   ]];
 }
 
@@ -124,10 +128,13 @@
       [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:CHARGE_STATE_CHARACTERISTIC_UUID]] forService:service];
     } else if ([service.UUID.UUIDString isEqualToString:COMMAND_SERVICE_UUID]) {
       [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:COMMAND_COMMAND_CHARACTERISTIC_UUID]] forService:service];
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:COMMAND_LED_CHARACTERISTIC_UUID]] forService:service];
     } else if ([service.UUID.UUIDString isEqualToString:CALIBRATION_SERVICE_UUID]) {
       [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID]] forService:service];
     } else if ([service.UUID.UUIDString isEqualToString:DEVICEINFORMATION_SERVICE_UUID]) {
       [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:DEVICEINFORMATION_MODELNUMBER_CHARACTERISTIC_UUID], [CBUUID UUIDWithString:DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID], [CBUUID UUIDWithString:DEVICEINFORMATION_HARDWAREVERSION_CHARACTERISTIC_UUID]] forService:service];
+    } else if ([service.UUID.UUIDString isEqualToString:HANDSHAKE_SERVICE_UUID]) {
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:HANDSHAKE_HANDSHAKE_CHARACTERISTIC_UUID]] forService:service];
     }
   }
 }
@@ -159,6 +166,12 @@
       } else if ([characteristic.UUID.UUIDString isEqualToString:DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID]) {
         [peripheral readValueForCharacteristic:characteristic];
       } else if ([characteristic.UUID.UUIDString isEqualToString:DEVICEINFORMATION_HARDWAREVERSION_CHARACTERISTIC_UUID]) {
+        [peripheral readValueForCharacteristic:characteristic];
+      }
+    }
+  } else if ([serviceUUID isEqualToString:HANDSHAKE_SERVICE_UUID]) {
+    for (CBCharacteristic *characteristic in service.characteristics) {
+      if ([characteristic.UUID.UUIDString isEqualToString:HANDSHAKE_HANDSHAKE_CHARACTERISTIC_UUID]) {
         [peripheral readValueForCharacteristic:characteristic];
       }
     }
@@ -216,11 +229,22 @@
         @"modelNumber": modelNumber
       }];
     }
+  } else if ([serviceUUID isEqualToString:HANDSHAKE_SERVICE_UUID]) {
+    if ([characteristicUUID isEqualToString:HANDSHAKE_HANDSHAKE_CHARACTERISTIC_UUID]) {
+      uint64_t handshake = 0;
+      [rawData getBytes:&handshake length:sizeof(handshake)];
+      double value1 = (double)handshake * 0.8129863214;
+      double value2 = value1 / ((handshake % 10) + 1);
+      double value3 = value2 + (handshake * 0.1870136786);
+      uint64_t result = round(value3);
+      NSData *value = [NSData dataWithBytes:&result length:sizeof(result)];
+      [self writeValueToPeripheral:peripheral.identifier.UUIDString serviceUUID:HANDSHAKE_SERVICE_UUID characteristicUUID:HANDSHAKE_HANDSHAKE_CHARACTERISTIC_UUID value:value];
+    }
   }
 }
 
 - (void)peripheralManagerDidUpdateState:(nonnull CBPeripheralManager *)peripheral {
-  // TODO -- Is this something we need to send to Unity?
+  // TODO: Is this something we need to send to Unity?
 }
 
 - (void)cancelPeripheralConnection:(NSString *)identifier {
@@ -235,6 +259,11 @@
 - (void)powerOffPeripheral:(NSString *)identifier {
   NSData *value = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
   [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_COMMAND_CHARACTERISTIC_UUID value:value];
+}
+
+- (void)forceLedOff:(NSString *)identifier enabled:(BOOL)enabled {
+  NSData *value = [NSData dataWithBytes:(uint8_t[]){ static_cast<uint8_t>(enabled ? 0x01 : 0x00) } length:1];
+  [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_LED_CHARACTERISTIC_UUID value:value];
 }
 
 - (void)calibratePeripheral:(NSString *)identifier {
@@ -290,6 +319,12 @@ extern "C" {
   void _DeviceManagerPowerOffPeripheral(const char* identifier) {
     if (deviceManager != nil && identifier != nil) {
       [deviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
+    }
+  }
+
+  void _DeviceManagerForceLedOff(const char* identifier, bool enabled) {
+    if (deviceManager != nil && identifier != nil) {
+      [deviceManager forceLedOff:[NSString stringWithUTF8String:identifier] enabled:enabled];
     }
   }
 

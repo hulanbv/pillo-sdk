@@ -12,22 +12,30 @@ namespace Hulan.PilloSDK.InputSystem {
     /// Initializes a new instance of a Pillo Input Device.
     /// </summary>
     /// <param name="identifier">The bluetooth peripheral identifier.</param>
-    public PilloInputDevice (string identifier) {
+    public PilloInputDevice(string identifier) {
       this.identifier = identifier;
     }
 
     /// <summary>
     /// Powers of the Pillo Input Device.
     /// </summary>
-    public void PowerOff () {
-      PilloFramework.PowerOffPeripheral (identifier);
+    public void PowerOff() {
+      PilloFramework.PowerOffPeripheral(identifier);
+    }
+
+    /// <summary>
+    /// Forces the LED of the Pillo Input Device off.
+    /// </summary>
+    /// <param name="enabled">Defines whether the LED should be forced off.</param>
+    public void ForceLedOff(bool enabled) {
+      PilloFramework.ForceLedOff(identifier, enabled);
     }
 
     /// <summary>
     /// Starts the calibration of the Pillo Input Device.
     /// </summary>
-    public void StartCalibration () {
-      PilloFramework.StartPeripheralCalibration (identifier);
+    public void StartCalibration() {
+      PilloFramework.StartPeripheralCalibration(identifier);
     }
   }
 }

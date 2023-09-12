@@ -1,7 +1,7 @@
 {
   "name": "nl.hulan.pillo-sdk.input-system.unity",
   "displayName": "Pillo SDK Input System",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "unity": "2021.1",
   "description": "The Pillo SDK Input System provides a set of input actions that can be used to interact with the Pillo SDK.",
   "type": "library",
