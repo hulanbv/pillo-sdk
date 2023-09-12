@@ -64,6 +64,25 @@ namespace Hulan.PilloSDK.Framework.Core {
 #endif
 
     /// <summary>
+    /// Forces the LED of a Peripheral to be turned off.
+    /// Peripheral.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <param name="enabled">Defines whether the LED should be forced off.</param>
+#if UNITY_EDITOR
+    private static void _DeviceManagerForceLedOff(string identifier, bool enabled) {
+      Debug.LogWarning("Forcing the LED state of a Peripheral is not supported in the Unity Editor.");
+    }
+#elif UNITY_IOS || UNITY_TVOS
+    [DllImport ("__Internal")]
+    private static extern void _DeviceManagerForceLedOff (string identifier, bool enabled);
+#else
+    private static void _DeviceManagerForceLedOff (string identifier) {
+      Debug.LogWarning ("Forcing the LED state of a Peripheral is not supported on the current platform.");
+    }
+#endif
+
+    /// <summary>
     /// Exposed Device Manager Native Plugin method to start a Peripheral
     /// calibration.
     /// </summary>
@@ -97,6 +116,13 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     internal static void PowerOffPeripheral(string identifier) => _DeviceManagerPowerOffPeripheral(identifier);
+
+    /// <summary>
+    /// Forces the LEDs of a Peripheral to be turned off.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <param name="enabled">The state of the LED.</param>
+    internal static void ForceLedOff(string identifier, bool enabled) => _DeviceManagerForceLedOff(identifier, enabled);
 
     /// <summary>
     /// Starts a Peripheral calibration.

@@ -103,6 +103,15 @@ namespace Hulan.PilloSDK.Framework {
     }
 
     /// <summary>
+    /// Forces the LED of a Peripheral to be turned off.
+    /// </summary>
+    /// <param name="identifier">The identifier of the peripheral.</param>
+    /// <param name="enabled">Defines whether the LED should be forced off.</param>
+    public static void ForceLedOff(string identifier, bool enabled) {
+      DeviceManager.ForceLedOff(identifier, enabled);
+    }
+
+    /// <summary>
     /// Starts a Peripheral calibration.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>

@@ -11,6 +11,7 @@
 - (void)initialize;
 - (void)cancelPeripheralConnection:(NSString *)identifier;
 - (void)powerOffPeripheral:(NSString *)identifier;
+- (void)forceLedOff:(NSString *)identifier enabled:(BOOL)enabled;
 - (void)calibratePeripheral:(NSString *)identifier;
 
 @end

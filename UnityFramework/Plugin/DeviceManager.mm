@@ -16,6 +16,7 @@
 #define CHARGE_STATE_CHARACTERISTIC_UUID @"22FEB891-0057-4A3E-AF5B-EC769849077C"
 #define COMMAND_SERVICE_UUID @"6ACCCABD-1728-4697-9B4A-BF25ECCA14AA"
 #define COMMAND_COMMAND_CHARACTERISTIC_UUID @"A9147E1F-E91F-4A02-B6E4-2869E0FE69BB"
+#define COMMAND_LED_CHARACTERISTIC_UUID @"7B3B969D-316A-450E-BDB9-6F1792270FA1"
 #define CALIBRATION_SERVICE_UUID @"7E238267-146F-461C-8615-39B358A428A5"
 #define CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID @"46F9AB5B-D01A-4353-9DB4-176C4F3200CF"
 #define HANDSHAKE_SERVICE_UUID @"35865C86-7B91-4834-B44A-8A66985D1375"
@@ -127,6 +128,7 @@
       [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:CHARGE_STATE_CHARACTERISTIC_UUID]] forService:service];
     } else if ([service.UUID.UUIDString isEqualToString:COMMAND_SERVICE_UUID]) {
       [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:COMMAND_COMMAND_CHARACTERISTIC_UUID]] forService:service];
+      [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:COMMAND_LED_CHARACTERISTIC_UUID]] forService:service];
     } else if ([service.UUID.UUIDString isEqualToString:CALIBRATION_SERVICE_UUID]) {
       [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID]] forService:service];
     } else if ([service.UUID.UUIDString isEqualToString:DEVICEINFORMATION_SERVICE_UUID]) {
@@ -259,22 +261,23 @@
   [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_COMMAND_CHARACTERISTIC_UUID value:value];
 }
 
+- (void)forceLedOff:(NSString *)identifier enabled:(BOOL)enabled {
+  NSData *value = [NSData dataWithBytes:(uint8_t[]){ static_cast<uint8_t>(enabled ? 0x01 : 0x00) } length:1];
+  [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_LED_CHARACTERISTIC_UUID value:value];
+}
+
 - (void)calibratePeripheral:(NSString *)identifier {
   NSData *value = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
   [self writeValueToPeripheral:identifier serviceUUID:CALIBRATION_SERVICE_UUID characteristicUUID:CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID value:value];
 }
 
 - (void)writeValueToPeripheral:(NSString *)identifier serviceUUID:(NSString *)serviceUUID characteristicUUID:(NSString *)characteristicUUID value:(NSData *)value {
-  NSLog(@"~Writing value to peripheral: %@, service: %@, characteristic: %@, data: %@", identifier, serviceUUID, characteristicUUID, value);
   for (CBPeripheral *peripheral in self.peripherals) {
     if ([peripheral.identifier.UUIDString isEqualToString:identifier]) {
-      NSLog(@"~Found peripheral with UUID %@", identifier);
       for (CBService *service in peripheral.services) {
         if ([service.UUID.UUIDString isEqualToString:serviceUUID]) {
-          NSLog(@"~Found service with UUID %@", serviceUUID);
           for (CBCharacteristic *characteristic in service.characteristics) {
             if ([characteristic.UUID.UUIDString isEqualToString:characteristicUUID]) {
-              NSLog(@"~Found characteristic with UUID %@", characteristicUUID);
               [peripheral writeValue:value forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
             }
           }
@@ -316,6 +319,12 @@ extern "C" {
   void _DeviceManagerPowerOffPeripheral(const char* identifier) {
     if (deviceManager != nil && identifier != nil) {
       [deviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
+    }
+  }
+
+  void _DeviceManagerForceLedOff(const char* identifier, bool enabled) {
+    if (deviceManager != nil && identifier != nil) {
+      [deviceManager forceLedOff:[NSString stringWithUTF8String:identifier] enabled:enabled];
     }
   }
 

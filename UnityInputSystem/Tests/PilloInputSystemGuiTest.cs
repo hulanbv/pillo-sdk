@@ -74,6 +74,12 @@ namespace Hulan.PilloSDK.InputSystem.Tests {
         if (DrawButton("Power Off")) {
           pilloInputDevice.PowerOff();
         }
+        if (DrawButton("Force Led Off Enabled")) {
+          pilloInputDevice.ForceLedOff(true);
+        }
+        if (DrawButton("Force Led Off Disabled")) {
+          pilloInputDevice.ForceLedOff(false);
+        }
         if (DrawButton("Start Calibration")) {
           pilloInputDevice.StartCalibration();
         }

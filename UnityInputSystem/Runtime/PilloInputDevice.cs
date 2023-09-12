@@ -24,6 +24,14 @@ namespace Hulan.PilloSDK.InputSystem {
     }
 
     /// <summary>
+    /// Forces the LED of the Pillo Input Device off.
+    /// </summary>
+    /// <param name="enabled">Defines whether the LED should be forced off.</param>
+    public void ForceLedOff(bool enabled) {
+      PilloFramework.ForceLedOff(identifier, enabled);
+    }
+
+    /// <summary>
     /// Starts the calibration of the Pillo Input Device.
     /// </summary>
     public void StartCalibration() {
