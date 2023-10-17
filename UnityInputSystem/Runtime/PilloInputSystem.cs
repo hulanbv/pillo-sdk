@@ -11,6 +11,7 @@ namespace Hulan.PilloSDK.InputSystem {
   /// The Pillo Input class exposes a set of methods and delegates to interact 
   /// with the Pillo Peripherals, Services and Characteristics.
   /// </summary>
+  [System.Obsolete("The Pillo Input System is obsolete and will no longer be updated, use the Pillo Framework to write a custom implementation instead.", false)]
   public static class PilloInputSystem {
     /// <summary>
     /// Delegate invoked when a Pillo Input Device has been connected.
