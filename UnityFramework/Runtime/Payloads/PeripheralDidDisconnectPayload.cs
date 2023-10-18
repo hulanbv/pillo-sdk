@@ -7,7 +7,7 @@ namespace Hulan.PilloSDK.Framework.Payloads {
   /// Payload for the OnPeripheralDidDisconnect event.
   /// </summary>
   [Serializable]
-  internal class PeripheralDidDisconnectPayload {
+  public class PeripheralDidDisconnectPayload {
     /// <summary>
     /// The identifier of the Peripheral.
     /// </summary>

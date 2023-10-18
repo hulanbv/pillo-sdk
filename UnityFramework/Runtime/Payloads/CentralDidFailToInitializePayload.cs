@@ -7,7 +7,7 @@ namespace Hulan.PilloSDK.Framework.Payloads {
   /// Payload for the OnCentralDidFailToInitialize event.
   /// </summary>
   [Serializable]
-  internal class CentralDidFailToInitializePayload {
+  public class CentralDidFailToInitializePayload {
     /// <summary>
     /// The error message.
     /// </summary>

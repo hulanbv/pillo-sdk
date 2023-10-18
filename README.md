@@ -1,12 +1,6 @@
 ![readme banner](https://github.com/hulanbv/pillo-sdk-mono/blob/master/.github/wiki/readme-banner.png?raw=true)
 
-The Pillo SDK Mono Repository contains the source for various Pillo SDK packages and libraries. Everything you'll need to get working on and working with the Pillo SDK is included in this repository. Visit the —
-
-- [Unity Pillo SDK Framework](https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityFramework/README.md) documention for more information on the core functionality for interacting with the Pillo Hardware.
-- [Unity Pillo SDK Input System](https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityInputSystem/README.md) documention for more information on the functionality for interacting with the Pillo Hardware via the Unity Input System.
-- [Bluetooth Attribute Profile](https://github.com/hulanbv/pillo-sdk-mono/blob/master/bluetooth-attribute-profile.md) documention for more information on the Bluetooth Attribute Profile used by the Pillo Hardware.
-
-The Pillo SDK Mono Repository is licensed by Hulan BV where all rights are reserved.
+The Pillo SDK Mono Repository contains the source for various Pillo SDK packages and libraries. Everything you'll need to get working on and working with the Pillo SDK is included in this repository. The Pillo SDK Mono Repository is licensed by Hulan BV where all rights are reserved.
 
 ## Development and Contribution
 

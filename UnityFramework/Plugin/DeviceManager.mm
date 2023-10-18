@@ -46,7 +46,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
       if ([self.peripherals count] > 0) {
         [self.centralManager stopScan];
-      [self invokeUnityCallback:@"OnCentralDidStopScanning"];
+        [self invokeUnityCallback:@"OnCentralDidStopScanning"];
       }
       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [self startScanningForPeripheralsRoutine];
@@ -303,32 +303,32 @@
 extern "C" {
   DeviceManager* deviceManager = nil;
 
-  void _DeviceManagerInstantiate() {
+  void DeviceManagerInstantiate() {
     if (deviceManager == nil) {
       deviceManager = [DeviceManager new];
       [deviceManager initialize];
     }
   }
 
-  void _DeviceManagerCancelPeripheralConnection(const char* identifier) {
+  void DeviceManagerCancelPeripheralConnection(const char* identifier) {
     if (deviceManager != nil && identifier != nil) {
       [deviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
     }
   }
 
-  void _DeviceManagerPowerOffPeripheral(const char* identifier) {
+  void DeviceManagerPowerOffPeripheral(const char* identifier) {
     if (deviceManager != nil && identifier != nil) {
       [deviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
     }
   }
 
-  void _DeviceManagerForceLedOff(const char* identifier, bool enabled) {
+  void DeviceManagerForceLedOff(const char* identifier, bool enabled) {
     if (deviceManager != nil && identifier != nil) {
       [deviceManager forceLedOff:[NSString stringWithUTF8String:identifier] enabled:enabled];
     }
   }
 
-  void _DeviceManagerStartPeripheralCalibration(const char* identifier) {
+  void DeviceManagerStartPeripheralCalibration(const char* identifier) {
     if (deviceManager != nil && identifier != nil) {
       [deviceManager calibratePeripheral:[NSString stringWithUTF8String:identifier]];
     }

@@ -81,7 +81,7 @@ namespace Hulan.PilloSDK.Framework {
     /// invokes the Device Manager Native Plugin's Initialization Method.
     /// </summary>
     [RuntimeInitializeOnLoadMethod]
-    private static void RuntimeInitializeOnLoad() {
+    static void RuntimeInitializeOnLoad() {
       DeviceManager.Instantiate();
       DeviceManagerCallbackListener.Instantiate();
     }

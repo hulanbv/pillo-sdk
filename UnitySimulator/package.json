@@ -1,9 +1,9 @@
 {
-  "name": "nl.hulan.pillo-sdk.input-system.unity",
-  "displayName": "Pillo SDK Input System",
-  "version": "3.2.0",
+  "name": "nl.hulan.pillo-sdk.simulator",
+  "displayName": "Pillo SDK Simulator",
+  "version": "1.0.0",
   "unity": "2021.1",
-  "description": "The Pillo SDK Input System provides a set of input actions that can be used to interact with the Pillo SDK.",
+  "description": "The Pillo SDK Simulator is a Unity package that allows you to test your Pillo SDK integration in the Unity Editor.",
   "type": "library",
   "hideInEditor": false,
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono",

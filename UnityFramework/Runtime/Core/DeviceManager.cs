@@ -1,7 +1,6 @@
 using UnityEngine;
-#if UNITY_EDITOR
-using Hulan.PilloSDK.Framework.Editor;
-#elif UNITY_IOS || UNITY_TVOS
+
+#if !UNITY_EDITOR && (UNITY_IOS || UNITY_TVOS)
 using System.Runtime.InteropServices;
 #endif
 
@@ -16,14 +15,14 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// Exposed Device Manager Native Plugin method to instantiate itself.
     /// </summary>
 #if UNITY_EDITOR
-    private static void _DeviceManagerInstantiate() {
+    static void DeviceManagerInstantiate() {
       Debug.LogWarning("Instantiating the Device Manager is not supported in the Unity Editor.");
     }
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport ("__Internal")]
-    private static extern void _DeviceManagerInstantiate ();
+    [DllImport("__Internal")]
+    static extern void DeviceManagerInstantiate();
 #else
-    private static void _DeviceManagerInstantiate () {
+    static void DeviceManagerInstantiate () {
       Debug.LogWarning ("Instantiating the Device Manager is not supported on the current platform.");
     }
 #endif
@@ -34,14 +33,14 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
 #if UNITY_EDITOR
-    private static void _DeviceManagerCancelPeripheralConnection(string identifier) {
-      PilloFrameworkSimulator.RemovePeripheral(identifier);
+    static void DeviceManagerCancelPeripheralConnection(string identifier) {
+      Debug.LogWarning("Cancelling a Peripheral connection is not supported in the Unity Editor.");
     }
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport ("__Internal")]
-    private static extern void _DeviceManagerCancelPeripheralConnection (string identifier);
+    [DllImport("__Internal")]
+    static extern void DeviceManagerCancelPeripheralConnection(string identifier);
 #else
-    private static void _DeviceManagerCancelPeripheralConnection (string identifier) {
+    static void DeviceManagerCancelPeripheralConnection (string identifier) {
       Debug.LogWarning ("Cancelling a Peripheral connection is not supported on the current platform.");
     }
 #endif
@@ -51,14 +50,14 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
 #if UNITY_EDITOR
-    private static void _DeviceManagerPowerOffPeripheral(string identifier) {
-      PilloFrameworkSimulator.RemovePeripheral(identifier);
+    static void DeviceManagerPowerOffPeripheral(string identifier) {
+      Debug.LogWarning("Powering off a Peripheral is not supported in the Unity Editor.");
     }
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport ("__Internal")]
-    private static extern void _DeviceManagerPowerOffPeripheral (string identifier);
+    [DllImport("__Internal")]
+    static extern void DeviceManagerPowerOffPeripheral(string identifier);
 #else
-    private static void _DeviceManagerPowerOffPeripheral (string identifier) {
+    static void DeviceManagerPowerOffPeripheral (string identifier) {
       Debug.LogWarning ("Powering off a Peripheral is not supported on the current platform.");
     }
 #endif
@@ -70,14 +69,14 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="enabled">Defines whether the LED should be forced off.</param>
 #if UNITY_EDITOR
-    private static void _DeviceManagerForceLedOff(string identifier, bool enabled) {
+    static void DeviceManagerForceLedOff(string identifier, bool enabled) {
       Debug.LogWarning("Forcing the LED state of a Peripheral is not supported in the Unity Editor.");
     }
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport ("__Internal")]
-    private static extern void _DeviceManagerForceLedOff (string identifier, bool enabled);
+    [DllImport("__Internal")]
+    static extern void DeviceManagerForceLedOff(string identifier, bool enabled);
 #else
-    private static void _DeviceManagerForceLedOff (string identifier) {
+    static void DeviceManagerForceLedOff (string identifier) {
       Debug.LogWarning ("Forcing the LED state of a Peripheral is not supported on the current platform.");
     }
 #endif
@@ -88,14 +87,14 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
 #if UNITY_EDITOR
-    private static void _DeviceManagerStartPeripheralCalibration(string identifier) {
+    static void DeviceManagerStartPeripheralCalibration(string identifier) {
       Debug.LogWarning("Starting a Peripheral calibration is not supported in the Unity Editor.");
     }
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport ("__Internal")]
-    private static extern void _DeviceManagerStartPeripheralCalibration (string identifier);
+    [DllImport("__Internal")]
+    static extern void DeviceManagerStartPeripheralCalibration(string identifier);
 #else
-    private static void _DeviceManagerStartPeripheralCalibration (string identifier) {
+    static void DeviceManagerStartPeripheralCalibration (string identifier) {
       Debug.LogWarning ("Starting a Peripheral calibration is not supported on the current platform.");
     }
 #endif
@@ -103,31 +102,31 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// <summary>
     /// Initializes the Device Manager.
     /// </summary>
-    internal static void Instantiate() => _DeviceManagerInstantiate();
+    internal static void Instantiate() => DeviceManagerInstantiate();
 
     /// <summary>
     /// Cancels a Peripheral connection.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    internal static void CancelPeripheralConnection(string identifier) => _DeviceManagerCancelPeripheralConnection(identifier);
+    internal static void CancelPeripheralConnection(string identifier) => DeviceManagerCancelPeripheralConnection(identifier);
 
     /// <summary>
     /// Powers off a Peripheral.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    internal static void PowerOffPeripheral(string identifier) => _DeviceManagerPowerOffPeripheral(identifier);
+    internal static void PowerOffPeripheral(string identifier) => DeviceManagerPowerOffPeripheral(identifier);
 
     /// <summary>
     /// Forces the LEDs of a Peripheral to be turned off.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="enabled">The state of the LED.</param>
-    internal static void ForceLedOff(string identifier, bool enabled) => _DeviceManagerForceLedOff(identifier, enabled);
+    internal static void ForceLedOff(string identifier, bool enabled) => DeviceManagerForceLedOff(identifier, enabled);
 
     /// <summary>
     /// Starts a Peripheral calibration.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    internal static void StartPeripheralCalibration(string identifier) => _DeviceManagerStartPeripheralCalibration(identifier);
+    internal static void StartPeripheralCalibration(string identifier) => DeviceManagerStartPeripheralCalibration(identifier);
   }
 }

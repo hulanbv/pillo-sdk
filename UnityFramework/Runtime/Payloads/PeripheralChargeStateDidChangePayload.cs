@@ -7,7 +7,7 @@ namespace Hulan.PilloSDK.Framework.Payloads {
   /// Payload for the OnPeripheralChargeStateDidChange event.
   /// </summary>
   [Serializable]
-  internal class PeripheralChargeStateDidChangePayload {
+  public class PeripheralChargeStateDidChangePayload {
     /// <summary>
     /// The identifier of the Peripheral.
     /// </summary>

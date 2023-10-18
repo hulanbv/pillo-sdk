@@ -1,8 +1,12 @@
 {
-    "name": "nl.hulan.pillo-sdk.framework.unity",
-    "rootNamespace": "Hulan.PilloSDK.Framework",
-    "references": [],
-    "includePlatforms": [],
+    "name": "nl.hulan.pillo-sdk.simulator",
+    "rootNamespace": "Hulan.PilloSDK.Simulator",
+    "references": [
+        "GUID:b8fa99cf5ad25420c82bcbdad417fc32"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
