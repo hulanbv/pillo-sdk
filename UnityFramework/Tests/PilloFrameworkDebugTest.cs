@@ -16,14 +16,14 @@ namespace Hulan.PilloSDK.Framework.Tests {
     void Start() {
       PilloFramework.onCentralDidInitialize += OnCentralDidInitialize;
       PilloFramework.onCentralDidFailToInitialize += OnCentralDidFailToInitialize;
-      PilloFramework.onPeripheralDidConnect += OnPeripheralDidConnect;
-      PilloFramework.onPeripheralDidDisconnect += OnPeripheralDidDisconnect;
       PilloFramework.onCentralDidStartScanning += OnCentralDidStartScanning;
       PilloFramework.onCentralDidStopScanning += OnCentralDidStopScanning;
+      PilloFramework.onPeripheralDidConnect += OnPeripheralDidConnect;
+      PilloFramework.onPeripheralDidDisconnect += OnPeripheralDidDisconnect;
       PilloFramework.onPeripheralDidFailToConnect += OnPeripheralDidFailToConnect;
       PilloFramework.onPeripheralBatteryLevelDidChange += OnPeripheralBatteryLevelDidChange;
       PilloFramework.onPeripheralPressureDidChange += OnPeripheralPressureDidChange;
-      PilloFramework.onPeripheralChargeStateDidChange += OnPeripheralChargeStateDidChange;
+      PilloFramework.onPeripheralChargingStateDidChange += OnPeripheralChargingStateDidChange;
       PilloFramework.onPeripheralFirmwareVersionDidChange += OnPeripheralFirmwareVersionDidChange;
       PilloFramework.onPeripheralHardwareVersionDidChange += OnPeripheralHardwareVersionDidChange;
       PilloFramework.onPeripheralModelNumberDidChange += OnPeripheralModelNumberDidChange;
@@ -103,9 +103,9 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// Delegate will be invoked when the Peripheral's charge state did change.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    /// <param name="chargeState">The charge state of the Peripheral.</param>
-    void OnPeripheralChargeStateDidChange(string identifier, PeripheralChargeState chargeState) {
-      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Charge State Did Change to {chargeState}");
+    /// <param name="chargingState">The charge state of the Peripheral.</param>
+    void OnPeripheralChargingStateDidChange(string identifier, ChargingState chargingState) {
+      Debug.Log($"Pillo Framework Peripheral with identifier {identifier} Charge State Did Change to {chargingState}");
     }
 
     /// <summary>

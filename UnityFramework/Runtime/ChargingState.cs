@@ -1,10 +1,8 @@
-// Unity Engine Pillo SDK Framework
-// Author: Jeffrey Lanters at Hulan
 namespace Hulan.PilloSDK.Framework {
   /// <summary>
   /// The Charging State of a Peripheral.
   /// </summary>
-  public enum PeripheralChargeState {
+  public enum ChargingState {
     /// <summary>
     /// The Peripheral's charging state is unkown.
     /// </summary>

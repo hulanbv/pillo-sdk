@@ -1,10 +1,8 @@
-// Unity Engine Pillo SDK Framework
-// Author: Jeffrey Lanters at Hulan
 namespace Hulan.PilloSDK.Framework.Core {
   /// <summary>
   /// Containing the delegate definitions for the Pillo Framework.
   /// </summary>
-  public static class PilloFrameworkDelegate {
+  public static class Delegates {
     /// <summary>
     /// Delegate should be invoked when the Central has been initialized.
     /// </summary>
@@ -63,8 +61,8 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// change.
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
-    /// <param name="chargeState">The charge state of the Peripheral.</param>
-    public delegate void OnPeripheralChargeStateDidChange(string identifier, PeripheralChargeState chargeState);
+    /// <param name="chargingState">The charge state of the Peripheral.</param>
+    public delegate void OnPeripheralChargingStateDidChange(string identifier, ChargingState chargingState);
 
     /// <summary>
     /// Delegate should be invoked when the Peripheral's charge firmware version 
