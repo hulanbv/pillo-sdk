@@ -67,14 +67,14 @@ namespace Hulan.PilloSDK.Framework.Core {
     /// <param name="identifier">The identifier of the Peripheral.</param>
     /// <param name="enabled">Defines whether the LED should be forced off.</param>
 #if UNITY_EDITOR
-    internal static void ForceLedOff(string identifier, bool enabled) {
+    internal static void ForcePeripheralLedOff(string identifier, bool enabled) {
       Debug.LogWarning("Forcing the LED state of a Peripheral is not supported in the Unity Editor.");
     }
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal")]
-    internal static extern void ForceLedOff(string identifier, bool enabled);
+    internal static extern void ForcePeripheralLedOff(string identifier, bool enabled);
 #else
-    internal static void ForceLedOff(string identifier) {
+    internal static void ForcePeripheralLedOff(string identifier) {
       Debug.LogWarning("Forcing the LED state of a Peripheral is not supported on the current platform.");
     }
 #endif

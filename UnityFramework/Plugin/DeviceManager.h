@@ -43,7 +43,7 @@ typedef void (*OnPeripheralModelNumberDidChange)(const char *, const char *);
 - (void)initialize:(OnCentralDidInitialize)onCentralDidInitialize onCentralDidFailToInitialize:(OnCentralDidFailToInitialize)onCentralDidFailToInitialize onCentralDidStartScanning:(OnCentralDidStartScanning)onCentralDidStartScanning onCentralDidStopScanning:(OnCentralDidStopScanning)onCentralDidStopScanning onPeripheralDidConnect:(OnPeripheralDidConnect)onPeripheralDidConnect onPeripheralDidDisconnect:(OnPeripheralDidDisconnect)onPeripheralDidDisconnect onPeripheralDidFailToConnect:(OnPeripheralDidFailToConnect)onPeripheralDidFailToConnect onPeripheralBatteryLevelDidChange:(OnPeripheralBatteryLevelDidChange)onPeripheralBatteryLevelDidChange onPeripheralPressureDidChange:(OnPeripheralPressureDidChange)onPeripheralPressureDidChange onPeripheralChargingStateDidChange:(OnPeripheralChargingStateDidChange)onPeripheralChargingStateDidChange onPeripheralFirmwareVersionDidChange:(OnPeripheralFirmwareVersionDidChange)onPeripheralFirmwareVersionDidChange onPeripheralHardwareVersionDidChange:(OnPeripheralHardwareVersionDidChange)onPeripheralHardwareVersionDidChange onPeripheralModelNumberDidChange:(OnPeripheralModelNumberDidChange)onPeripheralModelNumberDidChange;
 - (void)cancelPeripheralConnection:(NSString *)identifier;
 - (void)powerOffPeripheral:(NSString *)identifier;
-- (void)forceLedOff:(NSString *)identifier enabled:(BOOL)enabled;
+- (void)forcePeripheralLedOff:(NSString *)identifier enabled:(BOOL)enabled;
 - (void)calibratePeripheral:(NSString *)identifier;
 
 @end

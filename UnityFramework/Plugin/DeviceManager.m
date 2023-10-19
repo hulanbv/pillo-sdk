@@ -241,7 +241,7 @@
   [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_COMMAND_CHARACTERISTIC_UUID value:value];
 }
 
-- (void)forceLedOff:(NSString *)identifier enabled:(BOOL)enabled {
+- (void)forcePeripheralLedOff:(NSString *)identifier enabled:(BOOL)enabled {
     uint8_t byteValue = enabled ? 0x01 : 0x00;
     NSData *value = [NSData dataWithBytes:&byteValue length:1];
     [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_LED_CHARACTERISTIC_UUID value:value];

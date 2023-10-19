@@ -22,9 +22,9 @@ extern "C" {
     }
   }
 
-  void ForceLedOff(const char* identifier, bool enabled) {
+  void ForcePeripheralLedOff(const char* identifier, bool enabled) {
     if (deviceManager != nil && identifier != nil) {
-      [deviceManager forceLedOff:[NSString stringWithUTF8String:identifier] enabled:enabled];
+      [deviceManager forcePeripheralLedOff:[NSString stringWithUTF8String:identifier] enabled:enabled];
     }
   }
 
