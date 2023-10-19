@@ -10,9 +10,9 @@ using UnityEditor.iOS.Xcode;
 // Author: Jeffrey Lanters at Hulan
 namespace Hulan.PilloSDK.Framework.Editor {
   /// <summary>
-  /// Contains the methods to hook into the Unity Editor.
+  /// Contains the methods to hook into the Unity Editor build process.
   /// </summary>
-  static class UnityEditorHooks {
+  static class PostProcessBuild {
     /// <summary>
     /// When the Unity build is succesfull, this hook will be invoked.
     /// </summary>
