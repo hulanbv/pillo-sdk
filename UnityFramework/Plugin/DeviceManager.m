@@ -19,8 +19,6 @@
 }
 
 - (void)initialize:(OnCentralDidInitialize)onCentralDidInitialize onCentralDidFailToInitialize:(OnCentralDidFailToInitialize)onCentralDidFailToInitialize onCentralDidStartScanning:(OnCentralDidStartScanning)onCentralDidStartScanning onCentralDidStopScanning:(OnCentralDidStopScanning)onCentralDidStopScanning onPeripheralDidConnect:(OnPeripheralDidConnect)onPeripheralDidConnect onPeripheralDidDisconnect:(OnPeripheralDidDisconnect)onPeripheralDidDisconnect onPeripheralDidFailToConnect:(OnPeripheralDidFailToConnect)onPeripheralDidFailToConnect onPeripheralBatteryLevelDidChange:(OnPeripheralBatteryLevelDidChange)onPeripheralBatteryLevelDidChange onPeripheralPressureDidChange:(OnPeripheralPressureDidChange)onPeripheralPressureDidChange onPeripheralChargingStateDidChange:(OnPeripheralChargingStateDidChange)onPeripheralChargingStateDidChange onPeripheralFirmwareVersionDidChange:(OnPeripheralFirmwareVersionDidChange)onPeripheralFirmwareVersionDidChange onPeripheralHardwareVersionDidChange:(OnPeripheralHardwareVersionDidChange)onPeripheralHardwareVersionDidChange onPeripheralModelNumberDidChange:(OnPeripheralModelNumberDidChange)onPeripheralModelNumberDidChange {
-  centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-  peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
   self->onCentralDidInitialize = onCentralDidInitialize;
   self->onCentralDidFailToInitialize = onCentralDidFailToInitialize;
   self->onCentralDidStartScanning = onCentralDidStartScanning;
@@ -34,6 +32,8 @@
   self->onPeripheralFirmwareVersionDidChange = onPeripheralFirmwareVersionDidChange;
   self->onPeripheralHardwareVersionDidChange = onPeripheralHardwareVersionDidChange;
   self->onPeripheralModelNumberDidChange = onPeripheralModelNumberDidChange;
+  centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+  peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
   [self startScanningForPeripheralsRoutine];
 }
 
@@ -41,18 +41,18 @@
   if ([centralManager isScanning] == true) {
     if ([peripherals count] > 0) {
       [centralManager stopScan];
-      [self invokeUnityCallback:@"OnCentralDidStopScanning"];
+      onCentralDidStopScanning();
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
       [self startScanningForPeripheralsRoutine];
     });
   } else if ([peripherals count] < MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION) {
     [centralManager scanForPeripheralsWithServices:nil options:[NSDictionary dictionaryWithObjectsAndKeys:@YES, CBCentralManagerScanOptionAllowDuplicatesKey, nil]];
-    [self invokeUnityCallback:@"OnCentralDidStartScanning"];
+    onCentralDidStartScanning();
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
       if ([self->peripherals count] > 0) {
         [self->centralManager stopScan];
-        [self invokeUnityCallback:@"OnCentralDidStopScanning"];
+        self->onCentralDidStopScanning();
       }
       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [self startScanningForPeripheralsRoutine];
@@ -68,12 +68,10 @@
 - (void)centralManagerDidUpdateState:(nonnull CBCentralManager *)central {
   switch ([central state]) {
     case CBManagerStatePoweredOn:
-      [self invokeUnityCallback:@"OnCentralDidInitialize"];
+      onCentralDidInitialize();
       break;
     default:
-      [self invokeUnityCallback:@"OnCentralDidFailToInitialize" payload:@{
-        @"message": @"Unable to initialize CoreBluetooth Central Manager"
-      }];
+      onCentralDidFailToInitialize("Unable to initialize CoreBluetooth Central Manager");
       break;
   }
 }
@@ -91,9 +89,6 @@
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
   onPeripheralDidConnect([peripheral.identifier.UUIDString UTF8String]);
-  [self invokeUnityCallback:@"OnPeripheralDidConnect" payload:@{
-    @"identifier": peripheral.identifier.UUIDString
-  }];
   [peripheral discoverServices:@[
     [CBUUID UUIDWithString:DEVICEINFORMATION_SERVICE_UUID],
     [CBUUID UUIDWithString:BATTERY_SERVICE_UUID],
@@ -106,9 +101,7 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnPeripheralDidDisconnect" payload:@{
-    @"identifier": peripheral.identifier.UUIDString
-  }];
+  onPeripheralDidDisconnect([peripheral.identifier.UUIDString UTF8String]);
   [centralManager cancelPeripheralConnection:peripheral]; // TODO: Is this necessary?
   if ([peripherals containsObject:peripheral]) {
     [peripherals removeObjectAtIndex:[peripherals indexOfObject:peripheral]];
@@ -116,9 +109,7 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [self invokeUnityCallback:@"OnPeripheralDidFailToConnect" payload:@{
-    @"identifier": peripheral.identifier.UUIDString
-  }];
+  onPeripheralDidFailToConnect([peripheral.identifier.UUIDString UTF8String]);
   [centralManager cancelPeripheralConnection:peripheral]; // TODO: Is this necessary?
   if ([peripherals containsObject:peripheral]) {
     [peripherals removeObjectAtIndex:[peripherals indexOfObject:peripheral]];
@@ -193,48 +184,30 @@
     if ([characteristicUUID isEqualToString:PRESSURE_VALUE_CHARACTERISTIC_UUID]) {
       uint32_t pressure = 0;
       [rawData getBytes:&pressure length:sizeof(pressure)];
-      [self invokeUnityCallback:@"OnPeripheralPressureDidChange" payload:@{
-        @"identifier": peripheral.identifier.UUIDString,
-        @"pressure": @(pressure)
-      }];
+      onPeripheralPressureDidChange([peripheral.identifier.UUIDString UTF8String], pressure);
     }
   } else if ([serviceUUID isEqualToString:BATTERY_SERVICE_UUID]) {
     if ([characteristicUUID isEqualToString:BATTERY_LEVEL_CHARACTERISTIC_UUID]) {
       uint32_t batteryLevel = 0;
       [rawData getBytes:&batteryLevel length:sizeof(batteryLevel)];
-      [self invokeUnityCallback:@"OnPeripheralBatteryLevelDidChange" payload:@{
-        @"identifier": peripheral.identifier.UUIDString,
-        @"batteryLevel": @(batteryLevel)
-      }];
+      onPeripheralBatteryLevelDidChange([peripheral.identifier.UUIDString UTF8String], batteryLevel);
     }
   } else if ([serviceUUID isEqualToString:CHARGE_SERVICE_UUID]) {
     if ([characteristicUUID isEqualToString:CHARGE_STATE_CHARACTERISTIC_UUID]) {
       uint32_t chargeState = 0;
       [rawData getBytes:&chargeState length:sizeof(chargeState)];
-      [self invokeUnityCallback:@"OnPeripheralChargeStateDidChange" payload:@{
-        @"identifier": peripheral.identifier.UUIDString,
-        @"chargeState": @(chargeState)
-      }];
+      onPeripheralChargingStateDidChange([peripheral.identifier.UUIDString UTF8String], chargeState);
     }
   } else if ([serviceUUID isEqualToString:DEVICEINFORMATION_SERVICE_UUID]) {
     if ([characteristicUUID isEqualToString:DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID]) {
       NSString *firmwareVersion = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
-      [self invokeUnityCallback:@"OnPeripheralFirmwareVersionDidChange" payload:@{
-        @"identifier": peripheral.identifier.UUIDString,
-        @"firmwareVersion": firmwareVersion
-      }];
+      onPeripheralFirmwareVersionDidChange([peripheral.identifier.UUIDString UTF8String], [firmwareVersion UTF8String]);
     } else if ([characteristicUUID isEqualToString:DEVICEINFORMATION_HARDWAREVERSION_CHARACTERISTIC_UUID]) {
       NSString *hardwareVersion = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
-      [self invokeUnityCallback:@"OnPeripheralHardwareVersionDidChange" payload:@{
-        @"identifier": peripheral.identifier.UUIDString,
-        @"hardwareVersion": hardwareVersion
-      }];
+      onPeripheralHardwareVersionDidChange([peripheral.identifier.UUIDString UTF8String], [hardwareVersion UTF8String]);
     } else if ([characteristicUUID isEqualToString:DEVICEINFORMATION_MODELNUMBER_CHARACTERISTIC_UUID]) {
       NSString *modelNumber = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
-      [self invokeUnityCallback:@"OnPeripheralModelNumberDidChange" payload:@{
-        @"identifier": peripheral.identifier.UUIDString,
-        @"modelNumber": modelNumber
-      }];
+      onPeripheralModelNumberDidChange([peripheral.identifier.UUIDString UTF8String], [modelNumber UTF8String]);
     }
   } else if ([serviceUUID isEqualToString:HANDSHAKE_SERVICE_UUID]) {
     if ([characteristicUUID isEqualToString:HANDSHAKE_HANDSHAKE_CHARACTERISTIC_UUID]) {
@@ -293,17 +266,6 @@
       }
     }
   }
-}
-
-- (void)invokeUnityCallback:(NSString *)methodName {
-  UnitySendMessage("~DeviceManagerCallbackListener", [methodName UTF8String], [@"" UTF8String]);
-}
-
-- (void)invokeUnityCallback:(NSString *)methodName payload:(NSDictionary *)payload {
-  NSError *error;
-  NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:kNilOptions error:&error];
-  NSString *payloadJson = [[NSString alloc]initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
-  UnitySendMessage("~DeviceManagerCallbackListener", [methodName UTF8String], [payloadJson UTF8String]);
 }
 
 @end
