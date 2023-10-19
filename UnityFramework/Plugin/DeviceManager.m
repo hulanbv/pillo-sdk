@@ -1,7 +1,5 @@
 #import "DeviceManager.h"
 
-// Pillo Framework Device Manager Implementation File
-// Author: Jeffrey Lanters at Hulan
 @implementation DeviceManager
 
 #define DEVICEINFORMATION_SERVICE_UUID @"180A"
