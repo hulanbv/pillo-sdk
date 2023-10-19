@@ -1,14 +1,12 @@
 using UnityEngine;
 
-// Unity Engine Pillo SDK Framework Tests
-// Author: Jeffrey Lanters at Hulan
 namespace Hulan.PilloSDK.Framework.Tests {
   /// <summary>
   /// The Pillo Framework Test MonoBehaviour will be debug log all the incoming
   /// Pillo Framework events.
   /// </summary>
   [AddComponentMenu("Hulan/Pillo SDK/Framework/Tests/Pillo Framework Debug Test")]
-  internal class PilloFrameworkDebugTest : MonoBehaviour {
+  class PilloFrameworkDebugTest : MonoBehaviour {
     /// <summary>
     /// Binds the Pillo Framework events to the Pillo Framework Test MonoBe-
     /// haviour.
