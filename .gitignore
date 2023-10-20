@@ -1,6 +1,10 @@
-## System
+# System
 .DS_Store
 
 # Generated Development Files
 /*.meta
 /documentation/*.meta
+
+# Editor
+/manifest.json
+/packages-lock.json

@@ -1,4 +1,4 @@
-# Unity Pillo SDK Framework
+# Pillo SDK Framework for Unity
 
 The Pillo SDK Framework provides the core functionality for interacting with the Pillo Hardware.
 

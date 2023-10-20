@@ -1,0 +1,14 @@
+{
+    "name": "nl.hulan.pillo-sdk.framework",
+    "rootNamespace": "Hulan.PilloSDK.Framework",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
