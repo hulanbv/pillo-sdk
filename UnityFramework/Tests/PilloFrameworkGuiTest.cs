@@ -9,9 +9,9 @@ namespace Hulan.PilloSDK.Framework.Tests {
   [AddComponentMenu("Hulan/Pillo SDK/Framework/Tests/Pillo Framework GUI Test")]
   class PilloFrameworkGuiTest : MonoBehaviour {
     /// <summary>
-    /// The Virtual Peripheral class is used to store the Peripheral's data.
+    /// The Dummy Peripheral class is used to store the Peripheral's data.
     /// </summary>
-    class VirtualPeripheral {
+    class DummyPeripheral {
       /// <summary>
       /// The identifier of the Peripheral.
       /// </summary>
@@ -49,9 +49,9 @@ namespace Hulan.PilloSDK.Framework.Tests {
     }
 
     /// <summary>
-    /// The list of Virtual Peripherals.
+    /// The list of Dummy Peripherals.
     /// </summary>
-    readonly List<VirtualPeripheral> peripherals = new();
+    readonly List<DummyPeripheral> peripherals = new();
 
     /// <summary>
     /// Determines if the Central has been initialized.
@@ -158,7 +158,7 @@ namespace Hulan.PilloSDK.Framework.Tests {
     /// </summary>
     /// <param name="identifier">The identifier of the Peripheral.</param>
     void OnPeripheralDidConnect(string identifier) {
-      peripherals.Add(new VirtualPeripheral() {
+      peripherals.Add(new DummyPeripheral() {
         identifier = identifier,
       });
     }
