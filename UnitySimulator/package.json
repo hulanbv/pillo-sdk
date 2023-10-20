@@ -9,9 +9,18 @@
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono",
   "changelogUrl": "https://github.com/hulanbv/pillo-sdk-mono/releases",
   "licensesUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/LICENSE.md",
+  "repository": "https://github.com/hulanbv/pillo-sdk-mono.git",
   "dependencies": {
     "nl.hulan.pillo-sdk.framework": "4.0.0",
     "com.unity.modules.imgui": "1.0.0"
   },
-  "samples": []
+  "samples": [],
+  "keywords": [
+    "Software Development Kit"
+  ],
+  "author": {
+    "name": "Pillo powered by Hulan",
+    "email": "jeffrey@hulan.nl",
+    "url": "https://hulan.nl"
+  }
 }
