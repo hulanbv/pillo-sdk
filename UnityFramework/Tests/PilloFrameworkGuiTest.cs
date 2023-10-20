@@ -86,9 +86,6 @@ namespace Hulan.PilloSDK.Framework.Tests {
       PilloFramework.onPeripheralFirmwareVersionDidChange += OnPeripheralFirmwareVersionDidChange;
       PilloFramework.onPeripheralHardwareVersionDidChange += OnPeripheralHardwareVersionDidChange;
       PilloFramework.onPeripheralModelNumberDidChange += OnPeripheralModelNumberDidChange;
-#if UNITY_EDITOR
-      peripherals.Add(new VirtualPeripheral());
-#endif
     }
 
     /// <summary>
