@@ -1,0 +1,18 @@
+{
+    "name": "nl.hulan.pillo-sdk.simulator",
+    "rootNamespace": "Hulan.PilloSDK.Simulator",
+    "references": [
+        "GUID:b8fa99cf5ad25420c82bcbdad417fc32"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
