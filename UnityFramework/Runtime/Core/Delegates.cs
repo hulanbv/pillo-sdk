@@ -2,7 +2,7 @@ namespace Hulan.PilloSDK.Framework.Core {
   /// <summary>
   /// Containing the delegate definitions for the Pillo Framework.
   /// </summary>
-  public static class Delegates {
+  public class Delegates {
     /// <summary>
     /// Delegate will be invoked when the Central has been initialized.
     /// </summary>
