@@ -1,0 +1,16 @@
+{
+    "name": "nl.hulan.pillo-sdk.build-tools",
+    "rootNamespace": "Hulan.PilloSDK.BuildTools",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
