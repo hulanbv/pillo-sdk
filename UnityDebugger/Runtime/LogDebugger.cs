@@ -1,17 +1,17 @@
 using UnityEngine;
+using Hulan.PilloSDK.Framework;
 
-namespace Hulan.PilloSDK.Framework.Tests {
+namespace Hulan.PilloSDK.Debugger {
   /// <summary>
   /// The Pillo Framework Test MonoBehaviour will be debug log all the incoming
   /// Pillo Framework events.
   /// </summary>
-  [AddComponentMenu("Hulan/Pillo SDK/Framework/Tests/Pillo Framework Debug Test")]
-  class PilloFrameworkDebugTest : MonoBehaviour {
+  [AddComponentMenu("Pillo SDK/Debugger/Log Debugger")]
+  class LogDebugger : MonoBehaviour {
     /// <summary>
-    /// Binds the Pillo Framework events to the Pillo Framework Test MonoBe-
-    /// haviour.
+    /// Binds the Pillo Framework events to the Pillo Framework.
     /// </summary>
-    void Start() {
+    void Awake() {
       PilloFramework.onCentralDidInitialize += OnCentralDidInitialize;
       PilloFramework.onCentralDidFailToInitialize += OnCentralDidFailToInitialize;
       PilloFramework.onCentralDidStartScanning += OnCentralDidStartScanning;
@@ -25,6 +25,25 @@ namespace Hulan.PilloSDK.Framework.Tests {
       PilloFramework.onPeripheralFirmwareVersionDidChange += OnPeripheralFirmwareVersionDidChange;
       PilloFramework.onPeripheralHardwareVersionDidChange += OnPeripheralHardwareVersionDidChange;
       PilloFramework.onPeripheralModelNumberDidChange += OnPeripheralModelNumberDidChange;
+    }
+
+    /// <summary>
+    /// Unbinds the Pillo Framework events from the Pillo Framework.
+    /// </summary>
+    void Destroy() {
+      PilloFramework.onCentralDidInitialize -= OnCentralDidInitialize;
+      PilloFramework.onCentralDidFailToInitialize -= OnCentralDidFailToInitialize;
+      PilloFramework.onCentralDidStartScanning -= OnCentralDidStartScanning;
+      PilloFramework.onCentralDidStopScanning -= OnCentralDidStopScanning;
+      PilloFramework.onPeripheralDidConnect -= OnPeripheralDidConnect;
+      PilloFramework.onPeripheralDidDisconnect -= OnPeripheralDidDisconnect;
+      PilloFramework.onPeripheralDidFailToConnect -= OnPeripheralDidFailToConnect;
+      PilloFramework.onPeripheralBatteryLevelDidChange -= OnPeripheralBatteryLevelDidChange;
+      PilloFramework.onPeripheralPressureDidChange -= OnPeripheralPressureDidChange;
+      PilloFramework.onPeripheralChargingStateDidChange -= OnPeripheralChargingStateDidChange;
+      PilloFramework.onPeripheralFirmwareVersionDidChange -= OnPeripheralFirmwareVersionDidChange;
+      PilloFramework.onPeripheralHardwareVersionDidChange -= OnPeripheralHardwareVersionDidChange;
+      PilloFramework.onPeripheralModelNumberDidChange -= OnPeripheralModelNumberDidChange;
     }
 
     /// <summary>
