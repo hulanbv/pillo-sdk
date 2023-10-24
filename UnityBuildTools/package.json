@@ -3,7 +3,7 @@
   "displayName": "Pillo SDK Build Tools",
   "version": "1.0.0",
   "unity": "2021.1",
-  "description": "The Pillo SDK Build Tools contains Unity editor scripts that help you build projects using the Pillo SDK.",
+  "description": "The Pillo SDK Unity Build Tools contains Unity editor scripts that help you build projects using the Pillo SDK.",
   "type": "library",
   "hideInEditor": false,
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityBuildTools/README.md",

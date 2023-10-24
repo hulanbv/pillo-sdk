@@ -1,6 +1,6 @@
 # Pillo SDK Unity Debugger
 
-The Pillo SDK Debugger allows for debugging of the Pillo SDK in and outside of the Unity Editor.
+The Pillo SDK Unity Debugger allows for debugging of the Pillo SDK in and outside of the Unity Editor.
 
 ## Installation
 

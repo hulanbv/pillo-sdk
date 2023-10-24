@@ -1,6 +1,6 @@
 # Pillo SDK Unity Build Tools
 
-The Pillo SDK Build Tools contains Unity editor scripts that help you build projects using the Pillo SDK.
+The Pillo SDK Unity Build Tools contains Unity editor scripts that help you build projects using the Pillo SDK.
 
 ## Installation
 

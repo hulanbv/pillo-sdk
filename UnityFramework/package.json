@@ -3,7 +3,7 @@
   "displayName": "Pillo SDK Framework",
   "version": "4.1.0",
   "unity": "2021.1",
-  "description": "The Pillo SDK Framework provides the core functionality for interacting with the Pillo Hardware.",
+  "description": "The Pillo SDK Unity Framework provides the core functionality for interacting with the Pillo Hardware.",
   "type": "library",
   "hideInEditor": false,
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityFramework/README.md",

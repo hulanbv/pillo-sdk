@@ -1,6 +1,6 @@
 # Pillo SDK Unity Framework
 
-The Pillo SDK Framework provides the core functionality for interacting with the Pillo Hardware.
+The Pillo SDK Unity Framework provides the core functionality for interacting with the Pillo Hardware.
 
 ## Installation
 
