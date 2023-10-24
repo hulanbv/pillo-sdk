@@ -177,6 +177,25 @@ namespace Hulan.PilloSDK.Framework {
       DeviceManager.Instantiate(OnCentralDidInitialize, OnCentralDidFailToInitialize, OnCentralDidStartScanning, OnCentralDidStopScanning, OnPeripheralDidConnect, OnPeripheralDidDisconnect, OnPeripheralDidFailToConnect, OnPeripheralBatteryLevelDidChange, OnPeripheralPressureDidChange, OnPeripheralChargingStateDidChange, OnPeripheralFirmwareVersionDidChange, OnPeripheralHardwareVersionDidChange, OnPeripheralModelNumberDidChange);
     }
 
+#if UNITY_EDITOR
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void RuntimeInitializeOnLoadBeforeSceneLoad() {
+      onCentralDidInitialize = null;
+      onCentralDidFailToInitialize = null;
+      onCentralDidStartScanning = null;
+      onCentralDidStopScanning = null;
+      onPeripheralDidConnect = null;
+      onPeripheralDidDisconnect = null;
+      onPeripheralDidFailToConnect = null;
+      onPeripheralBatteryLevelDidChange = null;
+      onPeripheralPressureDidChange = null;
+      onPeripheralChargingStateDidChange = null;
+      onPeripheralFirmwareVersionDidChange = null;
+      onPeripheralHardwareVersionDidChange = null;
+      onPeripheralModelNumberDidChange = null;
+    }
+#endif
+
     /// <summary>
     /// Cancels a Peripheral connection.
     /// </summary>
