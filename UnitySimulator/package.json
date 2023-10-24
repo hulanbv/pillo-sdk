@@ -1,17 +1,17 @@
 {
   "name": "nl.hulan.pillo-sdk.simulator",
   "displayName": "Pillo SDK Simulator",
-  "version": "1.0.0",
+  "version": "4.1.0",
   "unity": "2021.1",
   "description": "The Pillo SDK Simulator is a Unity package that allows you to test your Pillo SDK integration in the Unity Editor.",
   "type": "library",
   "hideInEditor": false,
-  "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono",
-  "changelogUrl": "https://github.com/hulanbv/pillo-sdk-mono/releases",
+  "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnitySimulator/README.md",
+  "changelogUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnitySimulator/CHANGELOG.md",
   "licensesUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/LICENSE.md",
   "repository": "https://github.com/hulanbv/pillo-sdk-mono.git",
   "dependencies": {
-    "nl.hulan.pillo-sdk.framework": "4.0.0",
+    "nl.hulan.pillo-sdk.framework": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/UnityFramework",
     "com.unity.modules.imgui": "1.0.0"
   },
   "samples": [],
