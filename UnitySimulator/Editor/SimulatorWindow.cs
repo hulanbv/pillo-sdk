@@ -9,7 +9,23 @@ namespace Hulan.PilloSDK.Simulator {
   /// Pillo Simulator can be used to test the Pillo Framework in the 
   /// Unity Editor without the need of a physical Pillo device.
   /// </summary>
-  class SimulatorWindow : EditorWindow {
+  class SimulatorWindow : EditorWindow, IHasCustomMenu {
+    /// <summary>
+    /// Key used to store the Pillo Simulator settings.
+    /// </summary>
+    const string settingsBaseKey = "Hulan.PilloSDK.Simulator";
+
+    /// <summary>
+    /// Key used to store the keep alive setting.
+    /// </summary>
+    const string settingKeepAliveKey = settingsBaseKey + ".KeepAlive";
+
+    /// <summary>
+    /// Defines if the simulated peripherals should be disconnected when the
+    /// Pillo Simulator window is closed.
+    /// </summary>
+    static bool keepAlive;
+
     /// <summary>
     /// The simulated peripherals.
     /// </summary>
@@ -34,18 +50,31 @@ namespace Hulan.PilloSDK.Simulator {
     void OnEnable() {
       var icon = EditorGUIUtility.IconContent("d_PreMatCube");
       titleContent = new GUIContent("Pillo Simulator", icon.image);
+      keepAlive = EditorPrefs.GetBool(settingKeepAliveKey, true);
     }
 
     /// <summary>
     /// Method invoked when the Pillo Simulator window is disabled.
     /// </summary>
     void OnDisable() {
-      // instance = null;
+      if (keepAlive) {
+        return;
+      }
       // Disconnect all peripherals before closing the window.
       foreach (var peripheral in peripherals) {
-        // peripheral.isConnected = false;
-        // TODO
+        peripheral.Disconnect();
       }
+      peripherals.Clear();
+    }
+
+    /// <summary>
+    /// Returns Generic Menu items for the Pillo Simulator window.
+    /// </summary>
+    /// <param name="menu">The Generic Menu to add items to.</param>
+    void IHasCustomMenu.AddItemsToMenu(GenericMenu menu) {
+      menu.AddItem(new GUIContent("Keep Connections Alive"), keepAlive, () => {
+        EditorPrefs.SetBool(settingKeepAliveKey, keepAlive = !keepAlive);
+      });
     }
 
     /// <summary>
