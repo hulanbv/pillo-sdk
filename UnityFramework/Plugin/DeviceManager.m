@@ -201,21 +201,18 @@
   }
 }
 
-- (void)peripheralManagerDidUpdateState:(nonnull CBPeripheralManager *)peripheral {
-  // TODO: Is this something we need to send to Unity?
-}
-
 - (void)cancelPeripheralConnection:(NSString *)identifier {
   for (CBPeripheral *peripheral in peripherals) {
     if ([peripheral.identifier.UUIDString isEqualToString:identifier]) {
       [centralManager cancelPeripheralConnection:peripheral];
-      break;
+      return;
     }
   }
 }
 
 - (void)powerOffPeripheral:(NSString *)identifier {
   NSData *value = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
+  
   [self writeValueToPeripheral:identifier serviceUUID:COMMAND_SERVICE_UUID characteristicUUID:COMMAND_COMMAND_CHARACTERISTIC_UUID value:value];
 }
 
@@ -228,6 +225,7 @@
 
 - (void)calibratePeripheral:(NSString *)identifier {
   NSData *value = [NSData dataWithBytes:(uint8_t[]){ 0x0F } length:1];
+  
   [self writeValueToPeripheral:identifier serviceUUID:CALIBRATION_SERVICE_UUID characteristicUUID:CALIBRATION_STARTCALIBRATION_CHARACTERISTIC_UUID value:value];
 }
 
