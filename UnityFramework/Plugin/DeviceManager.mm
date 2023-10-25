@@ -21,7 +21,6 @@ extern "C" {
     deviceManager->onPeripheralFirmwareVersionDidChange = onPeripheralFirmwareVersionDidChange;
     deviceManager->onPeripheralHardwareVersionDidChange = onPeripheralHardwareVersionDidChange;
     deviceManager->onPeripheralModelNumberDidChange = onPeripheralModelNumberDidChange;
-    [deviceManager initialize];
   }
 
   void CancelPeripheralConnection(const char* identifier) {

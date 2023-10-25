@@ -5,10 +5,14 @@
   NSMutableArray<CBPeripheral *> *peripherals;
 }
 
-- (void)initialize {
-  centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-  peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
-  [self startScanningForPeripheralsRoutine];
+- (instancetype)init {
+  self = [super init];
+  if (self) {
+    centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+    peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
+    [self startScanningForPeripheralsRoutine];
+  }
+  return self;
 }
 
 - (void)startScanningForPeripheralsRoutine {

@@ -52,7 +52,6 @@ typedef void (*OnPeripheralModelNumberDidChange)(const char *, const char *);
     @public OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 }
 
-- (void)initialize;
 - (void)cancelPeripheralConnection:(NSString *)identifier;
 - (void)powerOffPeripheral:(NSString *)identifier;
 - (void)forcePeripheralLedOff:(NSString *)identifier enabled:(BOOL)enabled;
