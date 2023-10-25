@@ -233,15 +233,27 @@
 
 - (void)writeValueToPeripheral:(NSString *)identifier serviceUUID:(NSString *)serviceUUID characteristicUUID:(NSString *)characteristicUUID value:(NSData *)value {
   for (CBPeripheral *peripheral in peripherals) {
-    if ([peripheral.identifier.UUIDString isEqualToString:identifier]) {
-      for (CBService *service in peripheral.services) {
-        if ([service.UUID.UUIDString isEqualToString:serviceUUID]) {
-          for (CBCharacteristic *characteristic in service.characteristics) {
-            if ([characteristic.UUID.UUIDString isEqualToString:characteristicUUID]) {
-              [peripheral writeValue:value forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-            }
-          }
+    if (![peripheral.identifier.UUIDString isEqualToString:identifier]) {
+      continue;
+    }
+    
+    for (CBService *service in peripheral.services) {
+      if (![service.UUID.UUIDString isEqualToString:serviceUUID]) {
+        continue;
+      }
+      
+      CBCharacteristic *targetCharacteristic = nil;
+      
+      for (CBCharacteristic *characteristic in service.characteristics) {
+        if ([characteristic.UUID.UUIDString isEqualToString:characteristicUUID]) {
+          targetCharacteristic = characteristic;
+          break;
         }
+      }
+      
+      if (targetCharacteristic) {
+        [peripheral writeValue:value forCharacteristic:targetCharacteristic type:CBCharacteristicWriteWithResponse];
+        return;
       }
     }
   }
