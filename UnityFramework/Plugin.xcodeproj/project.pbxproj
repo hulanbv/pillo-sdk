@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		820FB7C0273445D2004F02C5 /* DeviceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 820FB7BF273445D2004F02C5 /* DeviceManager.mm */; };
 		820FB7C1273445D2004F02C5 /* DeviceManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 820FB7BE273445D2004F02C5 /* DeviceManager.h */; };
+		82E21D192AE9246300D93B6E /* DeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E21D182AE9246300D93B6E /* DeviceManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,7 @@
 		820FB7BB273445D2004F02C5 /* libPlugin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlugin.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		820FB7BE273445D2004F02C5 /* DeviceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceManager.h; sourceTree = "<group>"; };
 		820FB7BF273445D2004F02C5 /* DeviceManager.mm */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.objcpp; path = DeviceManager.mm; sourceTree = "<group>"; };
+		82E21D182AE9246300D93B6E /* DeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = DeviceManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				820FB7BE273445D2004F02C5 /* DeviceManager.h */,
+				82E21D182AE9246300D93B6E /* DeviceManager.m */,
 				820FB7BF273445D2004F02C5 /* DeviceManager.mm */,
 			);
 			path = Plugin;
@@ -124,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				820FB7C0273445D2004F02C5 /* DeviceManager.mm in Sources */,
+				82E21D192AE9246300D93B6E /* DeviceManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
