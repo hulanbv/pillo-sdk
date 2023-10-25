@@ -36,7 +36,7 @@ typedef void (*OnPeripheralFirmwareVersionDidChange)(const char *, const char *)
 typedef void (*OnPeripheralHardwareVersionDidChange)(const char *, const char *);
 typedef void (*OnPeripheralModelNumberDidChange)(const char *, const char *);
 
-@interface DeviceManager : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate> {
+@interface DeviceManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate> {
     @public OnCentralDidInitialize onCentralDidInitialize;
     @public OnCentralDidFailToInitialize onCentralDidFailToInitialize;
     @public OnCentralDidStartScanning onCentralDidStartScanning;
