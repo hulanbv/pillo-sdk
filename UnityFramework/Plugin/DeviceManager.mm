@@ -7,6 +7,7 @@ extern "C" {
     if (deviceManager != nil) {
       return;
     }
+    
     deviceManager = [DeviceManager new];
     deviceManager->onCentralDidInitialize = onCentralDidInitialize;
     deviceManager->onCentralDidFailToInitialize = onCentralDidFailToInitialize;
@@ -24,26 +25,34 @@ extern "C" {
   }
 
   void CancelPeripheralConnection(const char* identifier) {
-    if (deviceManager != nil && identifier != nil) {
-      [deviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
+    if (deviceManager == nil || identifier == nil) {
+      return;
     }
+    
+    [deviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
   }
 
   void PowerOffPeripheral(const char* identifier) {
-    if (deviceManager != nil && identifier != nil) {
-      [deviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
+    if (deviceManager == nil || identifier == nil) {
+      return;
     }
+    
+    [deviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
   }
 
   void ForcePeripheralLedOff(const char* identifier, bool enabled) {
-    if (deviceManager != nil && identifier != nil) {
-      [deviceManager forcePeripheralLedOff:[NSString stringWithUTF8String:identifier] enabled:enabled];
+    if (deviceManager == nil || identifier == nil) {
+      return;
     }
+    
+    [deviceManager forcePeripheralLedOff:[NSString stringWithUTF8String:identifier] enabled:enabled];
   }
 
   void StartPeripheralCalibration(const char* identifier) {
-    if (deviceManager != nil && identifier != nil) {
-      [deviceManager calibratePeripheral:[NSString stringWithUTF8String:identifier]];
+    if (deviceManager == nil || identifier == nil) {
+      return;
     }
+    
+    [deviceManager calibratePeripheral:[NSString stringWithUTF8String:identifier]];
   }
 }
