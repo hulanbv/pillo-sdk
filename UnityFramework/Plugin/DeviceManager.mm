@@ -4,10 +4,24 @@ extern "C" {
   DeviceManager* deviceManager = nil;
 
   void Instantiate(OnCentralDidInitialize onCentralDidInitialize, OnCentralDidFailToInitialize onCentralDidFailToInitialize, OnCentralDidStartScanning onCentralDidStartScanning, OnCentralDidStopScanning onCentralDidStopScanning, OnPeripheralDidConnect onPeripheralDidConnect, OnPeripheralDidDisconnect onPeripheralDidDisconnect, OnPeripheralDidFailToConnect onPeripheralDidFailToConnect, OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange, OnPeripheralPressureDidChange onPeripheralPressureDidChange, OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange, OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange, OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange, OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange) {
-    if (deviceManager == nil) {
-      deviceManager = [DeviceManager new];
-      [deviceManager initialize:onCentralDidInitialize onCentralDidFailToInitialize:onCentralDidFailToInitialize onCentralDidStartScanning:onCentralDidStartScanning onCentralDidStopScanning:onCentralDidStopScanning onPeripheralDidConnect:onPeripheralDidConnect onPeripheralDidDisconnect:onPeripheralDidDisconnect onPeripheralDidFailToConnect:onPeripheralDidFailToConnect onPeripheralBatteryLevelDidChange:onPeripheralBatteryLevelDidChange onPeripheralPressureDidChange:onPeripheralPressureDidChange onPeripheralChargingStateDidChange:onPeripheralChargingStateDidChange onPeripheralFirmwareVersionDidChange:onPeripheralFirmwareVersionDidChange onPeripheralHardwareVersionDidChange:onPeripheralHardwareVersionDidChange onPeripheralModelNumberDidChange:onPeripheralModelNumberDidChange];
+    if (deviceManager != nil) {
+      return;
     }
+    deviceManager = [DeviceManager new];
+    deviceManager->onCentralDidInitialize = onCentralDidInitialize;
+    deviceManager->onCentralDidFailToInitialize = onCentralDidFailToInitialize;
+    deviceManager->onCentralDidStartScanning = onCentralDidStartScanning;
+    deviceManager->onCentralDidStopScanning = onCentralDidStopScanning;
+    deviceManager->onPeripheralDidConnect = onPeripheralDidConnect;
+    deviceManager->onPeripheralDidDisconnect = onPeripheralDidDisconnect;
+    deviceManager->onPeripheralDidFailToConnect = onPeripheralDidFailToConnect;
+    deviceManager->onPeripheralBatteryLevelDidChange = onPeripheralBatteryLevelDidChange;
+    deviceManager->onPeripheralPressureDidChange = onPeripheralPressureDidChange;
+    deviceManager->onPeripheralChargingStateDidChange = onPeripheralChargingStateDidChange;
+    deviceManager->onPeripheralFirmwareVersionDidChange = onPeripheralFirmwareVersionDidChange;
+    deviceManager->onPeripheralHardwareVersionDidChange = onPeripheralHardwareVersionDidChange;
+    deviceManager->onPeripheralModelNumberDidChange = onPeripheralModelNumberDidChange;
+    [deviceManager initialize];
   }
 
   void CancelPeripheralConnection(const char* identifier) {

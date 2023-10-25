@@ -3,35 +3,9 @@
 @implementation DeviceManager {
   CBCentralManager *centralManager;
   NSMutableArray<CBPeripheral *> *peripherals;
-  OnCentralDidInitialize onCentralDidInitialize;
-  OnCentralDidFailToInitialize onCentralDidFailToInitialize;
-  OnCentralDidStartScanning onCentralDidStartScanning;
-  OnCentralDidStopScanning onCentralDidStopScanning;
-  OnPeripheralDidConnect onPeripheralDidConnect;
-  OnPeripheralDidDisconnect onPeripheralDidDisconnect;
-  OnPeripheralDidFailToConnect onPeripheralDidFailToConnect;
-  OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange;
-  OnPeripheralPressureDidChange onPeripheralPressureDidChange;
-  OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange;
-  OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange;
-  OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange;
-  OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 }
 
-- (void)initialize:(OnCentralDidInitialize)onCentralDidInitialize onCentralDidFailToInitialize:(OnCentralDidFailToInitialize)onCentralDidFailToInitialize onCentralDidStartScanning:(OnCentralDidStartScanning)onCentralDidStartScanning onCentralDidStopScanning:(OnCentralDidStopScanning)onCentralDidStopScanning onPeripheralDidConnect:(OnPeripheralDidConnect)onPeripheralDidConnect onPeripheralDidDisconnect:(OnPeripheralDidDisconnect)onPeripheralDidDisconnect onPeripheralDidFailToConnect:(OnPeripheralDidFailToConnect)onPeripheralDidFailToConnect onPeripheralBatteryLevelDidChange:(OnPeripheralBatteryLevelDidChange)onPeripheralBatteryLevelDidChange onPeripheralPressureDidChange:(OnPeripheralPressureDidChange)onPeripheralPressureDidChange onPeripheralChargingStateDidChange:(OnPeripheralChargingStateDidChange)onPeripheralChargingStateDidChange onPeripheralFirmwareVersionDidChange:(OnPeripheralFirmwareVersionDidChange)onPeripheralFirmwareVersionDidChange onPeripheralHardwareVersionDidChange:(OnPeripheralHardwareVersionDidChange)onPeripheralHardwareVersionDidChange onPeripheralModelNumberDidChange:(OnPeripheralModelNumberDidChange)onPeripheralModelNumberDidChange {
-  self->onCentralDidInitialize = onCentralDidInitialize;
-  self->onCentralDidFailToInitialize = onCentralDidFailToInitialize;
-  self->onCentralDidStartScanning = onCentralDidStartScanning;
-  self->onCentralDidStopScanning = onCentralDidStopScanning;
-  self->onPeripheralDidConnect = onPeripheralDidConnect;
-  self->onPeripheralDidDisconnect = onPeripheralDidDisconnect;
-  self->onPeripheralDidFailToConnect = onPeripheralDidFailToConnect;
-  self->onPeripheralBatteryLevelDidChange = onPeripheralBatteryLevelDidChange;
-  self->onPeripheralPressureDidChange = onPeripheralPressureDidChange;
-  self->onPeripheralChargingStateDidChange = onPeripheralChargingStateDidChange;
-  self->onPeripheralFirmwareVersionDidChange = onPeripheralFirmwareVersionDidChange;
-  self->onPeripheralHardwareVersionDidChange = onPeripheralHardwareVersionDidChange;
-  self->onPeripheralModelNumberDidChange = onPeripheralModelNumberDidChange;
+- (void)initialize {
   centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
   peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
   [self startScanningForPeripheralsRoutine];

@@ -36,11 +36,23 @@ typedef void (*OnPeripheralFirmwareVersionDidChange)(const char *, const char *)
 typedef void (*OnPeripheralHardwareVersionDidChange)(const char *, const char *);
 typedef void (*OnPeripheralModelNumberDidChange)(const char *, const char *);
 
-@interface DeviceManager : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate>
-{
+@interface DeviceManager : NSObject <CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate> {
+    @public OnCentralDidInitialize onCentralDidInitialize;
+    @public OnCentralDidFailToInitialize onCentralDidFailToInitialize;
+    @public OnCentralDidStartScanning onCentralDidStartScanning;
+    @public OnCentralDidStopScanning onCentralDidStopScanning;
+    @public OnPeripheralDidConnect onPeripheralDidConnect;
+    @public OnPeripheralDidDisconnect onPeripheralDidDisconnect;
+    @public OnPeripheralDidFailToConnect onPeripheralDidFailToConnect;
+    @public OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange;
+    @public OnPeripheralPressureDidChange onPeripheralPressureDidChange;
+    @public OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange;
+    @public OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange;
+    @public OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange;
+    @public OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 }
 
-- (void)initialize:(OnCentralDidInitialize)onCentralDidInitialize onCentralDidFailToInitialize:(OnCentralDidFailToInitialize)onCentralDidFailToInitialize onCentralDidStartScanning:(OnCentralDidStartScanning)onCentralDidStartScanning onCentralDidStopScanning:(OnCentralDidStopScanning)onCentralDidStopScanning onPeripheralDidConnect:(OnPeripheralDidConnect)onPeripheralDidConnect onPeripheralDidDisconnect:(OnPeripheralDidDisconnect)onPeripheralDidDisconnect onPeripheralDidFailToConnect:(OnPeripheralDidFailToConnect)onPeripheralDidFailToConnect onPeripheralBatteryLevelDidChange:(OnPeripheralBatteryLevelDidChange)onPeripheralBatteryLevelDidChange onPeripheralPressureDidChange:(OnPeripheralPressureDidChange)onPeripheralPressureDidChange onPeripheralChargingStateDidChange:(OnPeripheralChargingStateDidChange)onPeripheralChargingStateDidChange onPeripheralFirmwareVersionDidChange:(OnPeripheralFirmwareVersionDidChange)onPeripheralFirmwareVersionDidChange onPeripheralHardwareVersionDidChange:(OnPeripheralHardwareVersionDidChange)onPeripheralHardwareVersionDidChange onPeripheralModelNumberDidChange:(OnPeripheralModelNumberDidChange)onPeripheralModelNumberDidChange;
+- (void)initialize;
 - (void)cancelPeripheralConnection:(NSString *)identifier;
 - (void)powerOffPeripheral:(NSString *)identifier;
 - (void)forcePeripheralLedOff:(NSString *)identifier enabled:(BOOL)enabled;
