@@ -22,10 +22,10 @@
 #define SCAN_INTERVAL_SECONDS 10
 #define MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION 2
 
-typedef void (*OnCentralDidInitialize)();
+typedef void (*OnCentralDidInitialize)(void);
 typedef void (*OnCentralDidFailToInitialize)(const char *);
-typedef void (*OnCentralDidStartScanning)();
-typedef void (*OnCentralDidStopScanning)();
+typedef void (*OnCentralDidStartScanning)(void);
+typedef void (*OnCentralDidStopScanning)(void);
 typedef void (*OnPeripheralDidConnect)(const char *);
 typedef void (*OnPeripheralDidDisconnect)(const char *);
 typedef void (*OnPeripheralDidFailToConnect)(const char *);
