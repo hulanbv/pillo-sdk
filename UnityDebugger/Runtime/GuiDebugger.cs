@@ -50,6 +50,26 @@ namespace Hulan.PilloSDK.Debugger {
     }
 
     /// <summary>
+    /// The font used to display the Pillo Framework events in the Unity GUI.
+    /// </summary>
+    public Font font;
+
+    /// <summary>
+    /// The virtual cursor texture.
+    /// </summary>
+    public Texture virtualCursorTexture;
+
+    /// <summary>
+    /// The virtual cursor position.
+    /// </summary>
+    Vector2 virtualCursorPosition;
+
+    /// <summary>
+    /// Determines if the virtual cursor click was requested.
+    /// </summary>
+    bool didRequestVirtualCursorClick;
+
+    /// <summary>
     /// The list of Dummy Peripherals.
     /// </summary>
     readonly List<DummyPeripheral> peripherals = new();
@@ -111,36 +131,76 @@ namespace Hulan.PilloSDK.Debugger {
     /// Draws the Pillo Framework events in the Unity GUI.
     /// </summary>
     void OnGUI() {
+      GUI.skin.label.font = GUI.skin.button.font = GUI.skin.box.font = font;
+      GUILayout.BeginHorizontal();
       GUILayout.BeginVertical();
       GUILayout.Label($"Central Initialized: {isCentralInitialized}");
       GUILayout.Label($"Central Failed To Initialize: {didCentralFailToInitialize}");
       GUILayout.Label($"Central Scanning: {isCentralScanning}");
-      GUILayout.Label($"Peripherals: {peripherals.Count}");
+      GUILayout.Space(10);
+      GUILayout.EndVertical();
       foreach (var peripheral in peripherals) {
-        GUILayout.Label($"  Peripheral: {peripheral.identifier}");
-        GUILayout.Label($"  Battery Level: {peripheral.batteryLevel}");
-        GUILayout.Label($"  Pressure: {peripheral.pressure}");
-        GUILayout.Label($"  Charging State: {peripheral.chargingState}");
-        GUILayout.Label($"  Firmware Version: {peripheral.firmwareVersion}");
-        GUILayout.Label($"  Hardware Version: {peripheral.hardwareVersion}");
-        GUILayout.Label($"  Model Number: {peripheral.modelNumber}");
-        if (GUILayout.Button("Disable Force Peripheral LED Off")) {
+        GUILayout.Space(10);
+        GUILayout.BeginVertical();
+        GUILayout.Label($"Identifier: {peripheral.identifier}");
+        GUILayout.Label($"Battery Level: {peripheral.batteryLevel}");
+        GUILayout.Label($"Pressure: {peripheral.pressure}");
+        GUILayout.Label($"Charging State: {peripheral.chargingState}");
+        GUILayout.Label($"Firmware Version: {peripheral.firmwareVersion}");
+        GUILayout.Label($"Hardware Version: {peripheral.hardwareVersion}");
+        GUILayout.Label($"Model Number: {peripheral.modelNumber}");
+        if (Button("Disable Force LED Off")) {
           PilloFramework.ForcePeripheralLedOff(peripheral.identifier, false);
         }
-        if (GUILayout.Button("Enable Force Peripheral LED Off")) {
+        if (Button("Enable Force LED Off")) {
           PilloFramework.ForcePeripheralLedOff(peripheral.identifier, true);
         }
-        if (GUILayout.Button("Start Peripheral Calibration")) {
+        if (Button("Start Calibration")) {
           PilloFramework.StartPeripheralCalibration(peripheral.identifier);
         }
-        if (GUILayout.Button("Cancel Peripheral Connection")) {
+        if (Button("Cancel Connection")) {
           PilloFramework.CancelPeripheralConnection(peripheral.identifier);
         }
-        if (GUILayout.Button("Power Off Peripheral")) {
+        if (Button("Power Off")) {
           PilloFramework.PowerOffPeripheral(peripheral.identifier);
         }
+        GUILayout.EndVertical();
       }
-      GUILayout.EndVertical();
+      GUILayout.EndHorizontal();
+      GUI.Label(new Rect(virtualCursorPosition.x, virtualCursorPosition.y, 25, 25), virtualCursorTexture);
+    }
+
+    /// <summary>
+    /// Updates the virtual cursor position.
+    /// </summary>
+    void Update() {
+      if (Input.touchCount <= 0) {
+        return;
+      }
+      didRequestVirtualCursorClick = Input.GetKey(KeyCode.JoystickButton14);
+      if (Input.GetKey(KeyCode.JoystickButton14)) {
+        return;
+      }
+      var deltaPosition = Input.GetTouch(0).deltaPosition;
+      virtualCursorPosition += new Vector2(deltaPosition.x, -deltaPosition.y) / 4;
+    }
+
+    /// <summary>
+    /// Draws a button in the Unity GUI.
+    /// </summary>
+    /// <param name="text">The text of the button.</param>
+    /// <returns>True if the button was clicked.</returns>
+    bool Button(string text) {
+      var button = GUILayout.Button($"[ {text} ]", GUI.skin.label);
+      if (button) {
+        return true;
+      }
+      var buttonRect = GUILayoutUtility.GetLastRect();
+      if (didRequestVirtualCursorClick && buttonRect.Contains(virtualCursorPosition)) {
+        didRequestVirtualCursorClick = false;
+        return true;
+      }
+      return false;
     }
 
     /// <summary>
