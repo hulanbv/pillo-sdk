@@ -14,14 +14,15 @@
   return self;
 }
 
-- (void)startScanningForPeripheralsRoutine {
-  if ([centralManager isScanning] == true) {
+
+- (void)peripheralsScanningRoutine {
+  if ([centralManager isScanning]) {
     if ([peripherals count] > 0) {
       [centralManager stopScan];
       onCentralDidStopScanning();
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_DURATION_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-      [self startScanningForPeripheralsRoutine];
+      [self peripheralsScanningRoutine];
     });
   } else if ([peripherals count] < MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION) {
     [centralManager scanForPeripheralsWithServices:nil options:[NSDictionary dictionaryWithObjectsAndKeys:@YES, CBCentralManagerScanOptionAllowDuplicatesKey, nil]];
@@ -32,12 +33,12 @@
         self->onCentralDidStopScanning();
       }
       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-        [self startScanningForPeripheralsRoutine];
+        [self peripheralsScanningRoutine];
       });
     });
   } else {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (SCAN_INTERVAL_SECONDS * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-      [self startScanningForPeripheralsRoutine];
+      [self peripheralsScanningRoutine];
     });
   }
 }
@@ -46,7 +47,7 @@
   switch ([central state]) {
     case CBManagerStatePoweredOn:
       onCentralDidInitialize();
-      [self startScanningForPeripheralsRoutine];
+      [self peripheralsScanningRoutine];
       break;
     default:
       onCentralDidFailToInitialize("Unable to initialize CoreBluetooth Central Manager");
