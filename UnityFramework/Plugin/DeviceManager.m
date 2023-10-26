@@ -10,7 +10,6 @@
   if (self) {
     centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
     peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
-    [self startScanningForPeripheralsRoutine];
   }
   return self;
 }
@@ -47,6 +46,7 @@
   switch ([central state]) {
     case CBManagerStatePoweredOn:
       onCentralDidInitialize();
+      [self startScanningForPeripheralsRoutine];
       break;
     default:
       onCentralDidFailToInitialize("Unable to initialize CoreBluetooth Central Manager");
