@@ -169,12 +169,12 @@ namespace Hulan.PilloSDK.Framework {
     public static Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 
     /// <summary>
-    /// Invoked when the Runtime Application initializes and is loaded. This
-    /// invokes the Device Manager Native Plugin's Initialization Method.
+    /// Invoked when the Runtime Application initializes and is loaded.
     /// </summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void RuntimeInitializeOnLoad() {
-      DeviceManager.Instantiate(OnCentralDidInitialize, OnCentralDidFailToInitialize, OnCentralDidStartScanning, OnCentralDidStopScanning, OnPeripheralDidConnect, OnPeripheralDidDisconnect, OnPeripheralDidFailToConnect, OnPeripheralBatteryLevelDidChange, OnPeripheralPressureDidChange, OnPeripheralChargingStateDidChange, OnPeripheralFirmwareVersionDidChange, OnPeripheralHardwareVersionDidChange, OnPeripheralModelNumberDidChange);
+      // Set the device manager delegates.
+      DeviceManager.SetDelegates(OnCentralDidInitialize, OnCentralDidFailToInitialize, OnCentralDidStartScanning, OnCentralDidStopScanning, OnPeripheralDidConnect, OnPeripheralDidDisconnect, OnPeripheralDidFailToConnect, OnPeripheralBatteryLevelDidChange, OnPeripheralPressureDidChange, OnPeripheralChargingStateDidChange, OnPeripheralFirmwareVersionDidChange, OnPeripheralHardwareVersionDidChange, OnPeripheralModelNumberDidChange);
     }
 
     /// <summary>
