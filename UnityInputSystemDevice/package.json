@@ -1,0 +1,26 @@
+{
+  "name": "nl.hulan.pillo-sdk.input-system-device",
+  "displayName": "Pillo SDK Input System Device",
+  "version": "1.0.0-preview.1",
+  "unity": "2021.1",
+  "description": "The Pillo SDK Unity Input System Device provides the core functionality for interacting with the Pillo Hardware using the Unity Input System.",
+  "type": "library",
+  "hideInEditor": false,
+  "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityInputSystemDevice/README.md",
+  "changelogUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityInputSystemDevice/CHANGELOG.md",
+  "licensesUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/LICENSE.md",
+  "repository": "https://github.com/hulanbv/pillo-sdk-mono.git",
+  "dependencies": {
+    "nl.hulan.pillo-sdk.device-manager": "5.0.0",
+    "com.unity.inputsystem": "1.0.0"
+  },
+  "samples": [],
+  "keywords": [
+    "Software Development Kit"
+  ],
+  "author": {
+    "name": "Hulan Pillo",
+    "email": "jeffrey@hulan.nl",
+    "url": "https://hulan.nl"
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "nl.hulan.pillo-sdk.input-system-device",
+    "rootNamespace": "Hulan.PilloSDK.InputSystemDevice",
+    "references": [
+        "GUID:b8fa99cf5ad25420c82bcbdad417fc32",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
