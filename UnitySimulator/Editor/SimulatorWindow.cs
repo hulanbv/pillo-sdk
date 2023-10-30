@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-using Hulan.PilloSDK.Framework;
+using Hulan.PilloSDK.DeviceManager;
 using Hulan.PilloSDK.Simulator.Core;
 
 namespace Hulan.PilloSDK.Simulator {
   /// <summary>
-  /// Pillo Simulator can be used to test the Pillo Framework in the 
+  /// Pillo Simulator can be used to test the Pillo Device Manager in the 
   /// Unity Editor without the need of a physical Pillo device.
   /// </summary>
   class SimulatorWindow : EditorWindow, IHasCustomMenu {

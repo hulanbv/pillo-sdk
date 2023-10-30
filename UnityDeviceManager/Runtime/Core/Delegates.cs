@@ -1,6 +1,6 @@
-namespace Hulan.PilloSDK.Framework.Core {
+namespace Hulan.PilloSDK.DeviceManager.Core {
   /// <summary>
-  /// Containing the delegate definitions for the Pillo Framework.
+  /// Containing the delegate definitions for the Pillo Device Manager.
   /// </summary>
   public class Delegates {
     /// <summary>

@@ -1,4 +1,4 @@
-namespace Hulan.PilloSDK.Framework {
+namespace Hulan.PilloSDK.DeviceManager {
   /// <summary>
   /// The Charging State of a Peripheral.
   /// </summary>
