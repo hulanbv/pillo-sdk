@@ -4,7 +4,7 @@ The Pillo SDK Mono Repository contains the source for various Pillo SDK packages
 
 # Table of Contents
 
-- [Pillo SDK Unity Framework](https://github.com/hulanbv/pillo-sdk-mono/tree/master/UnityFramework) provides the core functionality for interacting with the Pillo Hardware.
+- [Pillo SDK Unity Device Manager](https://github.com/hulanbv/pillo-sdk-mono/tree/master/UnityDeviceManager) provides the core functionality for interacting with the Pillo Hardware.
 - [Pillo SDK Unity Simulator](https://github.com/hulanbv/pillo-sdk-mono/tree/master/UnitySimulator) is a Unity package that allows you to test your Pillo SDK integration in the Unity Editor.
 - [Pillo SDK Unity Build Tools](https://github.com/hulanbv/pillo-sdk-mono/tree/master/UnityBuildTools) contains Unity editor scripts that help you build projects using the Pillo SDK.
 - [Pillo SDK Unity Debugger](https://github.com/hulanbv/pillo-sdk-mono/tree/master/UnityDebugger) allows for debugging of the Pillo SDK in and outside of the Unity Editor.

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using Hulan.PilloSDK.Framework;
+using Hulan.PilloSDK.DeviceManager;
 using UnityEngine;
 
 namespace Hulan.PilloSDK.Debugger {
   /// <summary>
-  /// The Pillo Framework Test MonoBehaviour will be show the Pillo Framework
-  /// events in the Unity GUI.
+  /// The Pillo Test MonoBehaviour will be show the Pillo events in Unity GUI.
   /// </summary>
   [AddComponentMenu("Pillo SDK/Debugger/GUI Debugger")]
   class GuiDebugger : MonoBehaviour {
@@ -50,7 +49,7 @@ namespace Hulan.PilloSDK.Debugger {
     }
 
     /// <summary>
-    /// The font used to display the Pillo Framework events in the Unity GUI.
+    /// The font used to display the Pillo Device Manager events in the Unity GUI.
     /// </summary>
     public Font font;
 
@@ -90,45 +89,45 @@ namespace Hulan.PilloSDK.Debugger {
     bool isCentralScanning;
 
     /// <summary>
-    /// Binds the Pillo Framework events to the Pillo Framework.
+    /// Binds the Pillo Device Manager events.
     /// </summary>
     void Awake() {
-      PilloFramework.onCentralDidInitialize += OnCentralDidInitialize;
-      PilloFramework.onCentralDidFailToInitialize += OnCentralDidFailToInitialize;
-      PilloFramework.onCentralDidStartScanning += OnCentralDidStartScanning;
-      PilloFramework.onCentralDidStopScanning += OnCentralDidStopScanning;
-      PilloFramework.onPeripheralDidConnect += OnPeripheralDidConnect;
-      PilloFramework.onPeripheralDidDisconnect += OnPeripheralDidDisconnect;
-      PilloFramework.onPeripheralDidFailToConnect += OnPeripheralDidFailToConnect;
-      PilloFramework.onPeripheralBatteryLevelDidChange += OnPeripheralBatteryLevelDidChange;
-      PilloFramework.onPeripheralPressureDidChange += OnPeripheralPressureDidChange;
-      PilloFramework.onPeripheralChargingStateDidChange += OnPeripheralChargingStateDidChange;
-      PilloFramework.onPeripheralFirmwareVersionDidChange += OnPeripheralFirmwareVersionDidChange;
-      PilloFramework.onPeripheralHardwareVersionDidChange += OnPeripheralHardwareVersionDidChange;
-      PilloFramework.onPeripheralModelNumberDidChange += OnPeripheralModelNumberDidChange;
+      PilloDeviceManager.onCentralDidInitialize += OnCentralDidInitialize;
+      PilloDeviceManager.onCentralDidFailToInitialize += OnCentralDidFailToInitialize;
+      PilloDeviceManager.onCentralDidStartScanning += OnCentralDidStartScanning;
+      PilloDeviceManager.onCentralDidStopScanning += OnCentralDidStopScanning;
+      PilloDeviceManager.onPeripheralDidConnect += OnPeripheralDidConnect;
+      PilloDeviceManager.onPeripheralDidDisconnect += OnPeripheralDidDisconnect;
+      PilloDeviceManager.onPeripheralDidFailToConnect += OnPeripheralDidFailToConnect;
+      PilloDeviceManager.onPeripheralBatteryLevelDidChange += OnPeripheralBatteryLevelDidChange;
+      PilloDeviceManager.onPeripheralPressureDidChange += OnPeripheralPressureDidChange;
+      PilloDeviceManager.onPeripheralChargingStateDidChange += OnPeripheralChargingStateDidChange;
+      PilloDeviceManager.onPeripheralFirmwareVersionDidChange += OnPeripheralFirmwareVersionDidChange;
+      PilloDeviceManager.onPeripheralHardwareVersionDidChange += OnPeripheralHardwareVersionDidChange;
+      PilloDeviceManager.onPeripheralModelNumberDidChange += OnPeripheralModelNumberDidChange;
     }
 
     /// <summary>
-    /// Unbinds the Pillo Framework events from the Pillo Framework.
+    /// Unbinds the Pillo Device Manager events.
     /// </summary>
     void Destroy() {
-      PilloFramework.onCentralDidInitialize -= OnCentralDidInitialize;
-      PilloFramework.onCentralDidFailToInitialize -= OnCentralDidFailToInitialize;
-      PilloFramework.onCentralDidStartScanning -= OnCentralDidStartScanning;
-      PilloFramework.onCentralDidStopScanning -= OnCentralDidStopScanning;
-      PilloFramework.onPeripheralDidConnect -= OnPeripheralDidConnect;
-      PilloFramework.onPeripheralDidDisconnect -= OnPeripheralDidDisconnect;
-      PilloFramework.onPeripheralDidFailToConnect -= OnPeripheralDidFailToConnect;
-      PilloFramework.onPeripheralBatteryLevelDidChange -= OnPeripheralBatteryLevelDidChange;
-      PilloFramework.onPeripheralPressureDidChange -= OnPeripheralPressureDidChange;
-      PilloFramework.onPeripheralChargingStateDidChange -= OnPeripheralChargingStateDidChange;
-      PilloFramework.onPeripheralFirmwareVersionDidChange -= OnPeripheralFirmwareVersionDidChange;
-      PilloFramework.onPeripheralHardwareVersionDidChange -= OnPeripheralHardwareVersionDidChange;
-      PilloFramework.onPeripheralModelNumberDidChange -= OnPeripheralModelNumberDidChange;
+      PilloDeviceManager.onCentralDidInitialize -= OnCentralDidInitialize;
+      PilloDeviceManager.onCentralDidFailToInitialize -= OnCentralDidFailToInitialize;
+      PilloDeviceManager.onCentralDidStartScanning -= OnCentralDidStartScanning;
+      PilloDeviceManager.onCentralDidStopScanning -= OnCentralDidStopScanning;
+      PilloDeviceManager.onPeripheralDidConnect -= OnPeripheralDidConnect;
+      PilloDeviceManager.onPeripheralDidDisconnect -= OnPeripheralDidDisconnect;
+      PilloDeviceManager.onPeripheralDidFailToConnect -= OnPeripheralDidFailToConnect;
+      PilloDeviceManager.onPeripheralBatteryLevelDidChange -= OnPeripheralBatteryLevelDidChange;
+      PilloDeviceManager.onPeripheralPressureDidChange -= OnPeripheralPressureDidChange;
+      PilloDeviceManager.onPeripheralChargingStateDidChange -= OnPeripheralChargingStateDidChange;
+      PilloDeviceManager.onPeripheralFirmwareVersionDidChange -= OnPeripheralFirmwareVersionDidChange;
+      PilloDeviceManager.onPeripheralHardwareVersionDidChange -= OnPeripheralHardwareVersionDidChange;
+      PilloDeviceManager.onPeripheralModelNumberDidChange -= OnPeripheralModelNumberDidChange;
     }
 
     /// <summary>
-    /// Draws the Pillo Framework events in the Unity GUI.
+    /// Draws the Pillo Device Manager events in the Unity GUI.
     /// </summary>
     void OnGUI() {
       GUI.skin.label.font = GUI.skin.button.font = GUI.skin.box.font = font;
@@ -150,19 +149,19 @@ namespace Hulan.PilloSDK.Debugger {
         GUILayout.Label($"Hardware Version: {peripheral.hardwareVersion}");
         GUILayout.Label($"Model Number: {peripheral.modelNumber}");
         if (Button("Disable Force LED Off")) {
-          PilloFramework.ForcePeripheralLedOff(peripheral.identifier, false);
+          PilloDeviceManager.ForcePeripheralLedOff(peripheral.identifier, false);
         }
         if (Button("Enable Force LED Off")) {
-          PilloFramework.ForcePeripheralLedOff(peripheral.identifier, true);
+          PilloDeviceManager.ForcePeripheralLedOff(peripheral.identifier, true);
         }
         if (Button("Start Calibration")) {
-          PilloFramework.StartPeripheralCalibration(peripheral.identifier);
+          PilloDeviceManager.StartPeripheralCalibration(peripheral.identifier);
         }
         if (Button("Cancel Connection")) {
-          PilloFramework.CancelPeripheralConnection(peripheral.identifier);
+          PilloDeviceManager.CancelPeripheralConnection(peripheral.identifier);
         }
         if (Button("Power Off")) {
-          PilloFramework.PowerOffPeripheral(peripheral.identifier);
+          PilloDeviceManager.PowerOffPeripheral(peripheral.identifier);
         }
         GUILayout.EndVertical();
       }

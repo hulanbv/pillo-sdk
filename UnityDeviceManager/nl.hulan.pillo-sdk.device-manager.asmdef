@@ -1,6 +1,6 @@
 {
-    "name": "nl.hulan.pillo-sdk.frameworkx",
-    "rootNamespace": "Hulan.PilloSDK.Framework",
+    "name": "nl.hulan.pillo-sdk.device-manager",
+    "rootNamespace": "Hulan.PilloSDK.DeviceManager",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

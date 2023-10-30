@@ -4,11 +4,11 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 #endif
 
-namespace Hulan.PilloSDK.Framework.Core {
+namespace Hulan.PilloSDK.DeviceManager.Core {
   /// <summary>
-  /// The Device Manager class manages the Device Manager Native Plugin.
+  /// The Plugin Bridge manages the Device Manager Native Plugin.
   /// </summary>
-  public static class DeviceManager {
+  public static class PluginBridge {
     /// <summary>
     /// Exposed Device Manager Native Plugin method to set the delegates.
     /// </summary>

@@ -1,0 +1,23 @@
+{
+  "name": "nl.hulan.pillo-sdk.device-manager",
+  "displayName": "Pillo SDK Device Manager",
+  "version": "5.0.0",
+  "unity": "2021.1",
+  "description": "The Pillo SDK Unity Device Manager provides the core functionality for interacting with the Pillo Hardware.",
+  "type": "library",
+  "hideInEditor": false,
+  "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityDeviceManager/README.md",
+  "changelogUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityDeviceManager/CHANGELOG.md",
+  "licensesUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/LICENSE.md",
+  "repository": "https://github.com/hulanbv/pillo-sdk-mono.git",
+  "dependencies": {},
+  "samples": [],
+  "keywords": [
+    "Software Development Kit"
+  ],
+  "author": {
+    "name": "Hulan Pillo",
+    "email": "jeffrey@hulan.nl",
+    "url": "https://hulan.nl"
+  }
+}

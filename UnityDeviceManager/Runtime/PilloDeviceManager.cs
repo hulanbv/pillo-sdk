@@ -1,12 +1,12 @@
 using AOT;
-using Hulan.PilloSDK.Framework.Core;
+using Hulan.PilloSDK.DeviceManager.Core;
 using UnityEngine;
 
-namespace Hulan.PilloSDK.Framework {
+namespace Hulan.PilloSDK.DeviceManager {
   /// <summary>
-  /// The Pillo Framework class manages the Pillo Framework Native Plugin.
+  /// The Pillo Device Manager manages the Native Plugin.
   /// </summary>
-  public class PilloFramework {
+  public class PilloDeviceManager {
     /// <summary>
     /// Mono Callback for the Central Did Initialize event.
     /// </summary>
@@ -174,7 +174,7 @@ namespace Hulan.PilloSDK.Framework {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void RuntimeInitializeOnLoad() {
       // Set the device manager delegates.
-      DeviceManager.SetDelegates(OnCentralDidInitialize, OnCentralDidFailToInitialize, OnCentralDidStartScanning, OnCentralDidStopScanning, OnPeripheralDidConnect, OnPeripheralDidDisconnect, OnPeripheralDidFailToConnect, OnPeripheralBatteryLevelDidChange, OnPeripheralPressureDidChange, OnPeripheralChargingStateDidChange, OnPeripheralFirmwareVersionDidChange, OnPeripheralHardwareVersionDidChange, OnPeripheralModelNumberDidChange);
+      PluginBridge.SetDelegates(OnCentralDidInitialize, OnCentralDidFailToInitialize, OnCentralDidStartScanning, OnCentralDidStopScanning, OnPeripheralDidConnect, OnPeripheralDidDisconnect, OnPeripheralDidFailToConnect, OnPeripheralBatteryLevelDidChange, OnPeripheralPressureDidChange, OnPeripheralChargingStateDidChange, OnPeripheralFirmwareVersionDidChange, OnPeripheralHardwareVersionDidChange, OnPeripheralModelNumberDidChange);
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     public static void CancelPeripheralConnection(string identifier) {
-      DeviceManager.CancelPeripheralConnection(identifier);
+      PluginBridge.CancelPeripheralConnection(identifier);
     }
 
     /// <summary>
@@ -190,7 +190,7 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     public static void PowerOffPeripheral(string identifier) {
-      DeviceManager.PowerOffPeripheral(identifier);
+      PluginBridge.PowerOffPeripheral(identifier);
     }
 
     /// <summary>
@@ -199,7 +199,7 @@ namespace Hulan.PilloSDK.Framework {
     /// <param name="identifier">The identifier of the peripheral.</param>
     /// <param name="enabled">Defines whether the LED should be forced off.</param>
     public static void ForcePeripheralLedOff(string identifier, bool enabled) {
-      DeviceManager.ForcePeripheralLedOff(identifier, enabled);
+      PluginBridge.ForcePeripheralLedOff(identifier, enabled);
     }
 
     /// <summary>
@@ -207,7 +207,7 @@ namespace Hulan.PilloSDK.Framework {
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     public static void StartPeripheralCalibration(string identifier) {
-      DeviceManager.StartPeripheralCalibration(identifier);
+      PluginBridge.StartPeripheralCalibration(identifier);
     }
   }
 }
