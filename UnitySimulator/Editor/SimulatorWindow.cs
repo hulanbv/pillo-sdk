@@ -16,20 +16,20 @@ namespace Hulan.PilloSDK.Simulator {
     const string settingsBaseKey = "Hulan.PilloSDK.Simulator";
 
     /// <summary>
-    /// Key used to store the keep alive setting.
+    /// Key used to store the Pillo Simulator auto connect setting.
     /// </summary>
-    const string settingKeepAliveKey = settingsBaseKey + ".KeepAlive";
+    const string autoConnectSettingKey = settingsBaseKey + ".AutoConnect";
 
     /// <summary>
-    /// Defines if the simulated peripherals should be disconnected when the
-    /// Pillo Simulator window is closed.
+    /// Defines if the Pillo Simulator should automatically connect to
+    /// peripherals when entering Play Mode.
     /// </summary>
-    static bool keepAlive;
+    static bool autoConnect;
 
     /// <summary>
     /// The simulated peripherals.
     /// </summary>
-    static readonly List<SimulatedPillo> peripherals = new();
+    static readonly List<SimulatedPeripheral> peripherals = new();
 
     /// <summary>
     /// The scroll view position.
@@ -48,18 +48,17 @@ namespace Hulan.PilloSDK.Simulator {
     /// Method invoked when the Pillo Simulator window is enabled.
     /// </summary>
     void OnEnable() {
+      EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
       var icon = EditorGUIUtility.IconContent("d_PreMatCube");
       titleContent = new GUIContent("Pillo Simulator", icon.image);
-      keepAlive = EditorPrefs.GetBool(settingKeepAliveKey, true);
+      autoConnect = EditorPrefs.GetBool(autoConnectSettingKey, false);
     }
 
     /// <summary>
     /// Method invoked when the Pillo Simulator window is disabled.
     /// </summary>
     void OnDisable() {
-      if (keepAlive) {
-        return;
-      }
+      EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
       // Disconnect all peripherals before closing the window.
       foreach (var peripheral in peripherals) {
         peripheral.Disconnect();
@@ -68,12 +67,36 @@ namespace Hulan.PilloSDK.Simulator {
     }
 
     /// <summary>
+    /// Method invoked when the Play Mode state changes.
+    /// </summary>
+    /// <param name="state">The new Play Mode state.</param>
+    void OnPlayModeStateChanged(PlayModeStateChange state) {
+      switch (state) {
+        case PlayModeStateChange.EnteredPlayMode:
+          // Add new peripherals when entering Play Mode.
+          if (!autoConnect) {
+            return;
+          }
+          for (int i = 0; i < 2; i++) {
+            AddSimulatedPeripheral();
+          }
+          break;
+        case PlayModeStateChange.ExitingPlayMode:
+          // Disconnect all peripherals when exiting Play Mode.
+          foreach (var peripheral in peripherals) {
+            peripheral.Disconnect();
+          }
+          break;
+      }
+    }
+
+    /// <summary>
     /// Returns Generic Menu items for the Pillo Simulator window.
     /// </summary>
     /// <param name="menu">The Generic Menu to add items to.</param>
     void IHasCustomMenu.AddItemsToMenu(GenericMenu menu) {
-      menu.AddItem(new GUIContent("Keep Connections Alive"), keepAlive, () => {
-        EditorPrefs.SetBool(settingKeepAliveKey, keepAlive = !keepAlive);
+      menu.AddItem(new GUIContent("Auto Connect on Play"), autoConnect, () => {
+        EditorPrefs.SetBool(autoConnectSettingKey, autoConnect = !autoConnect);
       });
     }
 
@@ -81,7 +104,7 @@ namespace Hulan.PilloSDK.Simulator {
     /// Adds a simulated peripheral.
     /// </summary>
     void AddSimulatedPeripheral() {
-      var peripheral = new SimulatedPillo();
+      var peripheral = new SimulatedPeripheral();
       peripherals.Add(peripheral);
     }
 
@@ -89,7 +112,7 @@ namespace Hulan.PilloSDK.Simulator {
     /// Removes a simulated peripheral.
     /// </summary>
     /// <param name="peripheral">The peripheral to remove.</param>
-    void RemoveSimulatedPeripheral(SimulatedPillo peripheral) {
+    void RemoveSimulatedPeripheral(SimulatedPeripheral peripheral) {
       peripheral.Disconnect();
       peripherals.Remove(peripheral);
     }

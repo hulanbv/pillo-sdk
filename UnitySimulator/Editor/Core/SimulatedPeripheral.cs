@@ -5,7 +5,7 @@ namespace Hulan.PilloSDK.Simulator.Core {
   /// Simulated Pillo, used to test the Pillo Device Manager in the Unity Editor
   /// without the need of a physical Pillo device.
   /// </summary>
-  class SimulatedPillo {
+  class SimulatedPeripheral {
     /// <summary>
     /// The next identifier to use for a simulated Pillo.
     /// </summary>
@@ -49,9 +49,9 @@ namespace Hulan.PilloSDK.Simulator.Core {
     /// <summary>
     /// Creates a new simulated Pillo.
     /// </summary>
-    internal SimulatedPillo() {
+    internal SimulatedPeripheral() {
       // Invoke the peripheral did connect event.
-      PilloDeviceManager.onPeripheralDidConnect?.Invoke(identifier = $"SimulatedPillo{nextIdentifier++}");
+      PilloDeviceManager.onPeripheralDidConnect?.Invoke(identifier = $"SimulatedPeripheral_{nextIdentifier++}");
       // Create the published values.
       firmwareVersion = new("0.0.0", value => PilloDeviceManager.onPeripheralFirmwareVersionDidChange?.Invoke(identifier, value));
       hardwareVersion = new("0.0.0", value => PilloDeviceManager.onPeripheralHardwareVersionDidChange?.Invoke(identifier, value));
