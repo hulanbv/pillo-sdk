@@ -56,5 +56,6 @@ typedef void (*OnPeripheralModelNumberDidChange)(const char *, const char *);
 - (void)powerOffPeripheral:(NSString *)identifier;
 - (void)forcePeripheralLedOff:(NSString *)identifier enabled:(BOOL)enabled;
 - (void)calibratePeripheral:(NSString *)identifier;
+- (void)tempFixForRacingConditionCrash_unityIsReady; // TODO: Resolve this issue in a better way
 
 @end
