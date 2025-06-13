@@ -27,8 +27,8 @@ namespace Hulan.PilloSDK.BuildTools {
         var plist = new PlistDocument();
         plist.ReadFromString(File.ReadAllText(plistPath));
         // Adds the required usage descriptions to the Info Property List.
-        plist.root.SetString("NSBluetoothPeripheralUsageDescription", "Allow Pillo Play to connect to the Pillos.");
-        plist.root.SetString("NSBluetoothAlwaysUsageDescription", "Allow Pillo Play to connect to the Pillos.");
+        plist.root.SetString("NSBluetoothPeripheralUsageDescription", "Allow this app to connect to a Pillo.");
+        plist.root.SetString("NSBluetoothAlwaysUsageDescription", "Allow this app to connect to a Pillo.");
         // Writes the Info Property List back to the Xcode project.
         File.WriteAllText(plistPath, plist.WriteToString());
         Debug.Log("Pillo SDK Build Tools added usage descriptions to Info.plist");
