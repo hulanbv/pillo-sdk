@@ -26,15 +26,15 @@ The Pillo SDK Device Manager is compatible with the following platforms:
 
 ## Initialization
 
-The class is initialized automatically using Unity’s runtime hook via:
+The class is initialized automatically using Unity’s runtime initialization system. You do not need to manually instantiate or call any initialization methods. The static constructor of `PilloDeviceManager` will automatically register all necessary native callbacks when the class is first accessed.
 
 ```csharp
 [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 ```
 
-This setup ensures that all native callbacks are registered before your scene loads. No manual instantiation or setup is required.
+Get started by using the `Hulan.SDK.PilloSDK` namespace, which provides access to the `PilloDeviceManager` class.
 
----
+````csharp
 
 ## Public API Overview
 
@@ -42,7 +42,7 @@ This setup ensures that all native callbacks are registered before your scene lo
 
 ```csharp
 public static void CancelPeripheralConnection(string identifier)
-```
+````
 
 Cancels the connection attempt or active session with a peripheral device.
 
@@ -51,8 +51,6 @@ public static void PowerOffPeripheral(string identifier)
 ```
 
 Turns off the connected peripheral device entirely.
-
----
 
 ### Peripheral Hardware Behavior
 
@@ -67,8 +65,6 @@ public static void StartPeripheralCalibration(string identifier)
 ```
 
 Begins a pressure sensor calibration for the given peripheral.
-
----
 
 ## Event Delegates
 
@@ -101,10 +97,3 @@ To respond to device and system-level events, you can assign handlers to any of 
 | `onPeripheralFirmwareVersionDidChange(string identifier, string version)`    | Called when the firmware version is updated or reported.   |
 | `onPeripheralHardwareVersionDidChange(string identifier, string version)`    | Called when the hardware version is available or updated.  |
 | `onPeripheralModelNumberDidChange(string identifier, string model)`          | Called when the model number changes or becomes available. |
-
-### Usage Example
-
-```csharp
-PilloDeviceManager.onPeripheralDidConnect = (id) => Debug.Log($"Connected to device {id}");
-PilloDeviceManager.onPeripheralPressureDidChange = (id, pressure) => Debug.Log($"Pressure: {pressure}");
-```
