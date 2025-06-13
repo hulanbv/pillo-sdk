@@ -3,7 +3,7 @@
   "displayName": "Pillo SDK Device Manager",
   "version": "5.0.0",
   "unity": "2021.1",
-  "description": "The Pillo SDK Unity Device Manager provides the core functionality for interacting with the Pillo Hardware.",
+  "description": "Core functionality for interacting with the Pillo Hardware",
   "type": "library",
   "hideInEditor": false,
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk/blob/master/UnityDeviceManager/README.md",

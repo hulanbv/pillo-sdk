@@ -1,6 +1,6 @@
 # Pillo SDK Unity Device Manager
 
-The Pillo SDK Unity Device Manager provides the core functionality for interacting with the Pillo Hardware.
+The Pillo SDK Unity Device Manager provides the core functionality for interacting with the Pillo Hardware in Unity.
 
 ## Installation
 

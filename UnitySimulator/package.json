@@ -3,7 +3,7 @@
   "displayName": "Pillo SDK Simulator",
   "version": "2.1.0",
   "unity": "2021.1",
-  "description": "The Pillo SDK Unity Simulator is a Unity package that allows you to test your Pillo SDK integration in the Unity Editor.",
+  "description": "Runtime utilities to simulate the Hardware implementation",
   "type": "library",
   "hideInEditor": false,
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk/blob/master/UnitySimulator/README.md",

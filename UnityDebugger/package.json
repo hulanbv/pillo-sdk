@@ -3,7 +3,7 @@
   "displayName": "Pillo SDK Debugger",
   "version": "1.1.0",
   "unity": "2021.1",
-  "description": "The Pillo SDK Unity Debugger allows for debugging of the Pillo SDK in and outside of the Unity Editor.",
+  "description": "Hardware and software debugging and testing utilities",
   "type": "library",
   "hideInEditor": false,
   "documentationUrl": "https://github.com/hulanbv/pillo-sdk/blob/master/UnityDebugger/README.md",
