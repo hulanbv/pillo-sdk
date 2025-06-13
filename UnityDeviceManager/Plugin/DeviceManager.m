@@ -8,10 +8,13 @@
 - (instancetype)init {
   self = [super init];
   if (self) {
-//    centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil]; // TODO: Resolve this issue in a better way
     peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
   }
   return self;
+}
+
+- (void)didFinalize {
+    centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil]; 
 }
 
 
@@ -256,10 +259,6 @@
       }
     }
   }
-}
-
-- (void)tempFixForRacingConditionCrash_unityIsReady {
-    centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil]; // TODO: Resolve this issue in a better way
 }
 
 @end

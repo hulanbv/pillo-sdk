@@ -17,8 +17,7 @@ extern "C" {
     deviceManager->onPeripheralFirmwareVersionDidChange = onPeripheralFirmwareVersionDidChange;
     deviceManager->onPeripheralHardwareVersionDidChange = onPeripheralHardwareVersionDidChange;
     deviceManager->onPeripheralModelNumberDidChange = onPeripheralModelNumberDidChange;
-      
-    [deviceManager tempFixForRacingConditionCrash_unityIsReady]; // TODO: Resolve this issue in a better way
+    [deviceManager didFinalize];
   }
 
   void CancelPeripheralConnection(const char* identifier) {
