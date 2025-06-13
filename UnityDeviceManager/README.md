@@ -34,15 +34,13 @@ The class is initialized automatically using Unity’s runtime initialization sy
 
 Get started by using the `Hulan.SDK.PilloSDK` namespace, which provides access to the `PilloDeviceManager` class.
 
-````csharp
-
 ## Public API Overview
 
 ### Peripheral Connection Control
 
 ```csharp
 public static void CancelPeripheralConnection(string identifier)
-````
+```
 
 Cancels the connection attempt or active session with a peripheral device.
 
