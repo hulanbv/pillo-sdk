@@ -7,7 +7,7 @@ The Pillo SDK Unity Device Manager provides the core functionality for interacti
 Install the latest stable release using the Unity Package Manager by adding the following line to your manifest.json file located within your project's Packages directory, or add the GIT URL to the Unity Package Manager directly.
 
 ```json
-"nl.hulan.pillo-sdk.device-manager": "https://github.com/hulanbv/pillo-sdk-mono.git?path=/UnityDeviceManager"
+"nl.hulan.pillo-sdk.device-manager": "https://github.com/hulanbv/pillo-sdk.git?path=/UnityDeviceManager"
 ```
 
 ## Compatibility

@@ -6,10 +6,10 @@
   "description": "The Pillo SDK Unity Debugger allows for debugging of the Pillo SDK in and outside of the Unity Editor.",
   "type": "library",
   "hideInEditor": false,
-  "documentationUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityDebugger/README.md",
-  "changelogUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/UnityDebugger/CHANGELOG.md",
-  "licensesUrl": "https://github.com/hulanbv/pillo-sdk-mono/blob/master/LICENSE.md",
-  "repository": "https://github.com/hulanbv/pillo-sdk-mono.git",
+  "documentationUrl": "https://github.com/hulanbv/pillo-sdk/blob/master/UnityDebugger/README.md",
+  "changelogUrl": "https://github.com/hulanbv/pillo-sdk/blob/master/UnityDebugger/CHANGELOG.md",
+  "licensesUrl": "https://github.com/hulanbv/pillo-sdk/blob/master/LICENSE.md",
+  "repository": "https://github.com/hulanbv/pillo-sdk.git",
   "dependencies": {
     "nl.hulan.pillo-sdk.device-manager": "5.0.0",
     "com.unity.modules.imgui": "1.0.0"
