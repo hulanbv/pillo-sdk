@@ -4,12 +4,12 @@ The Pillo SDK has everything you'll need to get started implementing Pillos in y
 
 ## Table of Contents
 
-| Package name   | Description                                                | Runtime Package                                                                     |
-| -------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Device Manager | Core functionality for interacting with the Pillo Hardware | [Unity Engine](https://github.com/hulanbv/pillo-sdk/tree/master/UnityDeviceManager) |
-| Simulator      | Runtime utilities to simulate the Hardware implementation  | [Unity Engine](https://github.com/hulanbv/pillo-sdk/tree/master/UnitySimulator)     |
-| Build Tools    | Build tools for streamlining the SDK implementation        | [Unity Engine](https://github.com/hulanbv/pillo-sdk/tree/master/UnityBuildTools)    |
-| Debugger       | Hardware and software debugging and testing utilities      | [Unity Engine](https://github.com/hulanbv/pillo-sdk/tree/master/UnityDebugger)      |
+| Package name   | Description                                                | Runtime                                                                      | Platform          |
+| -------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------- |
+| Device Manager | Core functionality for interacting with the Pillo Hardware | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnityDeviceManager) | iOS, iPadOS, tvOS |
+| Build Tools    | Build tools for streamlining the SDK implementation        | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnityBuildTools)    | iOS, iPadOS, tvOS |
+| Simulator      | Runtime utilities to simulate the Hardware implementation  | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnitySimulator)     | N/A               |
+| Debugger       | Hardware and software debugging and testing utilities      | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnityDebugger)      | N/A               |
 
 ## License
 
