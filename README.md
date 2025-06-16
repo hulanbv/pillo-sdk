@@ -4,7 +4,7 @@ The Pillo SDK has everything you'll need to get started implementing Pillos in y
 
 ## Table of Contents
 
-| Package name   | Description                                                | Runtime                                                                      | Platform          |
+| Package        | Description                                                | Runtime                                                                      | Platforms         |
 | -------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------- |
 | Device Manager | Core functionality for interacting with the Pillo Hardware | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnityDeviceManager) | iOS, iPadOS, tvOS |
 | Build Tools    | Build tools for streamlining the SDK implementation        | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnityBuildTools)    | iOS, iPadOS, tvOS |
