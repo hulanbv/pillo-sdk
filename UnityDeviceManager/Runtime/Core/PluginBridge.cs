@@ -74,7 +74,7 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
     [DllImport("__Internal")]
     internal static extern void ForcePeripheralLedOff(string identifier, bool enabled);
 #else
-    internal static void ForcePeripheralLedOff(string identifier) {
+    internal static void ForcePeripheralLedOff(string identifier, bool enabled) {
       Debug.LogWarning("Forcing the LED state of a Peripheral is not supported on the current platform.");
     }
 #endif
