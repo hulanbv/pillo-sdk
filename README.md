@@ -1,6 +1,6 @@
 ![readme banner](https://github.com/hulanbv/pillo-sdk/blob/master/.github/wiki/readme-banner.png?raw=true)
 
-The Pillo SDK has everything you'll need to get started implementing Pillos in your project, providing packages with various modules, libraries and editor utilities.
+The Pillo SDK contains everything you'll need to get started implementing Pillos in your project, providing packages with various modules, libraries and editor utilities.
 
 ## Table of Contents
 
