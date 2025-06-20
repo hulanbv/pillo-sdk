@@ -1,7 +1,7 @@
-using UnityEngine;
-
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS || UNITY_TVOS
 using System.Runtime.InteropServices;
+#else
+using UnityEngine;
 #endif
 
 namespace Hulan.PilloSDK.DeviceManager.Core {
