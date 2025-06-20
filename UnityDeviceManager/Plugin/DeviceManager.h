@@ -1,6 +1,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
+#ifdef __cplusplus
+#define UNITY_EXPORT extern "C" __attribute__((visibility("default")))
+#else
+#define UNITY_EXPORT extern __attribute__((visibility("default")))
+#endif
+
 #define DEVICEINFORMATION_SERVICE_UUID @"180A"
 #define DEVICEINFORMATION_MODELNUMBER_CHARACTERISTIC_UUID @"2A24"
 #define DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID @"2A26"
@@ -36,20 +42,34 @@ typedef void (*OnPeripheralFirmwareVersionDidChange)(const char *, const char *)
 typedef void (*OnPeripheralHardwareVersionDidChange)(const char *, const char *);
 typedef void (*OnPeripheralModelNumberDidChange)(const char *, const char *);
 
+UNITY_EXPORT OnCentralDidInitialize onCentralDidInitialize;
+UNITY_EXPORT OnCentralDidFailToInitialize onCentralDidFailToInitialize;
+UNITY_EXPORT OnCentralDidStartScanning onCentralDidStartScanning;
+UNITY_EXPORT OnCentralDidStopScanning onCentralDidStopScanning;
+UNITY_EXPORT OnPeripheralDidConnect onPeripheralDidConnect;
+UNITY_EXPORT OnPeripheralDidDisconnect onPeripheralDidDisconnect;
+UNITY_EXPORT OnPeripheralDidFailToConnect onPeripheralDidFailToConnect;
+UNITY_EXPORT OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange;
+UNITY_EXPORT OnPeripheralPressureDidChange onPeripheralPressureDidChange;
+UNITY_EXPORT OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange;
+UNITY_EXPORT OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange;
+UNITY_EXPORT OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange;
+UNITY_EXPORT OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
+
 @interface DeviceManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate> {
-    @public OnCentralDidInitialize onCentralDidInitialize;
-    @public OnCentralDidFailToInitialize onCentralDidFailToInitialize;
-    @public OnCentralDidStartScanning onCentralDidStartScanning;
-    @public OnCentralDidStopScanning onCentralDidStopScanning;
-    @public OnPeripheralDidConnect onPeripheralDidConnect;
-    @public OnPeripheralDidDisconnect onPeripheralDidDisconnect;
-    @public OnPeripheralDidFailToConnect onPeripheralDidFailToConnect;
-    @public OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange;
-    @public OnPeripheralPressureDidChange onPeripheralPressureDidChange;
-    @public OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange;
-    @public OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange;
-    @public OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange;
-    @public OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
+@public OnCentralDidInitialize onCentralDidInitialize;
+@public OnCentralDidFailToInitialize onCentralDidFailToInitialize;
+@public OnCentralDidStartScanning onCentralDidStartScanning;
+@public OnCentralDidStopScanning onCentralDidStopScanning;
+@public OnPeripheralDidConnect onPeripheralDidConnect;
+@public OnPeripheralDidDisconnect onPeripheralDidDisconnect;
+@public OnPeripheralDidFailToConnect onPeripheralDidFailToConnect;
+@public OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange;
+@public OnPeripheralPressureDidChange onPeripheralPressureDidChange;
+@public OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange;
+@public OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange;
+@public OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange;
+@public OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 }
 
 - (void)didFinalize;

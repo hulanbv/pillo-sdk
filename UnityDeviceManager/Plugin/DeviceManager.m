@@ -1,8 +1,24 @@
+
 #import "DeviceManager.h"
+
+#if defined(__cplusplus)
+#define DEVICE_MANAGER_EXPORT extern "C"
+#else
+#define DEVICE_MANAGER_EXPORT extern
+#endif
 
 @implementation DeviceManager {
   CBCentralManager *centralManager;
   NSMutableArray<CBPeripheral *> *peripherals;
+}
+
++ (instancetype)sharedInstance {
+  static DeviceManager *sharedInstance = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    sharedInstance = [[DeviceManager alloc] init];
+  });
+  return sharedInstance;
 }
 
 - (instancetype)init {
@@ -14,7 +30,7 @@
 }
 
 - (void)didFinalize {
-    centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil]; 
+  centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
 }
 
 
@@ -262,3 +278,9 @@
 }
 
 @end
+
+// C-callable wrappers for Unity (outside @implementation)
+
+DEVICE_MANAGER_EXPORT void StartPeripheralScan(void) {
+  [[DeviceManager sharedInstance] peripheralsScanningRoutine];
+}
