@@ -18,7 +18,7 @@
                BlueprintIdentifier = "82C55A6B2E056B610096F2C9"
                BuildableName = "PilloDeviceManager.bundle"
                BlueprintName = "PilloDeviceManager"
-               ReferencedContainer = "container:Pillo SDK Device Manager Plugin.xcodeproj">
+               ReferencedContainer = "container:Pillo SDK Device Manager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -57,7 +57,7 @@
             BlueprintIdentifier = "82C55A6B2E056B610096F2C9"
             BuildableName = "PilloDeviceManager.bundle"
             BlueprintName = "PilloDeviceManager"
-            ReferencedContainer = "container:Pillo SDK Device Manager Plugin.xcodeproj">
+            ReferencedContainer = "container:Pillo SDK Device Manager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
