@@ -9,18 +9,33 @@ using UnityEngine;
 // TODO: And/otherwise also check if the changes to the m, mm and h file didnt break the iOS build
 
 namespace Hulan.PilloSDK.DeviceManager.Core {
+  /// <summary>
+  /// The Plugin Bridge manages the Device Manager Native Plugin.
+  /// </summary>
+  public static class PluginBridge {
     /// <summary>
-    /// The Plugin Bridge manages the Device Manager Native Plugin.
+    /// Exposed Device Manager Native Plugin method to set the delegates.
     /// </summary>
-    public static class PluginBridge {
-        /// <summary>
-        /// Exposed Device Manager Native Plugin method to set the delegates.
-        /// </summary>
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-        [DllImport("PilloDeviceManager")]
-        internal static extern void SetDelegates(Delegates.OnCentralDidInitialize onCentralDidInitialize, Delegates.OnCentralDidFailToInitialize onCentralDidFailToInitialize, Delegates.OnCentralDidStartScanning onCentralDidStartScanning, Delegates.OnCentralDidStopScanning onCentralDidStopScanning, Delegates.OnPeripheralDidConnect onPeripheralDidConnect, Delegates.OnPeripheralDidDisconnect onPeripheralDidDisconnect, Delegates.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect, Delegates.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange, Delegates.OnPeripheralPressureDidChange onPeripheralPressureDidChange, Delegates.OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange, Delegates.OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange, Delegates.OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange, Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange);
+    [DllImport("PilloDeviceManager", EntryPoint = "PilloDeviceManagerStartService")]
+    internal static extern void StartService();
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport("__Internal")]
+    [DllImport("__Internal", EntryPoint = "PilloDeviceManagerStartService")]
+    internal static extern void StartService();
+#else
+    internal static void StartService() {
+      Debug.LogWarning("Starting the Device Manager service is not supported on the current platform.");
+    }
+#endif
+
+    /// <summary>
+    /// Exposed Device Manager Native Plugin method to set the delegates.
+    /// </summary>
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+    [DllImport("PilloDeviceManager", EntryPoint = "PilloDeviceManagerSetDelegates")]
+    internal static extern void SetDelegates(Delegates.OnCentralDidInitialize onCentralDidInitialize, Delegates.OnCentralDidFailToInitialize onCentralDidFailToInitialize, Delegates.OnCentralDidStartScanning onCentralDidStartScanning, Delegates.OnCentralDidStopScanning onCentralDidStopScanning, Delegates.OnPeripheralDidConnect onPeripheralDidConnect, Delegates.OnPeripheralDidDisconnect onPeripheralDidDisconnect, Delegates.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect, Delegates.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange, Delegates.OnPeripheralPressureDidChange onPeripheralPressureDidChange, Delegates.OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange, Delegates.OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange, Delegates.OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange, Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange);
+#elif UNITY_IOS || UNITY_TVOS
+    [DllImport("__Internal", EntryPoint = "PilloDeviceManagerSetDelegates")]
     internal static extern void SetDelegates(Delegates.OnCentralDidInitialize onCentralDidInitialize, Delegates.OnCentralDidFailToInitialize onCentralDidFailToInitialize, Delegates.OnCentralDidStartScanning onCentralDidStartScanning, Delegates.OnCentralDidStopScanning onCentralDidStopScanning, Delegates.OnPeripheralDidConnect onPeripheralDidConnect, Delegates.OnPeripheralDidDisconnect onPeripheralDidDisconnect, Delegates.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect, Delegates.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange, Delegates.OnPeripheralPressureDidChange onPeripheralPressureDidChange, Delegates.OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange, Delegates.OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange, Delegates.OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange, Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange);
 #else
     internal static void SetDelegates(Delegates.OnCentralDidInitialize onCentralDidInitialize, Delegates.OnCentralDidFailToInitialize onCentralDidFailToInitialize, Delegates.OnCentralDidStartScanning onCentralDidStartScanning, Delegates.OnCentralDidStopScanning onCentralDidStopScanning, Delegates.OnPeripheralDidConnect onPeripheralDidConnect, Delegates.OnPeripheralDidDisconnect onPeripheralDidDisconnect, Delegates.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect, Delegates.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange, Delegates.OnPeripheralPressureDidChange onPeripheralPressureDidChange, Delegates.OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange, Delegates.OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange, Delegates.OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange, Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange) {
@@ -28,16 +43,16 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
     }
 #endif
 
-        /// <summary>
-        /// Exposed Device Manager Native Plugin method to cancel a Peripheral 
-        /// connection.
-        /// </summary>
-        /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <summary>
+    /// Exposed Device Manager Native Plugin method to cancel a Peripheral 
+    /// connection.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-        [DllImport("PilloDeviceManager")]
-        internal static extern void CancelPeripheralConnection(string identifier);
+    [DllImport("PilloDeviceManager", EntryPoint = "PilloDeviceManagerCancelPeripheralConnection")]
+    internal static extern void CancelPeripheralConnection(string identifier);
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport("__Internal")]
+    [DllImport("__Internal", EntryPoint = "PilloDeviceManagerCancelPeripheralConnection")]
     internal static extern void CancelPeripheralConnection(string identifier);
 #else
     internal static void CancelPeripheralConnection(string identifier) {
@@ -45,15 +60,15 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
     }
 #endif
 
-        /// <summary>
-        /// Exposed Device Manager Native Plugin method to power off a Peripheral.
-        /// </summary>
-        /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <summary>
+    /// Exposed Device Manager Native Plugin method to power off a Peripheral.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-        [DllImport("PilloDeviceManager")]
-        internal static extern void PowerOffPeripheral(string identifier);
+    [DllImport("PilloDeviceManager", EntryPoint = "PilloDeviceManagerPowerOffPeripheral")]
+    internal static extern void PowerOffPeripheral(string identifier);
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport("__Internal")]
+    [DllImport("__Internal", EntryPoint = "PilloDeviceManagerPowerOffPeripheral")]
     internal static extern void PowerOffPeripheral(string identifier);
 #else
     internal static void PowerOffPeripheral(string identifier) {
@@ -61,17 +76,17 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
     }
 #endif
 
-        /// <summary>
-        /// Forces the LED of a Peripheral to be turned off.
-        /// Peripheral.
-        /// </summary>
-        /// <param name="identifier">The identifier of the Peripheral.</param>
-        /// <param name="enabled">Defines whether the LED should be forced off.</param>
+    /// <summary>
+    /// Forces the LED of a Peripheral to be turned off.
+    /// Peripheral.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <param name="enabled">Defines whether the LED should be forced off.</param>
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-        [DllImport("PilloDeviceManager")]
-        internal static extern void ForcePeripheralLedOff(string identifier, bool enabled);
+    [DllImport("PilloDeviceManager", EntryPoint = "PilloDeviceManagerForcePeripheralLedOff")]
+    internal static extern void ForcePeripheralLedOff(string identifier, bool enabled);
 #elif UNITY_IOS || UNITY_TVOS
-    [DllImport("__Internal")]
+    [DllImport("__Internal", EntryPoint = "PilloDeviceManagerForcePeripheralLedOff")]
     internal static extern void ForcePeripheralLedOff(string identifier, bool enabled);
 #else
     internal static void ForcePeripheralLedOff(string identifier, bool enabled) {
@@ -79,21 +94,21 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
     }
 #endif
 
-        /// <summary>
-        /// Exposed Device Manager Native Plugin method to start a Peripheral
-        /// calibration.
-        /// </summary>
-        /// <param name="identifier">The identifier of the Peripheral.</param>
+    /// <summary>
+    /// Exposed Device Manager Native Plugin method to start a Peripheral
+    /// calibration.
+    /// </summary>
+    /// <param name="identifier">The identifier of the Peripheral.</param>
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-        [DllImport("PilloDeviceManager")]
-        internal static extern void StartPeripheralCalibration(string identifier);
-#elif UNITY_IOS || UNITY_TVOS
-    [DllImport("__Internal")]
+    [DllImport("PilloDeviceManager", EntryPoint = "PilloDeviceManagerStartPeripheralCalibration")]
     internal static extern void StartPeripheralCalibration(string identifier);
+#elif UNITY_IOS || UNITY_TVOS
+    [DllImport("__Internal", EntryPoint = "PilloDeviceManagerStartPeripheralCalibration")]
+    internal static extern void PeripheralCalibration(string identifier);
 #else
     internal static void StartPeripheralCalibration(string identifier) {
       Debug.LogWarning("Starting a Peripheral calibration is not supported on the current platform.");
     }
 #endif
-    }
+  }
 }
