@@ -1,4 +1,4 @@
-#import "DeviceManager.h"
+#import "PilloDeviceManager.h"
 
 #define EXPORT_SYMBOL extern "C" __attribute__((visibility("default")))
 

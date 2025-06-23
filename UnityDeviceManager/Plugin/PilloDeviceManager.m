@@ -1,5 +1,5 @@
 
-#import "DeviceManager.h"
+#import "PilloDeviceManager.h"
 
 #if defined(__cplusplus)
 #define DEVICE_MANAGER_EXPORT extern "C"

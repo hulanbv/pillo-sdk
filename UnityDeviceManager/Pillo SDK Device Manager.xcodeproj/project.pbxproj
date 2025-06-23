@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82C55A702E056B7A0096F2C9 /* DeviceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 820FB7BF273445D2004F02C5 /* DeviceManager.mm */; };
-		82C55A712E056B7A0096F2C9 /* DeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E21D182AE9246300D93B6E /* DeviceManager.m */; };
+		82C55A702E056B7A0096F2C9 /* PilloDeviceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 820FB7BF273445D2004F02C5 /* PilloDeviceManager.mm */; };
+		82C55A712E056B7A0096F2C9 /* PilloDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E21D182AE9246300D93B6E /* PilloDeviceManager.m */; };
 		82C55A742E056BB80096F2C9 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C55A732E056BB80096F2C9 /* CoreBluetooth.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		820FB7BE273445D2004F02C5 /* DeviceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceManager.h; sourceTree = "<group>"; };
-		820FB7BF273445D2004F02C5 /* DeviceManager.mm */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.objcpp; path = DeviceManager.mm; sourceTree = "<group>"; };
-		82C55A6C2E056B610096F2C9 /* Plugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		820FB7BE273445D2004F02C5 /* PilloDeviceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PilloDeviceManager.h; sourceTree = "<group>"; };
+		820FB7BF273445D2004F02C5 /* PilloDeviceManager.mm */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.objcpp; path = PilloDeviceManager.mm; sourceTree = "<group>"; };
+		82C55A6C2E056B610096F2C9 /* PilloDeviceManager.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PilloDeviceManager.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		82C55A732E056BB80096F2C9 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
-		82E21D182AE9246300D93B6E /* DeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = DeviceManager.m; sourceTree = "<group>"; };
+		82E21D182AE9246300D93B6E /* PilloDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PilloDeviceManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +44,7 @@
 		820FB7BC273445D2004F02C5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				82C55A6C2E056B610096F2C9 /* Plugin.bundle */,
+				82C55A6C2E056B610096F2C9 /* PilloDeviceManager.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -52,9 +52,9 @@
 		820FB7C7273445FC004F02C5 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				820FB7BE273445D2004F02C5 /* DeviceManager.h */,
-				82E21D182AE9246300D93B6E /* DeviceManager.m */,
-				820FB7BF273445D2004F02C5 /* DeviceManager.mm */,
+				820FB7BE273445D2004F02C5 /* PilloDeviceManager.h */,
+				82E21D182AE9246300D93B6E /* PilloDeviceManager.m */,
+				820FB7BF273445D2004F02C5 /* PilloDeviceManager.mm */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -70,9 +70,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		82C55A6B2E056B610096F2C9 /* Plugin */ = {
+		82C55A6B2E056B610096F2C9 /* PilloDeviceManager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 82C55A6D2E056B610096F2C9 /* Build configuration list for PBXNativeTarget "Plugin" */;
+			buildConfigurationList = 82C55A6D2E056B610096F2C9 /* Build configuration list for PBXNativeTarget "PilloDeviceManager" */;
 			buildPhases = (
 				82C55A682E056B610096F2C9 /* Sources */,
 				82C55A692E056B610096F2C9 /* Frameworks */,
@@ -82,11 +82,11 @@
 			);
 			dependencies = (
 			);
-			name = Plugin;
+			name = PilloDeviceManager;
 			packageProductDependencies = (
 			);
 			productName = Plugin;
-			productReference = 82C55A6C2E056B610096F2C9 /* Plugin.bundle */;
+			productReference = 82C55A6C2E056B610096F2C9 /* PilloDeviceManager.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -103,7 +103,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 820FB7B6273445D1004F02C5 /* Build configuration list for PBXProject "Plugin" */;
+			buildConfigurationList = 820FB7B6273445D1004F02C5 /* Build configuration list for PBXProject "Pillo SDK Device Manager Plugin" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -116,7 +116,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				82C55A6B2E056B610096F2C9 /* Plugin */,
+				82C55A6B2E056B610096F2C9 /* PilloDeviceManager */,
 			);
 		};
 /* End PBXProject section */
@@ -136,8 +136,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82C55A702E056B7A0096F2C9 /* DeviceManager.mm in Sources */,
-				82C55A712E056B7A0096F2C9 /* DeviceManager.m in Sources */,
+				82C55A702E056B7A0096F2C9 /* PilloDeviceManager.mm in Sources */,
+				82C55A712E056B7A0096F2C9 /* PilloDeviceManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +321,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		820FB7B6273445D1004F02C5 /* Build configuration list for PBXProject "Plugin" */ = {
+		820FB7B6273445D1004F02C5 /* Build configuration list for PBXProject "Pillo SDK Device Manager Plugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				820FB7C2273445D2004F02C5 /* Debug */,
@@ -330,7 +330,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82C55A6D2E056B610096F2C9 /* Build configuration list for PBXNativeTarget "Plugin" */ = {
+		82C55A6D2E056B610096F2C9 /* Build configuration list for PBXNativeTarget "PilloDeviceManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				82C55A6E2E056B610096F2C9 /* Debug */,
