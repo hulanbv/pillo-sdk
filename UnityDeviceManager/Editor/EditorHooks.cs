@@ -1,7 +1,5 @@
-using System.Diagnostics;
 using Hulan.PilloSDK.DeviceManager.Core;
 using UnityEditor;
-using UnityEditor.Compilation;
 
 namespace Hulan.PilloSDK.DeviceManager.Editor {
   /// <summary>
@@ -14,10 +12,7 @@ namespace Hulan.PilloSDK.DeviceManager.Editor {
     /// Registers a callback for the Unity Editor's play mode state changes.
     /// </summary>
     static EditorHooks() {
-      UnityEngine.Debug.Log("EditorHooks: Initializing Device Manager service...");
       EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-      AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
-      // EditorApplication.quitting += OnEditorQuitting;
     }
 
     /// <summary>
@@ -28,18 +23,7 @@ namespace Hulan.PilloSDK.DeviceManager.Editor {
     private static void OnPlayModeStateChanged(PlayModeStateChange state) {
       if (state == PlayModeStateChange.ExitingPlayMode) {
         PluginBridge.StopService();
-        UnityEngine.Debug.Log("EditorHooks: Stopping Device Manager service on exiting play mode.");
       }
-    }
-
-    private static void OnBeforeAssemblyReload() {
-      PluginBridge.StopService();
-      UnityEngine.Debug.Log("EditorHooks: Stopping Device Manager service before assembly reload.");
-    }
-
-    private static void OnEditorQuitting() {
-      PluginBridge.StopService();
-      UnityEngine.Debug.Log("EditorHooks: Stopping Device Manager service on editor quitting.");
     }
   }
 }
