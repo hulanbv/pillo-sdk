@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using Hulan.PilloSDK.DeviceManager.Core;
 using UnityEditor;
 
@@ -27,3 +28,4 @@ namespace Hulan.PilloSDK.DeviceManager.Editor {
     }
   }
 }
+#endif
