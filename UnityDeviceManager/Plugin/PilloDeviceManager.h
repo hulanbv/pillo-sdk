@@ -1,10 +1,18 @@
+//
+//  PilloDeviceManager.h
+//  Pillo SDK Device Manager
+//  Plugin
+//
+//  Created by Jeffrey Lanters on 14/08/2024.
+//
+
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
 #ifdef __cplusplus
-#define UNITY_EXPORT extern "C" __attribute__((visibility("default")))
+#define PILLO_UNITY_EXPORT extern "C" __attribute__((visibility("default")))
 #else
-#define UNITY_EXPORT extern __attribute__((visibility("default")))
+#define PILLO_UNITY_EXPORT extern __attribute__((visibility("default")))
 #endif
 
 #define DEVICEINFORMATION_SERVICE_UUID @"180A"
@@ -42,21 +50,21 @@ typedef void (*OnPeripheralFirmwareVersionDidChange)(const char *, const char *)
 typedef void (*OnPeripheralHardwareVersionDidChange)(const char *, const char *);
 typedef void (*OnPeripheralModelNumberDidChange)(const char *, const char *);
 
-UNITY_EXPORT OnCentralDidInitialize onCentralDidInitialize;
-UNITY_EXPORT OnCentralDidFailToInitialize onCentralDidFailToInitialize;
-UNITY_EXPORT OnCentralDidStartScanning onCentralDidStartScanning;
-UNITY_EXPORT OnCentralDidStopScanning onCentralDidStopScanning;
-UNITY_EXPORT OnPeripheralDidConnect onPeripheralDidConnect;
-UNITY_EXPORT OnPeripheralDidDisconnect onPeripheralDidDisconnect;
-UNITY_EXPORT OnPeripheralDidFailToConnect onPeripheralDidFailToConnect;
-UNITY_EXPORT OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange;
-UNITY_EXPORT OnPeripheralPressureDidChange onPeripheralPressureDidChange;
-UNITY_EXPORT OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange;
-UNITY_EXPORT OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange;
-UNITY_EXPORT OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange;
-UNITY_EXPORT OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
+PILLO_UNITY_EXPORT OnCentralDidInitialize onCentralDidInitialize;
+PILLO_UNITY_EXPORT OnCentralDidFailToInitialize onCentralDidFailToInitialize;
+PILLO_UNITY_EXPORT OnCentralDidStartScanning onCentralDidStartScanning;
+PILLO_UNITY_EXPORT OnCentralDidStopScanning onCentralDidStopScanning;
+PILLO_UNITY_EXPORT OnPeripheralDidConnect onPeripheralDidConnect;
+PILLO_UNITY_EXPORT OnPeripheralDidDisconnect onPeripheralDidDisconnect;
+PILLO_UNITY_EXPORT OnPeripheralDidFailToConnect onPeripheralDidFailToConnect;
+PILLO_UNITY_EXPORT OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange;
+PILLO_UNITY_EXPORT OnPeripheralPressureDidChange onPeripheralPressureDidChange;
+PILLO_UNITY_EXPORT OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange;
+PILLO_UNITY_EXPORT OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange;
+PILLO_UNITY_EXPORT OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange;
+PILLO_UNITY_EXPORT OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 
-@interface DeviceManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate> {
+@interface PilloDeviceManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate> {
 @public OnCentralDidInitialize onCentralDidInitialize;
 @public OnCentralDidFailToInitialize onCentralDidFailToInitialize;
 @public OnCentralDidStartScanning onCentralDidStartScanning;
@@ -72,7 +80,7 @@ UNITY_EXPORT OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 @public OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 }
 
-- (void)didFinalize;
+- (void)startService;
 - (void)cancelPeripheralConnection:(NSString *)identifier;
 - (void)powerOffPeripheral:(NSString *)identifier;
 - (void)forcePeripheralLedOff:(NSString *)identifier enabled:(BOOL)enabled;
