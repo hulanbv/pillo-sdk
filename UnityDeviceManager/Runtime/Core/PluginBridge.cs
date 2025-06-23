@@ -14,7 +14,8 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
   /// </summary>
   public static class PluginBridge {
     /// <summary>
-    /// Exposed Device Manager Native Plugin method to set the delegates.
+    /// Exposed Device Manager Native Plugin method to start the Device Manager
+    /// service.
     /// </summary>
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
     [DllImport("PilloDeviceManager", EntryPoint = "PilloDeviceManagerStartService")]
@@ -25,6 +26,22 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
 #else
     internal static void StartService() {
       Debug.LogWarning("Starting the Device Manager service is not supported on the current platform.");
+    }
+#endif
+
+    /// <summary>
+    /// Exposed Device Manager Native Plugin method to stop the Device Manager
+    /// service.
+    /// </summary>
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+    [DllImport("PilloDeviceManager", EntryPoint = "PilloDeviceManagerStopService")]
+    internal static extern void StopService();
+#elif UNITY_IOS || UNITY_TVOS
+    [DllImport("__Internal", EntryPoint = "PilloDeviceManagerStopService")]
+    internal static extern void StopService();
+#else
+    internal static void StopService() {
+      Debug.LogWarning("Stoping the Device Manager service is not supported on the current platform.");
     }
 #endif
 
