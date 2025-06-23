@@ -173,8 +173,8 @@ namespace Hulan.PilloSDK.DeviceManager {
     /// </summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void RuntimeInitializeOnLoad() {
-      // Set the device manager delegates.
       PluginBridge.SetDelegates(OnCentralDidInitialize, OnCentralDidFailToInitialize, OnCentralDidStartScanning, OnCentralDidStopScanning, OnPeripheralDidConnect, OnPeripheralDidDisconnect, OnPeripheralDidFailToConnect, OnPeripheralBatteryLevelDidChange, OnPeripheralPressureDidChange, OnPeripheralChargingStateDidChange, OnPeripheralFirmwareVersionDidChange, OnPeripheralHardwareVersionDidChange, OnPeripheralModelNumberDidChange);
+      PluginBridge.StartService();
     }
 
     /// <summary>
