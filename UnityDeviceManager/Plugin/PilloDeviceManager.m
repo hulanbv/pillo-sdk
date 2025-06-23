@@ -17,7 +17,6 @@
 @implementation PilloDeviceManager {
   CBCentralManager *centralManager;
   NSMutableArray<CBPeripheral *> *peripherals;
-  BOOL isServiceStarted;
 }
 
 + (instancetype)sharedInstance {
@@ -37,12 +36,18 @@
   return self;
 }
 
+
 - (void)startService {
-  if (isServiceStarted) {
-    return;
-  }
-  isServiceStarted = YES;
   centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+}
+
+- (void)stopService {
+  [centralManager stopScan];
+  for (CBPeripheral *peripheral in peripherals) {
+    [centralManager cancelPeripheralConnection:peripheral];
+  }
+  peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
+  centralManager = nil;
 }
 
 - (void)peripheralsScanningRoutine {

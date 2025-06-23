@@ -32,15 +32,20 @@ PILLO_EXPORT_SYMBOL void PilloDeviceManagerStartService() {
   if (pilloDeviceManager == nil) {
     return;
   }
-  
   [pilloDeviceManager startService];
+}
+
+PILLO_EXPORT_SYMBOL void PilloDeviceManagerStopService() {
+  if (pilloDeviceManager == nil) {
+    return;
+  }
+  [pilloDeviceManager stopService];
 }
 
 PILLO_EXPORT_SYMBOL void PilloDeviceManagerCancelPeripheralConnection(const char* identifier) {
   if (pilloDeviceManager == nil || identifier == nil) {
     return;
   }
-  
   [pilloDeviceManager cancelPeripheralConnection:[NSString stringWithUTF8String:identifier]];
 }
 
@@ -48,7 +53,6 @@ PILLO_EXPORT_SYMBOL void PilloDeviceManagerPowerOffPeripheral(const char* identi
   if (pilloDeviceManager == nil || identifier == nil) {
     return;
   }
-  
   [pilloDeviceManager powerOffPeripheral:[NSString stringWithUTF8String:identifier]];
 }
 
@@ -56,7 +60,6 @@ PILLO_EXPORT_SYMBOL void PilloDeviceManagerForcePeripheralLedOff(const char* ide
   if (pilloDeviceManager == nil || identifier == nil) {
     return;
   }
-  
   [pilloDeviceManager forcePeripheralLedOff:[NSString stringWithUTF8String:identifier] enabled:enabled];
 }
 
@@ -64,6 +67,5 @@ PILLO_EXPORT_SYMBOL void PilloDeviceManagerStartPeripheralCalibration(const char
   if (pilloDeviceManager == nil || identifier == nil) {
     return;
   }
-  
   [pilloDeviceManager calibratePeripheral:[NSString stringWithUTF8String:identifier]];
 }

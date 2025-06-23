@@ -81,6 +81,7 @@ PILLO_UNITY_EXPORT OnPeripheralModelNumberDidChange onPeripheralModelNumberDidCh
 }
 
 - (void)startService;
+- (void)stopService;
 - (void)cancelPeripheralConnection:(NSString *)identifier;
 - (void)powerOffPeripheral:(NSString *)identifier;
 - (void)forcePeripheralLedOff:(NSString *)identifier enabled:(BOOL)enabled;
