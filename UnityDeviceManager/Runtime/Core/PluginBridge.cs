@@ -4,10 +4,6 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 #endif
 
-// TODO: clean-up when unity editor stops running
-// TODO: Check if iOS can also use the PilloDeviceManager plugin so the source code cna be moved away
-// TODO: And/otherwise also check if the changes to the m, mm and h file didnt break the iOS build
-
 namespace Hulan.PilloSDK.DeviceManager.Core {
   /// <summary>
   /// The Plugin Bridge manages the Device Manager Native Plugin.
