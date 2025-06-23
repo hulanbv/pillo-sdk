@@ -7,13 +7,13 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>Plugin</string>
+	<string>PilloDeviceManager</string>
 	<key>CFBundleIdentifier</key>
 	<string>nl.hulan.pillosdk.devicemanager.plugin</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Plugin</string>
+	<string>PilloDeviceManager</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
