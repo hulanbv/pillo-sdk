@@ -117,7 +117,7 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
     internal static extern void StartPeripheralCalibration(string identifier);
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal", EntryPoint = "PilloDeviceManagerStartPeripheralCalibration")]
-    internal static extern void PeripheralCalibration(string identifier);
+    internal static extern void StartPeripheralCalibration(string identifier);
 #else
     internal static void StartPeripheralCalibration(string identifier) {
       Debug.LogWarning("Starting a Peripheral calibration is not supported on the current platform.");
