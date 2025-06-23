@@ -45,6 +45,9 @@
 }
 
 - (void)peripheralsScanningRoutine {
+  if (centralManager == nil) {
+    return;
+  }
   if ([centralManager isScanning]) {
     if ([peripherals count] > 0) {
       [centralManager stopScan];
