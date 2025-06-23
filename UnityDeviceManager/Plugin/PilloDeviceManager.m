@@ -1,22 +1,30 @@
+//
+//  PilloDeviceManager.m
+//  Pillo SDK Device Manager
+//  Plugin
+//
+//  Created by Jeffrey Lanters on 14/08/2024.
+//
 
 #import "PilloDeviceManager.h"
 
 #if defined(__cplusplus)
-#define DEVICE_MANAGER_EXPORT extern "C"
+#define PILLO_DEVICE_MANAGER_EXPORT extern "C"
 #else
-#define DEVICE_MANAGER_EXPORT extern
+#define PILLO_DEVICE_MANAGER_EXPORT extern
 #endif
 
-@implementation DeviceManager {
+@implementation PilloDeviceManager {
   CBCentralManager *centralManager;
   NSMutableArray<CBPeripheral *> *peripherals;
+  BOOL isServiceStarted;
 }
 
 + (instancetype)sharedInstance {
-  static DeviceManager *sharedInstance = nil;
+  static PilloDeviceManager *sharedInstance = nil;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    sharedInstance = [[DeviceManager alloc] init];
+    sharedInstance = [[PilloDeviceManager alloc] init];
   });
   return sharedInstance;
 }
@@ -29,10 +37,13 @@
   return self;
 }
 
-- (void)didFinalize {
+- (void)startService {
+  if (isServiceStarted) {
+    return;
+  }
+  isServiceStarted = YES;
   centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
 }
-
 
 - (void)peripheralsScanningRoutine {
   if ([centralManager isScanning]) {
@@ -278,9 +289,3 @@
 }
 
 @end
-
-// C-callable wrappers for Unity (outside @implementation)
-
-DEVICE_MANAGER_EXPORT void StartPeripheralScan(void) {
-  [[DeviceManager sharedInstance] peripheralsScanningRoutine];
-}
