@@ -76,11 +76,6 @@ namespace Hulan.PilloSDK.Debugger {
     readonly List<DummyPeripheral> peripherals = new();
 
     /// <summary>
-    /// The list of application logs.
-    /// </summary>
-    static readonly List<string> applicationLogs = new();
-
-    /// <summary>
     /// Determines if the Central has been initialized.
     /// </summary>
     bool isCentralInitialized;
@@ -94,18 +89,6 @@ namespace Hulan.PilloSDK.Debugger {
     /// Determines if the Central is scanning.
     /// </summary>
     bool isCentralScanning;
-
-    /// <summary>
-    /// Registers the application log message received event.
-    /// This method is called after all assemblies have been loaded.
-    /// This is useful for capturing logs that are generated during the initialization
-    /// of the Pillo SDK or other components that may not be available at the time
-    /// this script is first executed.
-    /// </summary>
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-    static void RuntimeInitializeOnLoad() {
-      Application.logMessageReceived += OnApplicationLogReceived;
-    }
 
     /// <summary>
     /// Binds the Pillo Device Manager events.
@@ -155,7 +138,6 @@ namespace Hulan.PilloSDK.Debugger {
       GUILayout.Label($"Central Initialized: {isCentralInitialized}");
       GUILayout.Label($"Central Failed To Initialize: {didCentralFailToInitialize}");
       GUILayout.Label($"Central Scanning: {isCentralScanning}");
-      GUILayout.Label($"Application Logs: {string.Join("\n", applicationLogs)}");
       GUILayout.Space(10);
       GUILayout.EndVertical();
       foreach (var peripheral in peripherals) {
@@ -220,21 +202,6 @@ namespace Hulan.PilloSDK.Debugger {
         return true;
       }
       return false;
-    }
-
-    /// <summary>
-    /// Delegate will be invoked when an application log is received.
-    /// </summary>
-    /// <param name="condition">The log message.</param>
-    /// <param name="stackTrace">The stack trace of the log message.</param>
-    /// <param name="type">The type of the log message.</param>
-    static void OnApplicationLogReceived(string condition, string stackTrace, LogType type) {
-      // Store the application log.
-      applicationLogs.Add(condition);
-      // Limit the number of logs to 1000.
-      if (applicationLogs.Count > 1000) {
-        applicationLogs.RemoveAt(0);
-      }
     }
 
     /// <summary>
