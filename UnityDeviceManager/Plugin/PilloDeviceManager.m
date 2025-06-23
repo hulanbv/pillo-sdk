@@ -19,15 +19,6 @@
   NSMutableArray<CBPeripheral *> *peripherals;
 }
 
-+ (instancetype)sharedInstance {
-  static PilloDeviceManager *sharedInstance = nil;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    sharedInstance = [[PilloDeviceManager alloc] init];
-  });
-  return sharedInstance;
-}
-
 - (instancetype)init {
   self = [super init];
   if (self) {
@@ -42,12 +33,15 @@
 }
 
 - (void)stopService {
-  [centralManager stopScan];
-  for (CBPeripheral *peripheral in peripherals) {
-    [centralManager cancelPeripheralConnection:peripheral];
+  if (centralManager) {
+    [centralManager stopScan];
+    for (CBPeripheral *peripheral in peripherals) {
+      [centralManager cancelPeripheralConnection:peripheral];
+    }
+    peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
+    centralManager.delegate = nil;
+    centralManager = nil;
   }
-  peripherals = [NSMutableArray<CBPeripheral *> arrayWithCapacity:MAX_SIMULTANEOUS_PERIPHERAL_CONNECTION];
-  centralManager = nil;
 }
 
 - (void)peripheralsScanningRoutine {
