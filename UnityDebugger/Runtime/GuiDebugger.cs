@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using Hulan.PilloSDK.Debugger.Core;
 using Hulan.PilloSDK.DeviceManager;
 using UnityEngine;
 
@@ -10,46 +9,6 @@ namespace Hulan.PilloSDK.Debugger {
   /// </summary>
   [AddComponentMenu("Pillo SDK/Debugger/GUI Debugger")]
   class GuiDebugger : MonoBehaviour {
-    /// <summary>
-    /// The Dummy Peripheral class is used to store the Peripheral's data.
-    /// </summary>
-    class DummyPeripheral {
-      /// <summary>
-      /// The identifier of the Peripheral.
-      /// </summary>
-      internal string identifier;
-
-      /// <summary>
-      /// The battery level of the Peripheral.
-      /// </summary>
-      internal int batteryLevel;
-
-      /// <summary>
-      /// The pressure of the Peripheral.
-      /// </summary>
-      internal int pressure;
-
-      /// <summary>
-      /// The charging state of the Peripheral.
-      /// </summary>
-      internal ChargingState chargingState;
-
-      /// <summary>
-      /// The firmware version of the Peripheral.
-      /// </summary>
-      internal string firmwareVersion;
-
-      /// <summary>
-      /// The hardware version of the Peripheral.
-      /// </summary>
-      internal string hardwareVersion;
-
-      /// <summary>
-      /// The model number of the Peripheral.
-      /// </summary>
-      internal string modelNumber;
-    }
-
     /// <summary>
     /// The font used to display the Pillo Device Manager events in the Unity GUI.
     /// </summary>
