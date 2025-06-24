@@ -1,7 +1,7 @@
 {
   "name": "nl.hulan.pillo-sdk.device-manager",
   "displayName": "Pillo SDK Device Manager",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "unity": "2021.1",
   "description": "Core functionality for interacting with the Pillo Hardware",
   "type": "library",
