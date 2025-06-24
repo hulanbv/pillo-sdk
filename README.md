@@ -7,7 +7,6 @@ The Pillo SDK contains everything you'll need to get started implementing Pillos
 | Package        | Runtime                                                                      | Description                                                | Target Platforms                       |
 | -------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------- |
 | Device Manager | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnityDeviceManager) | Core functionality for interacting with the Pillo Hardware | iOS, iPadOS, tvOS, macOS, macOS Editor |
-| Build Tools    | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnityBuildTools)    | Build tools for streamlining the SDK implementation        | iOS, iPadOS, tvOS                      |
 | Simulator      | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnitySimulator)     | Runtime utilities to simulate the Hardware implementation  | Editor                                 |
 | Debugger       | [Unity](https://github.com/hulanbv/pillo-sdk/tree/master/UnityDebugger)      | Hardware and software debugging and testing utilities      | N/A                                    |
 
