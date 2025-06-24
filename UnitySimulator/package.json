@@ -11,7 +11,7 @@
   "licensesUrl": "https://github.com/hulanbv/pillo-sdk/blob/master/LICENSE.md",
   "repository": "https://github.com/hulanbv/pillo-sdk.git",
   "dependencies": {
-    "nl.hulan.pillo-sdk.device-manager": "5.0.0",
+    "nl.hulan.pillo-sdk.device-manager": "5.2.0",
     "com.unity.modules.imgui": "1.0.0"
   },
   "samples": [],
@@ -19,7 +19,7 @@
     "Software Development Kit"
   ],
   "author": {
-    "name": "Hulan Pillo",
+    "name": "Pillo",
     "email": "jeffrey@hulan.nl",
     "url": "https://hulan.nl"
   }
