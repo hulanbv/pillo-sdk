@@ -1,7 +1,7 @@
 {
   "name": "nl.hulan.pillo-sdk.simulator",
   "displayName": "Pillo SDK Simulator",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "unity": "2021.1",
   "description": "Runtime utilities to simulate the Hardware implementation",
   "type": "library",
