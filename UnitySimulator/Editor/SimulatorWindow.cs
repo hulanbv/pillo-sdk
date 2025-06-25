@@ -64,71 +64,50 @@ namespace Hulan.PilloSDK.Simulator {
     /// Method invoked when the Pillo Simulator window is enabled.
     /// </summary>
     void OnEnable() {
-      EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
       var icon = EditorGUIUtility.IconContent("d_PreMatCube");
       titleContent = new GUIContent("Pillo Simulator", icon.image);
       autoConnect = EditorPrefs.GetBool(autoConnectSettingKey, false);
+      PilloDeviceManager.onCentralDidInitialize += OnCentralDidInitialize;
+      PilloDeviceManager.onCentralDidFailToInitialize += OnCentralDidFailToInitialize;
+      PilloDeviceManager.onCentralDidStartScanning += OnCentralDidStartScanning;
+      PilloDeviceManager.onCentralDidStopScanning += OnCentralDidStopScanning;
+      PilloDeviceManager.onPeripheralDidConnect += OnPeripheralDidConnect;
+      PilloDeviceManager.onPeripheralDidDisconnect += OnPeripheralDidDisconnect;
+      PilloDeviceManager.onPeripheralDidFailToConnect += OnPeripheralDidFailToConnect;
+      PilloDeviceManager.onPeripheralBatteryLevelDidChange += OnPeripheralBatteryLevelDidChange;
+      PilloDeviceManager.onPeripheralPressureDidChange += OnPeripheralPressureDidChange;
+      PilloDeviceManager.onPeripheralChargingStateDidChange += OnPeripheralChargingStateDidChange;
+      PilloDeviceManager.onPeripheralFirmwareVersionDidChange += OnPeripheralFirmwareVersionDidChange;
+      PilloDeviceManager.onPeripheralHardwareVersionDidChange += OnPeripheralHardwareVersionDidChange;
+      PilloDeviceManager.onPeripheralModelNumberDidChange += OnPeripheralModelNumberDidChange;
+      if (autoConnect) {
+        for (int i = 0; i < 2; i++) {
+          AddSimulatedPeripheral();
+        }
+      }
     }
 
     /// <summary>
     /// Method invoked when the Pillo Simulator window is disabled.
     /// </summary>
     void OnDisable() {
-      EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
-      // Disconnect all peripherals before closing the window.
-      // foreach (var peripheral in simulatedPeripherals) {
-      //   peripheral.Disconnect();
-      // }
-      // simulatedPeripherals.Clear();
-    }
-
-    /// <summary>
-    /// Method invoked when the Play Mode state changes.
-    /// </summary>
-    /// <param name="state">The new Play Mode state.</param>
-    void OnPlayModeStateChanged(PlayModeStateChange state) {
-      switch (state) {
-        case PlayModeStateChange.EnteredPlayMode:
-          PilloDeviceManager.onCentralDidInitialize += OnCentralDidInitialize;
-          PilloDeviceManager.onCentralDidFailToInitialize += OnCentralDidFailToInitialize;
-          PilloDeviceManager.onCentralDidStartScanning += OnCentralDidStartScanning;
-          PilloDeviceManager.onCentralDidStopScanning += OnCentralDidStopScanning;
-          PilloDeviceManager.onPeripheralDidConnect += OnPeripheralDidConnect;
-          PilloDeviceManager.onPeripheralDidDisconnect += OnPeripheralDidDisconnect;
-          PilloDeviceManager.onPeripheralDidFailToConnect += OnPeripheralDidFailToConnect;
-          PilloDeviceManager.onPeripheralBatteryLevelDidChange += OnPeripheralBatteryLevelDidChange;
-          PilloDeviceManager.onPeripheralPressureDidChange += OnPeripheralPressureDidChange;
-          PilloDeviceManager.onPeripheralChargingStateDidChange += OnPeripheralChargingStateDidChange;
-          PilloDeviceManager.onPeripheralFirmwareVersionDidChange += OnPeripheralFirmwareVersionDidChange;
-          PilloDeviceManager.onPeripheralHardwareVersionDidChange += OnPeripheralHardwareVersionDidChange;
-          PilloDeviceManager.onPeripheralModelNumberDidChange += OnPeripheralModelNumberDidChange;
-          if (!autoConnect) {
-            return;
-          }
-          for (int i = 0; i < 2; i++) {
-            AddSimulatedPeripheral();
-          }
-          break;
-        case PlayModeStateChange.ExitingPlayMode:
-          PilloDeviceManager.onCentralDidInitialize -= OnCentralDidInitialize;
-          PilloDeviceManager.onCentralDidFailToInitialize -= OnCentralDidFailToInitialize;
-          PilloDeviceManager.onCentralDidStartScanning -= OnCentralDidStartScanning;
-          PilloDeviceManager.onCentralDidStopScanning -= OnCentralDidStopScanning;
-          PilloDeviceManager.onPeripheralDidConnect -= OnPeripheralDidConnect;
-          PilloDeviceManager.onPeripheralDidDisconnect -= OnPeripheralDidDisconnect;
-          PilloDeviceManager.onPeripheralDidFailToConnect -= OnPeripheralDidFailToConnect;
-          PilloDeviceManager.onPeripheralBatteryLevelDidChange -= OnPeripheralBatteryLevelDidChange;
-          PilloDeviceManager.onPeripheralPressureDidChange -= OnPeripheralPressureDidChange;
-          PilloDeviceManager.onPeripheralChargingStateDidChange -= OnPeripheralChargingStateDidChange;
-          PilloDeviceManager.onPeripheralFirmwareVersionDidChange -= OnPeripheralFirmwareVersionDidChange;
-          PilloDeviceManager.onPeripheralHardwareVersionDidChange -= OnPeripheralHardwareVersionDidChange;
-          PilloDeviceManager.onPeripheralModelNumberDidChange -= OnPeripheralModelNumberDidChange;
-          isCentralInitialized = false;
-          didCentralFailToInitialize = false;
-          isCentralScanning = false;
-          peripherals.Clear();
-          break;
-      }
+      PilloDeviceManager.onCentralDidInitialize -= OnCentralDidInitialize;
+      PilloDeviceManager.onCentralDidFailToInitialize -= OnCentralDidFailToInitialize;
+      PilloDeviceManager.onCentralDidStartScanning -= OnCentralDidStartScanning;
+      PilloDeviceManager.onCentralDidStopScanning -= OnCentralDidStopScanning;
+      PilloDeviceManager.onPeripheralDidConnect -= OnPeripheralDidConnect;
+      PilloDeviceManager.onPeripheralDidDisconnect -= OnPeripheralDidDisconnect;
+      PilloDeviceManager.onPeripheralDidFailToConnect -= OnPeripheralDidFailToConnect;
+      PilloDeviceManager.onPeripheralBatteryLevelDidChange -= OnPeripheralBatteryLevelDidChange;
+      PilloDeviceManager.onPeripheralPressureDidChange -= OnPeripheralPressureDidChange;
+      PilloDeviceManager.onPeripheralChargingStateDidChange -= OnPeripheralChargingStateDidChange;
+      PilloDeviceManager.onPeripheralFirmwareVersionDidChange -= OnPeripheralFirmwareVersionDidChange;
+      PilloDeviceManager.onPeripheralHardwareVersionDidChange -= OnPeripheralHardwareVersionDidChange;
+      PilloDeviceManager.onPeripheralModelNumberDidChange -= OnPeripheralModelNumberDidChange;
+      isCentralInitialized = false;
+      didCentralFailToInitialize = false;
+      isCentralScanning = false;
+      peripherals.Clear();
     }
 
     /// <summary>
