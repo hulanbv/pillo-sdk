@@ -227,5 +227,10 @@ namespace Hulan.PilloSDK.DeviceManager {
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     public static void StartPeripheralCalibration(string identifier) => bridge.StartPeripheralCalibration(identifier);
+
+    /// <summary>
+    /// Stops the service of the native code
+    /// </summary> 
+    public static void StopService() => bridge?.StopService();
   }
 }
