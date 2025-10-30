@@ -36,8 +36,6 @@ import java.util.UUID;
 public class PilloDeviceManager {
     private static final String TAG = "PilloDeviceManager";
     
-    // Service and Characteristic UUIDs (matching iOS implementation)
-    // Standard Bluetooth UUIDs need to be in full 128-bit format for Android
     private static final String DEVICEINFORMATION_SERVICE_UUID = "0000180A-0000-1000-8000-00805F9B34FB";
     private static final String DEVICEINFORMATION_MODELNUMBER_CHARACTERISTIC_UUID = "00002A24-0000-1000-8000-00805F9B34FB";
     private static final String DEVICEINFORMATION_FIRMWAREVERSION_CHARACTERISTIC_UUID = "00002A26-0000-1000-8000-00805F9B34FB";
@@ -474,6 +472,8 @@ public class PilloDeviceManager {
                 } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                     Log.d(TAG, "Disconnected from device: " + address + " (name: " + deviceName + ")");
                     connectedDevices.remove(address);
+                    discoveredDevices.remove(address);
+                    try { gatt.close(); } catch (Exception ignored) {}
                     
                     if (onPeripheralDidDisconnect != null) {
                         onPeripheralDidDisconnect.onPeripheralDidDisconnect(address);
@@ -482,6 +482,8 @@ public class PilloDeviceManager {
             } else {
                 Log.e(TAG, "GATT connection failed for " + address + " with status: " + status);
                 connectedDevices.remove(address);
+                discoveredDevices.remove(address);
+                try { gatt.close(); } catch (Exception ignored) {}
                 
                 if (onPeripheralDidFailToConnect != null) {
                     onPeripheralDidFailToConnect.onPeripheralDidFailToConnect(address);
