@@ -1,6 +1,8 @@
 package com.hulan.devicemanager;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -75,6 +77,7 @@ public class PilloDeviceManager {
     // Retry tracking
     private int bluetoothRetryCount = 0;
     private boolean isRetryingBluetooth = false;
+    private boolean isWaitingForPermissions = false;
     
     // Queue for serializing BLE operations (Android requires one operation at a time)
     private Queue<Runnable> bleOperationQueue = new LinkedList<>();
@@ -183,8 +186,13 @@ public class PilloDeviceManager {
         // Check if we have the necessary permissions first
         String[] missingPermissions = getMissingPermissions();
         if (missingPermissions.length > 0) {
-            Log.w(TAG, "Missing permissions, requesting them...");
-            requestPermissions(missingPermissions);
+            if (!isWaitingForPermissions) {
+                Log.w(TAG, "Missing permissions, requesting them...");
+                isWaitingForPermissions = true;
+                requestPermissions(missingPermissions);
+            } else {
+                Log.d(TAG, "Already waiting for permissions, skipping duplicate request");
+            }
             return;
         }
         
@@ -215,12 +223,33 @@ public class PilloDeviceManager {
         startScanning();
     }
     
-    private void requestPermissions(String[] permissions) {
+    private void requestPermissions(final String[] permissions) {
         if (context instanceof Activity) {
-            Activity activity = (Activity) context;
-            activity.requestPermissions(permissions, PERMISSION_REQUEST_CODE);
+            final Activity activity = (Activity) context;
+            
+            // Fragment operations MUST run on the main thread
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    FragmentManager fragmentManager = activity.getFragmentManager();
+                    
+                    // Check if fragment already exists
+                    PermissionRequestFragment fragment = (PermissionRequestFragment) fragmentManager.findFragmentByTag("PermissionRequestFragment");
+                    if (fragment == null) {
+                        fragment = new PermissionRequestFragment();
+                        fragmentManager.beginTransaction()
+                            .add(fragment, "PermissionRequestFragment")
+                            .commitAllowingStateLoss();
+                        fragmentManager.executePendingTransactions();
+                    }
+                    
+                    // Request permissions through the fragment
+                    fragment.requestPermissionsFromFragment(permissions, PERMISSION_REQUEST_CODE);
+                }
+            });
         } else {
             Log.e(TAG, "Context is not an Activity, cannot request permissions");
+            isWaitingForPermissions = false;
             if (onCentralDidFailToInitialize != null) {
                 onCentralDidFailToInitialize.onCentralDidFailToInitialize("Cannot request permissions: context is not an Activity");
             }
@@ -250,9 +279,11 @@ public class PilloDeviceManager {
         }
     }
     
-    // Method to handle permission results (should be called from Unity)
-    public void onPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+    // Method to handle permission results (called internally by PermissionRequestFragment)
+    void onPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
+            isWaitingForPermissions = false;
+            
             boolean allPermissionsGranted = true;
             for (int result : grantResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
@@ -262,10 +293,10 @@ public class PilloDeviceManager {
             }
             
             if (allPermissionsGranted) {
-                Log.d(TAG, "All permissions granted, retrying startService");
+                Log.d(TAG, "All permissions granted, starting service");
                 startService();
             } else {
-                Log.e(TAG, "Some permissions were denied");
+                Log.e(TAG, "Permissions denied, service will not start");
                 if (onCentralDidFailToInitialize != null) {
                     onCentralDidFailToInitialize.onCentralDidFailToInitialize("Required permissions were denied. Please grant permissions in app settings.");
                 }
@@ -927,5 +958,35 @@ public class PilloDeviceManager {
         }
         Log.d(TAG, "Total discovered: " + instance.discoveredDevices.size());
         Log.d(TAG, "Total connected: " + instance.connectedDevices.size());
+    }
+    
+    /**
+     * Fragment used to handle permission requests and receive callbacks automatically.
+     * This Fragment receives the permission result from Android and forwards it to PilloDeviceManager.
+     */
+    public static class PermissionRequestFragment extends Fragment {
+        private static final String TAG = "PermissionFragment";
+        
+        public void requestPermissionsFromFragment(String[] permissions, int requestCode) {
+            Log.d(TAG, "Requesting permissions from fragment");
+            requestPermissions(permissions, requestCode);
+        }
+        
+        @Override
+        public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            Log.d(TAG, "Permission result received in fragment, forwarding to PilloDeviceManager");
+            
+            // Forward the result to PilloDeviceManager
+            if (getActivity() != null) {
+                PilloDeviceManager instance = PilloDeviceManager.getInstance(getActivity());
+                instance.onPermissionResult(requestCode, permissions, grantResults);
+            }
+            
+            // Remove the fragment after handling permissions
+            if (getFragmentManager() != null) {
+                getFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
+            }
+        }
     }
 }
