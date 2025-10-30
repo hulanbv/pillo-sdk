@@ -1,3 +1,4 @@
+#if UNITY_IOS || UNITY_TVOS || UNITY_EDITOR_OSX
 using System.Runtime.InteropServices;
 
 namespace Hulan.PilloSDK.DeviceManager.Core {
@@ -108,5 +109,4 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
     public void OnBluetoothEnableResult(bool enabled) {}
   }
 }
-
-
+#endif

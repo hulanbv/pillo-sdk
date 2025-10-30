@@ -1,7 +1,7 @@
+#if UNITY_ANDROID && !UNITY_EDITOR
 using UnityEngine;
 
 namespace Hulan.PilloSDK.DeviceManager.Core {
-#if UNITY_ANDROID
   /// <summary>
   /// Android bridge, including Java proxies and main-thread dispatch.
   /// </summary>
@@ -324,7 +324,5 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
       }
     }
   }
-#endif
 }
-
-
+#endif

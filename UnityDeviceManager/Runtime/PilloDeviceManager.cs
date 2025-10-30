@@ -179,9 +179,9 @@ namespace Hulan.PilloSDK.DeviceManager {
     /// </summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void RuntimeInitializeOnLoad() {
-      #if UNITY_ANDROID
+      #if UNITY_ANDROID && !UNITY_EDITOR
       bridge = new AndroidPluginBridge();
-      #else
+      #elif UNITY_IOS || UNITY_TVOS || UNITY_EDITOR_OSX
       bridge = new ApplePluginBridge();
       #endif
       
