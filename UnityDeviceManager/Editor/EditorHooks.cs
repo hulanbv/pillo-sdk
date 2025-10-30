@@ -30,7 +30,7 @@ namespace Hulan.PilloSDK.DeviceManager.Editor {
     /// </summary>
     private static void OnPlayModeStateChanged(PlayModeStateChange state) {
       if (state == PlayModeStateChange.ExitingPlayMode) {
-        PluginBridge.StopService();
+        PilloDeviceManager.StopService();
       }
     }
 

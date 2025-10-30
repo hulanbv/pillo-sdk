@@ -7,6 +7,7 @@ namespace Hulan.PilloSDK.DeviceManager {
   /// The Pillo Device Manager manages the Native Plugin.
   /// </summary>
   public class PilloDeviceManager {
+
     /// <summary>
     /// Mono Callback for the Central Did Initialize event.
     /// </summary>
@@ -169,45 +170,67 @@ namespace Hulan.PilloSDK.DeviceManager {
     public static Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange;
 
     /// <summary>
+    /// The bridge instance.
+    /// </summary>
+    static IPluginBridge bridge;
+
+    /// <summary>
     /// Invoked when the Runtime Application initializes and is loaded.
     /// </summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void RuntimeInitializeOnLoad() {
-      PluginBridge.SetDelegates(OnCentralDidInitialize, OnCentralDidFailToInitialize, OnCentralDidStartScanning, OnCentralDidStopScanning, OnPeripheralDidConnect, OnPeripheralDidDisconnect, OnPeripheralDidFailToConnect, OnPeripheralBatteryLevelDidChange, OnPeripheralPressureDidChange, OnPeripheralChargingStateDidChange, OnPeripheralFirmwareVersionDidChange, OnPeripheralHardwareVersionDidChange, OnPeripheralModelNumberDidChange);
-      PluginBridge.StartService();
+      #if UNITY_ANDROID && !UNITY_EDITOR
+      bridge = new AndroidPluginBridge();
+      #elif UNITY_IOS || UNITY_TVOS || UNITY_EDITOR_OSX
+      bridge = new ApplePluginBridge();
+      #endif
+      
+      bridge.SetDelegates(OnCentralDidInitialize,
+        OnCentralDidFailToInitialize,
+        OnCentralDidStartScanning,
+        OnCentralDidStopScanning,
+        OnPeripheralDidConnect,
+        OnPeripheralDidDisconnect,
+        OnPeripheralDidFailToConnect,
+        OnPeripheralBatteryLevelDidChange,
+        OnPeripheralPressureDidChange,
+        OnPeripheralChargingStateDidChange,
+        OnPeripheralFirmwareVersionDidChange,
+        OnPeripheralHardwareVersionDidChange,
+        OnPeripheralModelNumberDidChange);
+      
+      bridge.StartService();
     }
 
     /// <summary>
     /// Cancels a Peripheral connection.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void CancelPeripheralConnection(string identifier) {
-      PluginBridge.CancelPeripheralConnection(identifier);
-    }
+    public static void CancelPeripheralConnection(string identifier) => bridge.CancelPeripheralConnection(identifier);
+    
 
     /// <summary>
     /// Powers off a Peripheral.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void PowerOffPeripheral(string identifier) {
-      PluginBridge.PowerOffPeripheral(identifier);
-    }
+    public static void PowerOffPeripheral(string identifier) => bridge.PowerOffPeripheral(identifier);
 
     /// <summary>
     /// Forces the LED of a Peripheral to be turned off.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     /// <param name="enabled">Defines whether the LED should be forced off.</param>
-    public static void ForcePeripheralLedOff(string identifier, bool enabled) {
-      PluginBridge.ForcePeripheralLedOff(identifier, enabled);
-    }
+    public static void ForcePeripheralLedOff(string identifier, bool enabled) => bridge.ForcePeripheralLedOff(identifier, enabled);
 
     /// <summary>
     /// Starts a Peripheral calibration.
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
-    public static void StartPeripheralCalibration(string identifier) {
-      PluginBridge.StartPeripheralCalibration(identifier);
-    }
+    public static void StartPeripheralCalibration(string identifier) => bridge.StartPeripheralCalibration(identifier);
+
+    /// <summary>
+    /// Stops the service of the native code
+    /// </summary> 
+    public static void StopService() => bridge?.StopService();
   }
 }
