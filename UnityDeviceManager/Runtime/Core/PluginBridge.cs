@@ -1,5 +1,7 @@
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS || UNITY_TVOS
 using System.Runtime.InteropServices;
+#elif UNITY_ANDROID
+using UnityEngine;
 #else
 using UnityEngine;
 #endif
@@ -19,6 +21,16 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal", EntryPoint = "PilloDeviceManagerStartService")]
     internal static extern void StartService();
+#elif UNITY_ANDROID
+    internal static void StartService() {
+      using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+          using (AndroidJavaClass deviceManagerClass = new AndroidJavaClass("com.hulan.devicemanager.PilloDeviceManagerBridge")) {
+            deviceManagerClass.CallStatic("startService");
+          }
+        }
+      }
+    }
 #else
     internal static void StartService() {
       Debug.LogWarning("Starting the Device Manager service is not supported on the current platform.");
@@ -35,6 +47,16 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal", EntryPoint = "PilloDeviceManagerStopService")]
     internal static extern void StopService();
+#elif UNITY_ANDROID
+    internal static void StopService() {
+      using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+          using (AndroidJavaClass deviceManagerClass = new AndroidJavaClass("com.hulan.devicemanager.PilloDeviceManagerBridge")) {
+            deviceManagerClass.CallStatic("stopService");
+          }
+        }
+      }
+    }
 #else
     internal static void StopService() {
       Debug.LogWarning("Stoping the Device Manager service is not supported on the current platform.");
@@ -50,6 +72,11 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal", EntryPoint = "PilloDeviceManagerSetDelegates")]
     internal static extern void SetDelegates(Delegates.OnCentralDidInitialize onCentralDidInitialize, Delegates.OnCentralDidFailToInitialize onCentralDidFailToInitialize, Delegates.OnCentralDidStartScanning onCentralDidStartScanning, Delegates.OnCentralDidStopScanning onCentralDidStopScanning, Delegates.OnPeripheralDidConnect onPeripheralDidConnect, Delegates.OnPeripheralDidDisconnect onPeripheralDidDisconnect, Delegates.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect, Delegates.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange, Delegates.OnPeripheralPressureDidChange onPeripheralPressureDidChange, Delegates.OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange, Delegates.OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange, Delegates.OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange, Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange);
+#elif UNITY_ANDROID
+    internal static void SetDelegates(Delegates.OnCentralDidInitialize onCentralDidInitialize, Delegates.OnCentralDidFailToInitialize onCentralDidFailToInitialize, Delegates.OnCentralDidStartScanning onCentralDidStartScanning, Delegates.OnCentralDidStopScanning onCentralDidStopScanning, Delegates.OnPeripheralDidConnect onPeripheralDidConnect, Delegates.OnPeripheralDidDisconnect onPeripheralDidDisconnect, Delegates.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect, Delegates.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange, Delegates.OnPeripheralPressureDidChange onPeripheralPressureDidChange, Delegates.OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange, Delegates.OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange, Delegates.OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange, Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange) {
+      // Store delegates for later use on main thread
+      AndroidCallbackManager.SetDelegates(onCentralDidInitialize, onCentralDidFailToInitialize, onCentralDidStartScanning, onCentralDidStopScanning, onPeripheralDidConnect, onPeripheralDidDisconnect, onPeripheralDidFailToConnect, onPeripheralBatteryLevelDidChange, onPeripheralPressureDidChange, onPeripheralChargingStateDidChange, onPeripheralFirmwareVersionDidChange, onPeripheralHardwareVersionDidChange, onPeripheralModelNumberDidChange);
+    }
 #else
     internal static void SetDelegates(Delegates.OnCentralDidInitialize onCentralDidInitialize, Delegates.OnCentralDidFailToInitialize onCentralDidFailToInitialize, Delegates.OnCentralDidStartScanning onCentralDidStartScanning, Delegates.OnCentralDidStopScanning onCentralDidStopScanning, Delegates.OnPeripheralDidConnect onPeripheralDidConnect, Delegates.OnPeripheralDidDisconnect onPeripheralDidDisconnect, Delegates.OnPeripheralDidFailToConnect onPeripheralDidFailToConnect, Delegates.OnPeripheralBatteryLevelDidChange onPeripheralBatteryLevelDidChange, Delegates.OnPeripheralPressureDidChange onPeripheralPressureDidChange, Delegates.OnPeripheralChargingStateDidChange onPeripheralChargingStateDidChange, Delegates.OnPeripheralFirmwareVersionDidChange onPeripheralFirmwareVersionDidChange, Delegates.OnPeripheralHardwareVersionDidChange onPeripheralHardwareVersionDidChange, Delegates.OnPeripheralModelNumberDidChange onPeripheralModelNumberDidChange) {
       Debug.LogWarning("Setting the Device Manager delegates is not supported on the current platform.");
@@ -67,6 +94,16 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal", EntryPoint = "PilloDeviceManagerCancelPeripheralConnection")]
     internal static extern void CancelPeripheralConnection(string identifier);
+#elif UNITY_ANDROID
+    internal static void CancelPeripheralConnection(string identifier) {
+      using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+          using (AndroidJavaClass deviceManagerClass = new AndroidJavaClass("com.hulan.devicemanager.PilloDeviceManagerBridge")) {
+            deviceManagerClass.CallStatic("cancelPeripheralConnection", identifier);
+          }
+        }
+      }
+    }
 #else
     internal static void CancelPeripheralConnection(string identifier) {
       Debug.LogWarning("Cancelling a Peripheral connection is not supported on the current platform.");
@@ -83,6 +120,16 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal", EntryPoint = "PilloDeviceManagerPowerOffPeripheral")]
     internal static extern void PowerOffPeripheral(string identifier);
+#elif UNITY_ANDROID
+    internal static void PowerOffPeripheral(string identifier) {
+      using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+          using (AndroidJavaClass deviceManagerClass = new AndroidJavaClass("com.hulan.devicemanager.PilloDeviceManagerBridge")) {
+            deviceManagerClass.CallStatic("powerOffPeripheral", identifier);
+          }
+        }
+      }
+    }
 #else
     internal static void PowerOffPeripheral(string identifier) {
       Debug.LogWarning("Powering off a Peripheral is not supported on the current platform.");
@@ -101,6 +148,16 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal", EntryPoint = "PilloDeviceManagerForcePeripheralLedOff")]
     internal static extern void ForcePeripheralLedOff(string identifier, bool enabled);
+#elif UNITY_ANDROID
+    internal static void ForcePeripheralLedOff(string identifier, bool enabled) {
+      using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+          using (AndroidJavaClass deviceManagerClass = new AndroidJavaClass("com.hulan.devicemanager.PilloDeviceManagerBridge")) {
+            deviceManagerClass.CallStatic("forcePeripheralLedOff", identifier, enabled);
+          }
+        }
+      }
+    }
 #else
     internal static void ForcePeripheralLedOff(string identifier, bool enabled) {
       Debug.LogWarning("Forcing the LED state of a Peripheral is not supported on the current platform.");
@@ -118,6 +175,16 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
 #elif UNITY_IOS || UNITY_TVOS
     [DllImport("__Internal", EntryPoint = "PilloDeviceManagerStartPeripheralCalibration")]
     internal static extern void StartPeripheralCalibration(string identifier);
+#elif UNITY_ANDROID
+    internal static void StartPeripheralCalibration(string identifier) {
+      using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+          using (AndroidJavaClass deviceManagerClass = new AndroidJavaClass("com.hulan.devicemanager.PilloDeviceManagerBridge")) {
+            deviceManagerClass.CallStatic("calibratePeripheral", identifier);
+          }
+        }
+      }
+    }
 #else
     internal static void StartPeripheralCalibration(string identifier) {
       Debug.LogWarning("Starting a Peripheral calibration is not supported on the current platform.");
