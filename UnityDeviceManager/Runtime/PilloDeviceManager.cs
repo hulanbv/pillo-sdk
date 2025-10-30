@@ -227,10 +227,5 @@ namespace Hulan.PilloSDK.DeviceManager {
     /// </summary>
     /// <param name="identifier">The identifier of the peripheral.</param>
     public static void StartPeripheralCalibration(string identifier) => bridge.StartPeripheralCalibration(identifier);
-
-#if UNITY_ANDROID
-    // Android permissions/Bluetooth results are no longer routed through this manager.
-#endif
   }
-#endif
 }
