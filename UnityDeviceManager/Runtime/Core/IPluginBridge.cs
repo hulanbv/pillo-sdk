@@ -10,9 +10,5 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
     void PowerOffPeripheral(string identifier);
     void ForcePeripheralLedOff(string identifier, bool enabled);
     void StartPeripheralCalibration(string identifier);
-
-    // Android-only. Non-Android platforms may implement as no-ops.
-    void OnPermissionResult(int requestCode, string[] permissions, int[] grantResults);
-    void OnBluetoothEnableResult(bool enabled);
   }
 }

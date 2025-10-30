@@ -69,32 +69,6 @@ namespace Hulan.PilloSDK.DeviceManager.Core {
         }
       }
     }
-
-    /// <summary>
-    /// Forward Android permission results from Unity.
-    /// </summary>
-    public void OnPermissionResult(int requestCode, string[] permissions, int[] grantResults) {
-      using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
-          using (AndroidJavaClass deviceManagerClass = new AndroidJavaClass("com.hulan.devicemanager.PilloDeviceManagerBridge")) {
-            deviceManagerClass.CallStatic("onPermissionResult", requestCode, permissions, grantResults);
-          }
-        }
-      }
-    }
-
-    /// <summary>
-    /// Forward Android Bluetooth enable result from Unity.
-    /// </summary>
-    public void OnBluetoothEnableResult(bool enabled) {
-      using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
-          using (AndroidJavaClass deviceManagerClass = new AndroidJavaClass("com.hulan.devicemanager.PilloDeviceManagerBridge")) {
-            deviceManagerClass.CallStatic("onBluetoothEnableResult", enabled);
-          }
-        }
-      }
-    }
   }
 
   /// <summary>

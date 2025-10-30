@@ -229,19 +229,7 @@ namespace Hulan.PilloSDK.DeviceManager {
     public static void StartPeripheralCalibration(string identifier) => bridge.StartPeripheralCalibration(identifier);
 
 #if UNITY_ANDROID
-    /// <summary>
-    /// Handle permission results from Android. Call from Unity's OnRequestPermissionsResult.
-    /// </summary>
-    public static void OnPermissionResult(int requestCode, string[] permissions, int[] grantResults) {
-      bridge.OnPermissionResult(requestCode, permissions, grantResults);
-    }
-
-    /// <summary>
-    /// Handle Bluetooth enable result from Android. Call from Unity's OnActivityResult.
-    /// </summary>
-    public static void OnBluetoothEnableResult(bool enabled) {
-      bridge.OnBluetoothEnableResult(enabled);
-    }
+    // Android permissions/Bluetooth results are no longer routed through this manager.
 #endif
   }
 #endif

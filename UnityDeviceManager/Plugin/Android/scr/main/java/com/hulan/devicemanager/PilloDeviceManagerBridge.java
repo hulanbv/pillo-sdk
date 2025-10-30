@@ -48,16 +48,4 @@ public class PilloDeviceManagerBridge {
         Context context = UnityPlayer.currentActivity;
         PilloDeviceManager.logDiscoveredDevices(context);
     }
-    
-    // Method to handle permission results from Unity
-    public static void onPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
-        Context context = UnityPlayer.currentActivity;
-        PilloDeviceManager.getInstance(context).onPermissionResult(requestCode, permissions, grantResults);
-    }
-    
-    // Method to handle Bluetooth enable result from Unity
-    public static void onBluetoothEnableResult(boolean enabled) {
-        Context context = UnityPlayer.currentActivity;
-        PilloDeviceManager.getInstance(context).onBluetoothEnableResult(enabled);
-    }
 }
